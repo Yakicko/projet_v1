@@ -33,4 +33,17 @@ $app->register(new DoctrineServiceProvider(),
         ]
     ]);
 
+// $app['session'] = gestionnaire de session de symfony
+$app->register(new Silex\Provider\SessionServiceProvider());
+
+$app['recipe.controller'] = function () use ($app)
+{
+    return new \Controller\RecipeController($app);
+};
+
+$app['recipe.repository'] = function () use ($app)
+{
+    return new \Repository\RecipeRepository($app);
+};
+
 return $app;

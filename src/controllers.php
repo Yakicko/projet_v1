@@ -14,6 +14,12 @@ $app->get('/', function () use ($app) {
 ->bind('homepage')
 ;
 
+$app->match('/recipe/create', 'recipe.controller:createAction')->bind('recipe_create');
+
+$app->match('/recipe/list', 'recipe.controller:listAction')->bind('recipe_list');
+
+$app->match('/recipe/index/{id_recipe}', 'recipe.controller:indexAction')->bind('recipe_index');
+
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;
