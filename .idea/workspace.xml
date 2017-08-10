@@ -2,25 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9469df57-740f-49f7-b0ee-94a3ca46a30b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/photo/165%2FHvFyi%2Fjumelage-de-pierre-silex-and-the-city-saison-3-arte-x240-irp.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/photo/Boeuf-Vermicelles.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/photo/chapeau-chasse.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/photo/pantalon-noir.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/ControllerAbstract.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/RecipeController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Entity/Recipe.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Repository/RecipeRepository.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Repository/RepositoryAbstract.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/recipe/create.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/recipe/index.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/recipe/list.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/prod.php" afterPath="$PROJECT_DIR$/config/prod.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.php" afterPath="$PROJECT_DIR$/src/app.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers.php" afterPath="$PROJECT_DIR$/src/controllers.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/layout.html.twig" afterPath="$PROJECT_DIR$/templates/layout.html.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,16 +47,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Recipe.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Recipe.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="prod.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/prod.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -87,8 +60,8 @@
       <file leaf-file-name="RecipeRepository.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Repository/RecipeRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="77" column="45" lean-forward="true" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
+            <state relative-caret-position="555">
+              <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
               <folding>
                 <marker date="1502373351677" expanded="true" signature="334:355" ph="SELECT * FRO... recipes" />
                 <marker date="1502373351677" expanded="true" signature="628:649" ph="SELECT * FRO... recipes" />
@@ -152,7 +125,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/Controller/ControllerAbstract.php" />
         <option value="$PROJECT_DIR$/src/Repository/RepositoryAbstract.php" />
         <option value="$PROJECT_DIR$/src/app.php" />
@@ -165,6 +137,7 @@
         <option value="$PROJECT_DIR$/templates/recipe/list.html.twig" />
         <option value="$PROJECT_DIR$/src/Repository/RecipeRepository.php" />
         <option value="$PROJECT_DIR$/templates/recipe/index.html.twig" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -311,7 +284,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../FORMATION/Php/site" />
-    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -348,14 +321,22 @@
       <option name="project" value="LOCAL" />
       <updated>1502350922498</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="form recette vue recette vue recette id">
+      <created>1502375330895</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1502375330895</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24925000" />
+    <option name="totallyTimeSpent" value="25257000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13177083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -387,7 +368,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="version thomas sans .idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="version thomas sans .idea" />
+    <MESSAGE value="form recette vue recette vue recette id" />
+    <option name="LAST_COMMIT_MESSAGE" value="form recette vue recette vue recette id" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -492,14 +474,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -613,10 +587,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Repository/RecipeRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="77" column="45" lean-forward="true" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
+        <state relative-caret-position="555">
+          <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding>
             <marker date="1502373351677" expanded="true" signature="334:355" ph="SELECT * FRO... recipes" />
             <marker date="1502373351677" expanded="true" signature="628:649" ph="SELECT * FRO... recipes" />
