@@ -1,3 +1,6 @@
 .navbar{
     height: 50px;
 }
+.navbar-inverse{
+	margin-bottom: 0;
+}

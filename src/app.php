@@ -14,6 +14,7 @@ $app->register(new TwigServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
 $app['twig'] = $app->extend('twig', function ($twig, $app) {
     // add custom globals, filters, tags, ...
+    /*$twig->addGlobal('user_manager', $app['user.manager']);*/
 
     return $twig;
 });
@@ -32,5 +33,21 @@ $app->register(new DoctrineServiceProvider(),
             'charset'   => 'utf8'
         ]
     ]);
+$app->register(new Silex\Provider\SessionServiceProvider());
+
+/* CONTROLLERS */
+
+//----------------------------- FRONT ---------------------------------//
+$app['user.controller'] = function() use ($app){
+    return new \Controller\UserController($app);
+};
+//----------------------------- BACK ---------------------------------//
+
+//----------------------------- REPOSITORIES ---------------------------------//
+
+/* AUTRES SERVICES */
+/*$app['user.manager'] = function() use ($app){
+    return new Service\UserManager($app['session']);
+};*/
 
 return $app;
