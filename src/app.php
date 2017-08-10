@@ -33,4 +33,25 @@ $app->register(new DoctrineServiceProvider(),
         ]
     ]);
 
+
+/* CONTROLLERS */
+
+//----------------------------- FRONT ---------------------------------//
+
+$app['region.controller'] = function() use ($app){
+    return new \Controller\RegionController($app);
+};
+
+//-------------------------REPOSITORIES---------------------------------//
+//
+$app['region.repository'] = function() use ($app){
+    return new \Repository\RegionRepository($app);
+};
+
+
+
+
+
+
 return $app;
+
