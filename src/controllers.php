@@ -24,6 +24,15 @@ $app
     ->bind('user_register')
 ;
 
+$app
+    ->match('/utilisateur/connexion', 'user.controller:loginAction')
+    ->bind('user_login')
+;
+
+$app
+    ->match('/utilisateur/deconnexion', 'user.controller:logoutAction')
+    ->bind('user_logout')
+;
 /******************** BACK ******************************/
 
 

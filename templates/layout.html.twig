@@ -75,6 +75,21 @@
                                     <li><a href="#">Separated link</a></li>
                                 </ul>
                             </li>
+                            {% if user_manager.user %}{# si un utilisateur est connecté #}
+                        <li>
+                            <a>{{ user_manager.username }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('user_logout') }}">Se déconnecter</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path('user_register') }}">Créer un compte</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('user_login') }}">Se connecter</a>
+                        </li>
+                    {% endif %}
                         </ul>
                     </div>
                 </div>

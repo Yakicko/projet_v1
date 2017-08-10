@@ -11,12 +11,12 @@ class UserRepository extends RepositoryAbstract
 		return 'users';
 	}
 
-	public function findByEmail($email)
+	public function findByUsername($username)
 	{
 		$dbUser = $this->db->fetchAssoc(
-			'SELECT * FROM users WHERE email = :email',
+			'SELECT * FROM users WHERE username = :username',
 			[
-				':email' => $email
+				':username' => $username
 			]
 		);
 
@@ -79,6 +79,7 @@ class UserRepository extends RepositoryAbstract
 			->setUsername($data['username'])
 			->setId_region($data['id_region'])
 			->setStatus($data['status'])
+			->setPassword($data['password'])
 		;
 		return $user;
 	}

@@ -89,4 +89,38 @@ class UserController extends ControllerAbstract
 		);
 	}
 
+	public function loginAction()
+	{
+		$username = '';
+
+		if(!empty($_POST)){
+			$username = $_POST['username'];
+
+			$user = $this->app['user.repository']->findByUsername($username);
+
+			if(!is_null($user)){
+				if($this->app['user.manager']->verifyPassword($_POST['password'], $user->getPassword()))
+				{
+					$this->app['user.manager']->login($user);
+
+
+					// a changer pour profil
+					return $this->redirectRoute('homepage');	
+				}
+			}
+			$this->addFlashMessage('Identification incorrecte', 'error');
+		}
+
+		return $this->render(
+			'user/login.html.twig',
+			['username' => $username]
+		);
+	}
+
+	public function logoutAction()
+	{
+		$this->app['user.manager']->logout();
+
+		return $this->redirectRoute('homepage');
+	}
 }
