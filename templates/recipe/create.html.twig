@@ -2,73 +2,74 @@
 
 {% block title 'Creation Recette' %}
 
-{%  block content %}
+{% block content %}
 
     <div class="row">
         <div class="col-sm-4 col-sm-offset-4">
-    <h1>Nouvelle Recette</h1>
-            {#{{ dump(app.photo_dir) }}#}
-    <form method="post" action="" enctype="multipart/form-data">
-        <div class="form-group">
-            <label>Titre de la recette</label>
-            <input type="text" name="title" value="" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Ingrédient principal</label>
-            <select name="star_ingredient" class="form-control">
-                <option value="viande">Viande</option>
-                <option value="poisson">Poisson</option>
-                <option value="fruits de mer">Fruits de mer</option>
-                <option value="vegetarien">Vegetarien</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Difficulté de réalisation</label>
-            <select name="difficulty" class="form-control">
-                <option value="">Indiquez le niveau de difficulté</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>région</label>
-            <select name="id_region" class="form-control">
-                <option value="1">1</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Temps de préparation</label>
-            <input type="time"name="prep_time" value="" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Temps de cuisson</label>
-            <input type="time" name="cook_time" value="" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Nombre de personnes</label>
-            <input type="text" name="portion" value="" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Liste des ingrédients</label>
-            <textarea  name="ingredients" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-            <label>Etapes de la recette</label>
-            <textarea  name="methods" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-            <label>Histoire ou anecdote sur votre recette</label>
-            <textarea  name="story" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-            <label>Photos</label>
-            <input type="file" name="picture_recipe" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary form-control">Enregistrer</button>
-    </form>
+            <h1>Nouvelle Recette</h1>
+            <form method="post" action="" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Titre de la recette</label>
+                    <input type="text" name="title" value="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Ingrédient principal</label>
+                    <select name="star_ingredient" class="form-control">
+                        <option value="viande">Viande</option>
+                        <option value="poisson">Poisson</option>
+                        <option value="fruits de mer">Fruits de mer</option>
+                        <option value="vegetarien">Vegetarien</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Difficulté de réalisation</label>
+                    <select name="difficulty" class="form-control">
+                        <option value="">Indiquez le niveau de difficulté</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>région</label>
+                    <select name="id_region" class="form-control">
+                        {% for region in regions %}
+                            <option value="{{ region.id_region }}">{{ region.region_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Temps de préparation</label>
+                    <input type="time" name="prep_time" value="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Temps de cuisson</label>
+                    <input type="time" name="cook_time" value="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Nombre de personnes</label>
+                    <input type="text" name="portion" value="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Liste des ingrédients</label>
+                    <textarea name="ingredients" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Etapes de la recette</label>
+                    <textarea name="methods" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Histoire ou anecdote sur votre recette</label>
+                    <textarea name="story" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Photos</label>
+                    <input type="file" name="picture_recipe" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary form-control">Enregistrer</button>
+            </form>
         </div>
     </div>
 {% endblock %}

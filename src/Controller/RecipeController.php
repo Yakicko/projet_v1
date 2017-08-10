@@ -46,6 +46,8 @@ class RecipeController extends ControllerAbstract
 
         $errors = [];
 
+        $regions = $this->app['region.repository']->findAll();
+
         if (!empty($_POST)) {
             $recipe
                 ->setTitle($_POST['title'])
@@ -147,7 +149,8 @@ class RecipeController extends ControllerAbstract
 
         return $this->render('recipe/create.html.twig',
             [
-                'recipe' => $recipe
+                'recipe' => $recipe,
+                'regions' => $regions
 
             ]
         );

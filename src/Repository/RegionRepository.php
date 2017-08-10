@@ -26,7 +26,7 @@ class RegionRepository extends RepositoryAbstract
 		return $regions;
 	}
 
-	public function find($id)
+	public function find($id_region)
 	{
 		$dbRegion = $this->db->fetchAssoc(
 			'SELECT * FROM regions WHERE id_region = :id_region',

@@ -1,35 +1,14 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <script>
-        $('#myForm').submit(function(event) // On écoute le submit du form
-        {
-            event.preventDefault(); // Empêche la soumission du form
-
-            var $this = $(this);
-
-            var data = $this.serialize(); // transforme le form en json
-
-            $.post(
-                'back.php', // la page qu'on appelle en ajax
-                data, // les données qu'on envoie
-                function (response){ // fonction qui traite la reponse de l'appel
-                    console.log(response);
-
-                    var message;
-
-                    if(response.status == 'ok'){
-                        message = '<b>Tout est ok</b>'
-                    }
-                    else
-                    {
-                        message = '<b>Il  y a des erreurs</b>';
-                        message += '<br>' + response.errors.join('</br>');
-                    }
-                    $('#response-div').html(message);
-                },
-                'json' // type de retour
-            );
-        });
-    </script>
+        <table>
+                <tr>
+                <th>region</th>
+                </tr>
+                <tr>
+            {% for region in regions %}
+                    <td><a href="{{  path('region_index', {id_region: region.id_region }) }}">{{ region.region_name }}</a></td>
+            {% endfor %}
+                </tr>
+        </table>
 {% endblock %}

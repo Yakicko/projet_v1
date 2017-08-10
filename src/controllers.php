@@ -12,18 +12,17 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 
-$app->get('/', function () use ($app) {
-    return $app['twig']->render('index.html.twig', array());
-})
-->bind('homepage')
-;
-
+$app->get('/', 'index.controller:indexAction')->bind('homepage');
 
 $app->match('/recipe/create', 'recipe.controller:createAction')->bind('recipe_create');
 
 $app->match('/recipe/list', 'recipe.controller:listAction')->bind('recipe_list');
 
 $app->match('/recipe/index/{id_recipe}', 'recipe.controller:indexAction')->bind('recipe_index');
+
+$app->match('/region/index', 'region.controller:indexAction')->bind('region_index');
+
+$app->match('/region/index/{id_region}', 'region.controller:indexAction')->bind('region_index');
 
 
 

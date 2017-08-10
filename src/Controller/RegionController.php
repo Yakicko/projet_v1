@@ -16,4 +16,12 @@ class RegionController extends ControllerAbstract
 			]
 		);
 	}
+
+    public function indexAction($id_region)
+    {
+        $region = $this->app['region.repository']->find($id_region);
+
+        return $this->render('region/index.html.twig',
+            ['region' => $region]);
+    }
 }
