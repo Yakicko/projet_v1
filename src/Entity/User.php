@@ -22,6 +22,8 @@ class User
 
 	private $status;
 
+    private $password;
+
     /**
      * @return mixed
      */
@@ -208,5 +210,25 @@ class User
     public function isAdmin()
     {
     	return $this->status == 'admin';
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     *
+     * @return self
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
     }
 }

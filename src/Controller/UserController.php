@@ -9,7 +9,8 @@ class UserController extends ControllerAbstract
 	public function registerAction()
 	{
 		$user = new User();
-		$errors =[];
+		$errors = [];
+		$regionList = [];
 
 		if(!empty($_POST)){
 			$user
@@ -17,6 +18,11 @@ class UserController extends ControllerAbstract
 				->setFirstname($_POST['firstname'])
 				->setEmail($_POST['email'])
 				->setUsername($_POST['username'])
+				->setCivility($_POST['civility'])
+				->setPassword($_POST['password'])
+				->setId_region($_POST['id_region'])
+				->setStatus('membre')
+
 			;
 
 			if(empty($_POST['lastname'])){
@@ -61,7 +67,7 @@ class UserController extends ControllerAbstract
 				$user->setPassword($this->app['user.manager']->encodePassword($_POST['password']));
 				$this->app['user.repository']->save($user);
 
-				return $this->redirectRoute('homepage');
+				//return $this->redirectRoute('homepage');
 
 			} else{
 				$message = '<strong>Le formulaire contient des erreurs</strong>';
@@ -69,11 +75,17 @@ class UserController extends ControllerAbstract
 				$this->addFlashMessage($message, 'error');
 			}
 
-		}	
+		}
+
+		$regionsList = $this->app["region.repository"]->findAll();
+
 
 		return $this->render(
 			'user/register.html.twig',
-			['user' => $user]
+			[
+				'user' => $user,
+				'regions' => $regionsList
+			]
 		);
 	}
 

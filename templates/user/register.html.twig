@@ -3,6 +3,7 @@
 {% block title 'Inscription' %}
 
 {% block content %}
+	{#<p>{{ dump(regions) }}</p>#}
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -15,7 +16,7 @@
 					</div>
 					<div class="form-group">
 						<label>Civilité</label>
-						<select class="form-control">
+						<select class="form-control" name="civility" id="civility">
 							<option></option>
 							<option value="m">M</option>
 							<option value="mme">Mme</option>
@@ -35,8 +36,13 @@
 					</div>		
 					<div class="form-group">
 						<label>Région</label>
-						<select class="form-control">
+						<select class="form-control" name="id_region" id="id_region">
 							<option>Région</option>
+							{% for region in regions %}
+
+								<option value="{{ region.id_region }}">{{region.region_name}}</option>
+
+							{% endfor %} 
 						</select>
 					</div>
 					<div class="form-group">

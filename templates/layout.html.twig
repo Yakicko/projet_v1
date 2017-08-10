@@ -79,6 +79,15 @@
                     </div>
                 </div>
             </nav>
+            {% for type, flashes in app.session.flashbag.all %}
+                {% for flash in flashes %}
+                    {% if type == 'error' %}
+                        {# class alert-danger du bootstrap #}
+                        {% set type = 'danger' %}
+                    {% endif %}
+                    <div class="alert alert-{{ type }}">{{ flash|raw }}</div>
+                {% endfor %}
+            {% endfor %}
             {% block content %}{% endblock %}
             {% block javascripts %}
                 <script src="../web/js/jquery-3.2.1.min.js"></script>

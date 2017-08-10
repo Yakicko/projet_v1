@@ -46,9 +46,13 @@ $app['user.controller'] = function() use ($app){
 //----------------------------- REPOSITORIES ---------------------------------//
 
 /* AUTRES SERVICES */
-/*$app['user.manager'] = function() use ($app){
+$app['user.manager'] = function() use ($app){
     return new Service\UserManager($app['session']);
-};*/
+};
+
+$app['user.repository'] = function() use ($app){
+    return new \Repository\UserRepository($app);
+};
 
 
 /* CONTROLLERS */

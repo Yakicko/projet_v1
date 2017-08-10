@@ -39,30 +39,26 @@ class UserRepository extends RepositoryAbstract
 		}
 	}
 
-	public function save(User $users)
+	public function save(User $user)
 	{
 		// les données à enregistrer en bdd
 		$data = [
 					'lastname' => $user->getLastname(),
 					'firstname' => $user->getFirstname(),
 					'email' => $user->getEmail(),
+					'username' => $user->getUsername(),
+					'civility' => $user->getCivility(),
+					'id_region' => $user->getId_region(),
 					'password' => $user->getPassword()
 				];
 
-		// si la catégorie a un id, on est en update
-		// sinon en insert
-		$where = !empty($user->getId())
-			? ['id' => $user->getId()]
-			: null
-		;
-
+	
 		// appel à la méthode de RepositoryAbstract pour enregistrer
-		$this->persist($data, $where);
+		$this->persist($data);
 
-		// on set l'id quand on est en insert
-		if(empty($user->getId())){
-			$user->setId($this->db->lastInsertId());
-		}
+		// on set l'id quand on est en insert		
+		$user->setId_user($this->db->lastInsertId());
+		
 	}
 
 	/*
@@ -74,13 +70,15 @@ class UserRepository extends RepositoryAbstract
 		$user = new User();
 
 		$user
-			->setId($data['id'])
+			->setId_user($data['id_user'])
 			->setLastname($data['lastname'])
 			->setFirstname($data['firstname'])
 			->setEmail($data['email'])
 			->setUsername($data['username'])
-			->setPassword($data['password'])
-			->setRole($data['role'])
+			->setCivility($data['civility'])
+			->setUsername($data['username'])
+			->setId_region($data['id_region'])
+			->setStatus($data['status'])
 		;
 		return $user;
 	}

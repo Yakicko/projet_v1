@@ -13,15 +13,11 @@ abstract class RepositoryAbstract
 		$this->db = $app['db'];
 	}
 
-	public function persist(array $data, array $where = null)
+	public function persist(array $data)
 	{
-		if(is_null($where)){
-			// insertion
-			$this->db->insert($this->getTable(), $data);
-		} else{
-			// modification
-			$this->db->update($this->getTable(), $data, $where);
-		}
+		// insertion
+		$this->db->insert($this->getTable(), $data);
+		
 	}
 
 	/*
