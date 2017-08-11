@@ -38,30 +38,10 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 /* CONTROLLERS */
 
 //----------------------------- FRONT ---------------------------------//
+
 $app['user.controller'] = function() use ($app){
     return new \Controller\UserController($app);
 };
-//----------------------------- BACK ---------------------------------//
-
-//----------------------------- REPOSITORIES ---------------------------------//
-
-/* AUTRES SERVICES */
-$app['user.manager'] = function() use ($app){
-    return new Service\UserManager($app['session']);
-};
-
-$app['user.repository'] = function() use ($app){
-    return new \Repository\UserRepository($app);
-};
-
-
-// $app['session'] = gestionnaire de session de symfony
-$app->register(new Silex\Provider\SessionServiceProvider());
-
-
-/* CONTROLLERS */
-
-//----------------------------- FRONT ---------------------------------//
 
 $app['region.controller'] = function() use ($app){
     return new \Controller\RegionController($app);
@@ -77,8 +57,18 @@ $app['recipe.controller'] = function () use ($app)
     return new \Controller\RecipeController($app);
 };
 
-//-------------------------REPOSITORIES---------------------------------//
-//
+//----------------------------- BACK ---------------------------------//
+
+$app['admin.user.controller'] = function() use ($app){
+    return new \Controller\Admin\UserController($app);
+};
+
+//----------------------------- REPOSITORIES ---------------------------------//
+
+$app['user.repository'] = function() use ($app){
+    return new \Repository\UserRepository($app);
+};
+
 $app['region.repository'] = function() use ($app){
     return new \Repository\RegionRepository($app);
 };
@@ -86,6 +76,11 @@ $app['region.repository'] = function() use ($app){
 $app['recipe.repository'] = function () use ($app)
 {
     return new \Repository\RecipeRepository($app);
+};
+
+//-------------------- AUTRES SERVICES -------------------------------//
+$app['user.manager'] = function() use ($app){
+    return new Service\UserManager($app['session']);
 };
 
 return $app;

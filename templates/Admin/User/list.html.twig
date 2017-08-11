@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+
+{% block title 'Admin Utilisateurs' %}
+    
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Gestion Utilisateurs</h1>
+    
+    <p><a href="{{ path('admin_user_edit') }}" class="btn btn-primary">Nouvel Utilisateur</a></p>
+    
+    <table class="table table-hover">
+        <tr>
+            <th>ID</th>
+            <th>Pseudo</th>
+            <th>Civilité</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>ID Région</th>
+            <th>Rôle</th>
+            <th>Editer</th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id_user }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.civility }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.id_region }}</td>
+                <td>{{ user.status }}</td>
+                <td>
+                    <a href="{{ path('admin_user_edit', {id_user: user.id_user}) }}" 
+                       class="btn btn-primary">
+                        Modifier
+                    </a>
+                    <a href="{{ path('admin_user_delete', {id_user: user.id_user}) }}" 
+                       class="btn btn-danger">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

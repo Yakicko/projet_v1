@@ -11,6 +11,43 @@ class UserRepository extends RepositoryAbstract
 		return 'users';
 	}
 
+	 /**
+     * 
+     * @return array Un tableau d'objets Entity\Category
+     */
+    public function findAll()
+    {
+        $dbusers = $this->db->fetchAll('SELECT * FROM users');  
+        
+        $users = [];
+        
+        foreach ($dbusers as $dbuser){
+            $user = $this->buildEntity($dbuser);
+            
+            $users[] = $user;
+        }
+        
+        return $users;
+    }
+
+    /**
+     * 
+     * @param int $id
+     * @return Category|null
+     */
+    public function find($id_user)
+    {
+        $dbUser = $this->db->fetchAssoc(
+            'SELECT * FROM users WHERE id_user = :id_user',
+            [
+                ':id_user' => $id_user
+            ]
+        );
+        if (!empty($dbUser)){
+            return $this->buildEntity($dbUser);
+        }
+    }
+
 	public function findByUsername($username)
 	{
 		$dbUser = $this->db->fetchAssoc(
@@ -25,13 +62,19 @@ class UserRepository extends RepositoryAbstract
 		}
 	}
 
-	public function findByEmail($email)
+	public function findByEmail($email, $excludedId = null)
 	{
+		$query = 'SELECT * FROM users WHERE email = :email';
+		$params = [ ':email' => $email ];
+
+		if (!is_null($excludedId)) {
+			$query .= ' AND id_user != :id';
+			$params[ ':id' ] = $excludedId;
+		}
+
 		$dbUser = $this->db->fetchAssoc(
-			'SELECT * FROM users WHERE email = :email',
-			[
-				':email' => $email
-			]
+			$query,
+			$params
 		);
 
 		if(!empty($dbUser)){
@@ -39,13 +82,19 @@ class UserRepository extends RepositoryAbstract
 		}
 	}
 
-	public function isUnique($username)
+	public function isUnique($username, $excluded = null)
 	{
+		$queries = 'SELECT * FROM users WHERE username = :username';
+		$param = [':username' => $username];
+
+		if(!is_null($excluded)){
+			$queries .= ' AND id_user != :id';
+			$param[ ':id' ] = $excluded;
+		}
+
 		$dbUser = $this->db->fetchAssoc(
-			'SELECT * FROM users WHERE username = :username',
-			[
-				':username' => $username
-			]
+			$queries,
+			$param
 		);
 
 		if(!empty($dbUser)){
@@ -63,17 +112,31 @@ class UserRepository extends RepositoryAbstract
 					'username' => $user->getUsername(),
 					'civility' => $user->getCivility(),
 					'id_region' => $user->getId_region(),
-					'password' => $user->getPassword()
+					'password' => $user->getPassword(),
+					'status' => $user->getStatus()
 				];
 
 	
+		$where = !empty($user->getId_user())
+			? ['id_user' => $user->getId_user()]
+			: null
+		;
+
 		// appel à la méthode de RepositoryAbstract pour enregistrer
-		$this->persist($data);
+		$this->persist($data, $where);
 
 		// on set l'id quand on est en insert		
 		$user->setId_user($this->db->lastInsertId());
 		
 	}
+
+	public function delete (User $user)
+    {
+        $this->db->delete(
+            'users',
+                ['id_user' => $user->getId_user()]
+        );
+    }
 
 	/*
 	@param array $data

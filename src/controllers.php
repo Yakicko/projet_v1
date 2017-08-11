@@ -42,8 +42,35 @@ $app
 ;
 /******************** BACK ******************************/
 
+// créé un groupe de routes
+$admin = $app['controllers_factory'];
 
+// Pour toutes les routes du groupe, si on n'est
+// pas connecté en admin, page 403
+$admin->before(function () use ($app){
+    if(!$app['user.manager']->isAdmin()){
+        $app->abort(403, 'Acces refusé');
+    }
+});
 
+$app->mount('/admin', $admin);
+
+$admin
+    ->get('/utilisateurs', 'admin.user.controller:listAction')
+    ->bind('admin_users')
+;
+
+$admin
+    ->match('/utilisateur/edition/{id_user}', 'admin.user.controller:editAction')
+    ->value('id_user', null) // valeur par défaut pour l'id
+    ->bind('admin_user_edit')
+;
+
+$admin
+    ->get('/utilisateur/suppression/{id_user}', 'admin.user.controller:deleteAction')
+    ->assert('id_user','\d+') // id doit être un nombre  
+    ->bind('admin_user_delete')
+;
 
 
 

@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Controller\ControllerAbstract;
 use Entity\User;
 
 class UserController extends ControllerAbstract
@@ -22,7 +23,6 @@ class UserController extends ControllerAbstract
 				->setPassword($_POST['password'])
 				->setId_region($_POST['id_region'])
 				->setStatus('membre')
-
 			;
 
 			if(empty($_POST['lastname'])){
