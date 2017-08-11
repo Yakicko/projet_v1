@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
+
 /******************** FRONT *****************************/
 
 
@@ -25,6 +26,37 @@ $app->match('/region/index', 'region.controller:indexAction')->bind('region_inde
 $app->match('/region/index/{id_region}', 'region.controller:indexAction')->bind('region_index');
 
 $app->match('/contact/index', 'contact.controller:contactAction')->bind('contact_index');
+
+
+$app
+    ->match('/utilisateur/inscription', 'user.controller:registerAction')
+    ->bind('user_register')
+;
+
+$app
+    ->match('/utilisateur/connexion', 'user.controller:loginAction')
+    ->bind('user_login')
+;
+
+$app
+    ->match('/utilisateur/deconnexion', 'user.controller:logoutAction')
+    ->bind('user_logout')
+;
+/******************** BACK ******************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
