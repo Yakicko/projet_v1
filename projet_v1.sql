@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 10 Août 2017 à 18:09
+-- Généré le :  Ven 11 Août 2017 à 09:27
 -- Version du serveur :  10.1.21-MariaDB
 -- Version de PHP :  5.6.30
 
@@ -160,15 +160,16 @@ CREATE TABLE `users` (
   `civility` enum('mme','m') NOT NULL DEFAULT 'm',
   `id_region` int(11) NOT NULL,
   `status` enum('admin','membre') NOT NULL DEFAULT 'membre',
-  `user_picture` varchar(255) NOT NULL
+  `user_picture` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id_user`, `lastname`, `firstname`, `email`, `username`, `civility`, `id_region`, `status`, `user_picture`) VALUES
-(1, 'Test', 'Test', 'test@gmail.com', 'test', 'm', 1, 'membre', '');
+INSERT INTO `users` (`id_user`, `lastname`, `firstname`, `email`, `username`, `civility`, `id_region`, `status`, `user_picture`, `password`) VALUES
+(1, 'Test', 'Test', 'test@gmail.com', 'test', 'm', 1, 'membre', '', '');
 
 --
 -- Index pour les tables exportées
@@ -216,6 +217,8 @@ ALTER TABLE `regions_details`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD KEY `id_region` (`id_region`);
 
 --
