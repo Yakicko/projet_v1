@@ -96,6 +96,10 @@ $app['regiondetail.repository'] = function () use ($app)
 {
     return new \Repository\RegionDetailRepository($app);
 };
+$app['comment.repository'] = function () use ($app)
+{
+    return new \Repository\CommentRepository($app);
+};
 
 return $app;
 

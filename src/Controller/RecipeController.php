@@ -9,7 +9,9 @@
 namespace Controller;
 
 
+use Entity\Comment;
 use Entity\Recipe;
+
 
 
 class RecipeController extends ControllerAbstract
@@ -17,9 +19,19 @@ class RecipeController extends ControllerAbstract
     public function indexAction($id_recipe)
     {
         $recipe = $this->app['recipe.repository']->find($id_recipe);
+        $comments = $this->app['comment.repository']->findByIdRecipe($id_recipe);
+        //$user = $this->app['user.repository']->findById($id_user);
+
+//        if (!empty($_POST)) {
+//            // traitement du formulaire d'ajout de connmentaire
+//        }
 
         return $this->render('recipe/index.html.twig',
-            ['recipe' => $recipe]);
+            [
+                'recipe' => $recipe,
+                'comments' => $comments,
+                //'user' => $user
+            ]);
     }
 
     public function listAction()
@@ -31,6 +43,49 @@ class RecipeController extends ControllerAbstract
         return $this->render('recipe/list.html.twig',
             [
                 'recipe' => $recipes
+            ]
+        );
+    }
+
+    public function postAction()
+    {
+
+        // Nouvelle recette
+        $comment = new Comment();
+
+//        // On a besoin de la liste des rubriques pour construire le select dans le formulaire
+//        $categories = $this->app['category.repository']->findAll();
+
+        $errors = [];
+
+        $comments = $this->app['comment.repository']->findAll();
+
+        if (!empty($_POST)) {
+            $comment
+                ->setContent($_POST['content']);
+
+            if (empty($_POST['content']))
+            {
+                $errors['content'] = 'Votre commentaire est vide';
+            }
+
+            if (empty($errors)) {
+                $this->app['comment.repository']->save($comment);
+
+                $this->addFlashMessage('Votre commentaire a bien été ajouté');;
+            } else {
+                $message = '<strong>Le commentaire contient des erreurs</strong>';
+                $message .= '<br>' . implode('<br>', $errors);
+                $this->addFlashMessage($message, 'error');
+            }
+
+        }
+
+        return $this->render('recipe/index.html.twig',
+            [
+                'comment' => $comment,
+                'comments' => $comments
+
             ]
         );
     }
@@ -66,7 +121,7 @@ class RecipeController extends ControllerAbstract
             if (empty($_POST['title'])) {
                 $errors['title'] = 'Le titre est obligatoire';
             } elseif (strlen($_POST['title']) > 100) {
-                $errors['name'] = 'Le titre ne doit pas faire plus de 100 caractères';
+                $errors['title'] = 'Le titre ne doit pas faire plus de 100 caractères';
             }
 
             if (empty($_POST['star_ingredient'])) {
@@ -125,7 +180,7 @@ class RecipeController extends ControllerAbstract
 
                 if ($verif_extension && !$errors) {
                     // si $verif_extension est égal à true et que $erreur n'est pas égal à true (il n'y a pas eu d'erreur au préalable)
-                    $photo_dossier = __DIR__ . '/../../web/photo/' . $photo_bdd;
+                    $photo_dossier = $this->app['photo_dir'] . $photo_bdd;
 
                     copy($_FILES['picture_recipe']['tmp_name'], $photo_dossier);
                     // copy() permet de copier un fichier depuis un emplacement fourni en premier argument vers un autre emplacement fourni en deuxième argument.
@@ -133,6 +188,10 @@ class RecipeController extends ControllerAbstract
                     $errors['picture_recipe'] = 'Le format de la photo n\'est pas autorisé';
                 }
             }
+
+            // nouveau commentaire
+
+
 
             if (empty($errors)) {
                 $this->app['recipe.repository']->save($recipe);

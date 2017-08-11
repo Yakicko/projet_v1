@@ -11,6 +11,22 @@ class UserRepository extends RepositoryAbstract
 		return 'users';
 	}
 
+    public function findById($id_user)
+    {
+        $query = 'SELECT c.*, u.* FROM comments c JOIN users u ON c.id_user = u.id_user WHERE c.id_user = :id_comment';
+
+        $dbComment = $this->db->fetchAssoc($query,
+            [
+                ':id_comment' => $id_user
+            ]
+        );
+
+        if (!empty($dbComment))
+        {
+            return $this->buildEntity($dbComment);
+        }
+    }
+
 	public function findByUsername($username)
 	{
 		$dbUser = $this->db->fetchAssoc(

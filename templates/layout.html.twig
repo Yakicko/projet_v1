@@ -41,7 +41,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
-            <a class="navbar-brand" href="{{ path('homepage') }}">Brand</a></div>
+            <a class="navbar-brand" href="{{ path('homepage') }}">Y fait faim !</a></div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -94,10 +94,6 @@
 <div class="container">
     {% block content %}{% endblock %}
 </div>
-{% block javascripts %}
-    <script src="../web/js/jquery-3.2.1.min.js"></script>
-    <script src="../web/js/bootstrap.min.js"></script>
-{% endblock %}
 <nav class="nav navbar-default">
 
     <div class="container">
@@ -159,11 +155,11 @@
                     <ul class="unstyled">
                         <li>More
                         <li>
-                        <li><a href="#">Training</a></li>
-                        <li><a href="#">Students & teachers</a></li>
-                        <li><a href="#">The Shop</a></li>
-                        <li><a href="#">Plans & pricing</a></li>
-                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Reseaux Sociaux</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Pinterest</a></li>
+                        <li><a href="#">Twiter</a></li>
                     </ul>
                 </div>
             </div>
@@ -183,5 +179,9 @@
         </div>
     </div>
 </nav>
+{% block javascripts %}
+    <script src="../web/js/jquery-3.2.1.min.js"></script>
+    <script src="../web/js/bootstrap.min.js"></script>
+{% endblock %}
 </body>
 </html>
