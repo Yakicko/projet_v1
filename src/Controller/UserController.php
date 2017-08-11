@@ -3,6 +3,7 @@
 namespace Controller;
 
 use Entity\User;
+use Entity\Region;
 
 class UserController extends ControllerAbstract
 {
@@ -134,4 +135,48 @@ class UserController extends ControllerAbstract
 
 		return $this->redirectRoute('homepage');
 	}
+
+	public function profilAction()
+	{
+
+		$user = $this->app["user.manager"]->getUser();
+		$region = $this->app["region.repository"]->find($user->getId_region());
+		$nb_myRecipe = $this->app["user.repository"]->myRecipe($user->getId_user());
+		$nb_myComments = $this->app["user.repository"]->myComments($user->getId_user());
+		$nb_myRatings = $this->app["user.repository"]->myRatings($user->getId_user());
+
+		return $this->render(
+			"user/profil.html.twig",
+			[
+				"user" => $user,
+				'region' => $region,
+				'nb_myRecipe' => $nb_myRecipe,
+				'nb_myComments' => $nb_myComments,
+				'nb_myRatings' => $nb_myRatings
+			]
+		);
+	}
+
+    public function profilPublicAction($id_user)
+    {
+        $user = $this->app['user.repository']->find($id_user);
+        $region = $this->app["region.repository"]->find($user->getId_region());
+        $nb_myRecipe = $this->app["user.repository"]->myRecipe($user->getId_user());
+		$nb_myComments = $this->app["user.repository"]->myComments($user->getId_user());
+		$nb_myRatings = $this->app["user.repository"]->myRatings($user->getId_user());
+
+
+        return $this->render(
+            "user/profil_public.html.twig",
+            [
+                "user" => $user,
+                'region' => $region,
+                'nb_myRecipe' => $nb_myRecipe,
+				'nb_myComments' => $nb_myComments,
+				'nb_myRatings' => $nb_myRatings
+            ]
+        );
+    }
+
+
 }

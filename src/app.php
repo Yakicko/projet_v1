@@ -83,7 +83,7 @@ $app['region.repository'] = function() use ($app){
     return new \Repository\RegionRepository($app);
 };
 
-$app['recipe.repository'] = function () use ($app)
+$app['recipe.repository'] = function() use ($app)
 {
     return new \Repository\RecipeRepository($app);
 };

@@ -37,8 +37,24 @@ $app
 ;
 
 $app
+    ->get('/utilisateur/profil', 'user.controller:profilAction')
+    ->bind('user_profil')
+;
+
+$app
+    ->get('/utilisateur/profil/public/{id_user}', 'user.controller:profilPublicAction')
+    ->assert('id', '\d+')
+    ->bind('user_profil_public')
+;
+
+$app
     ->match('/utilisateur/deconnexion', 'user.controller:logoutAction')
     ->bind('user_logout')
+;
+
+$app
+    ->get('/recettes/utilisateur/{id_user}', 'recipe.controller:userRecipeAction')
+    ->bind('recipes_user')
 ;
 /******************** BACK ******************************/
 

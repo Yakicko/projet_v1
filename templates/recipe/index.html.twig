@@ -24,6 +24,9 @@
                     <div class="col-md-12">
                         <p>Anecdote: {{ recipe.story }}</p>
                     </div>
+                    <div class="col-md-12">
+                        <p>Auteur: <a href="{{ path('user_profil_public',{id_user:recipe.id_user})}}">{{ user.username }}</a></p>
+                    </div>
                 </div>
             </div>
         </div>
