@@ -92,11 +92,22 @@ class UserController extends ControllerAbstract
 	public function loginAction()
 	{
 		$username = '';
+		$email = "";
 
 		if(!empty($_POST)){
-			$username = $_POST['username'];
 
-			$user = $this->app['user.repository']->findByUsername($username);
+			$username = $_POST['login'];
+			$email = $_POST['login'];
+
+			if(filter_var($username, FILTER_VALIDATE_EMAIL))
+			{
+				$user = $this->app['user.repository']->findByEmail($email);
+			}
+			else
+			{
+				$user = $this->app['user.repository']->findByUsername($username);
+			}
+			
 
 			if(!is_null($user)){
 				if($this->app['user.manager']->verifyPassword($_POST['password'], $user->getPassword()))

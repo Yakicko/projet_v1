@@ -25,6 +25,20 @@ class UserRepository extends RepositoryAbstract
 		}
 	}
 
+	public function findByEmail($email)
+	{
+		$dbUser = $this->db->fetchAssoc(
+			'SELECT * FROM users WHERE email = :email',
+			[
+				':email' => $email
+			]
+		);
+
+		if(!empty($dbUser)){
+			return $this->buildEntity($dbUser);
+		}
+	}
+
 	public function isUnique($username)
 	{
 		$dbUser = $this->db->fetchAssoc(
