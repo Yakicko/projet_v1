@@ -55,6 +55,11 @@ $app['recipe.controller'] = function () use ($app)
 {
     return new \Controller\RecipeController($app);
 };
+$app['contact.controller'] = function () use ($app)
+{
+    return new \Controller\ContactController($app);
+};
+
 
 //-------------------------REPOSITORIES---------------------------------//
 //
@@ -65,6 +70,10 @@ $app['region.repository'] = function() use ($app){
 $app['recipe.repository'] = function () use ($app)
 {
     return new \Repository\RecipeRepository($app);
+};
+$app['regiondetail.repository'] = function () use ($app)
+{
+    return new \Repository\RegionDetailRepository($app);
 };
 
 return $app;

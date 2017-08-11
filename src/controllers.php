@@ -24,6 +24,8 @@ $app->match('/region/index', 'region.controller:indexAction')->bind('region_inde
 
 $app->match('/region/index/{id_region}', 'region.controller:indexAction')->bind('region_index');
 
+$app->match('/contact/index', 'contact.controller:contactAction')->bind('contact_index');
+
 
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
