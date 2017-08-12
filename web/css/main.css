@@ -4,3 +4,7 @@
 .navbar-inverse{
 	margin-bottom: 0;
 }
+.thead-inverse{
+	background: #292b2c;
+	color: white;
+}

@@ -11,6 +11,22 @@ class UserRepository extends RepositoryAbstract
 		return 'users';
 	}
 
+	public function find($id_user)
+    {
+        $query = 'SELECT * FROM users WHERE id_user = :id_user';
+
+        $dbUser = $this->db->fetchAssoc($query,
+            [
+                ':id_user' => $id_user
+            ]
+        );
+
+        if (!empty($dbUser))
+        {
+            return $this->buildEntity($dbUser);
+        }
+    }
+
 	public function findByUsername($username)
 	{
 		$dbUser = $this->db->fetchAssoc(
@@ -51,6 +67,46 @@ class UserRepository extends RepositoryAbstract
 		if(!empty($dbUser)){
 			return $this->buildEntity($dbUser);
 		}
+	}
+
+
+	public function myRecipe($id_user)
+	{
+		$dbMyRecipe = $this->db->fetchAll(
+			'SELECT * FROM recipes WHERE id_user = :id_user',
+			[
+				":id_user" => $id_user
+			]
+		);
+
+		$nb_myRecipe = count($dbMyRecipe);
+			return $nb_myRecipe;
+	}
+
+	public function myComments($id_user)
+	{
+		$dbMyComments = $this->db->fetchAll(
+			'SELECT * FROM comments WHERE id_user = :id_user',
+			[
+				":id_user" => $id_user
+			]
+		);
+
+		$nb_myComments = count($dbMyComments);
+			return $nb_myComments;
+	}
+
+	public function myRatings($id_user)
+	{
+		$dbMyRatings = $this->db->fetchAll(
+			'SELECT * FROM rating WHERE id_user = :id_user',
+			[
+				":id_user" => $id_user
+			]
+		);
+
+		$nb_myRatings = count($dbMyRatings);
+			return $nb_myRatings;
 	}
 
 	public function save(User $user)

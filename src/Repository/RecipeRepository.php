@@ -9,6 +9,7 @@
 namespace Repository;
 
 use Entity\Recipe;
+
 class RecipeRepository extends RepositoryAbstract
 {
     protected function getTable()
@@ -48,6 +49,17 @@ class RecipeRepository extends RepositoryAbstract
         }
     }
 
+    public function findById_user($id_user)
+    {
+
+        $dbRecipeUser = $this->db->fetchAll('SELECT * FROM recipes WHERE id_user = :id_user',
+            [
+                ":id_user" => $id_user
+            ]
+        );
+            return $dbRecipeUser;
+    }
+
     public function save(Recipe $recipe)
     {
         // Les données à enregistrer en BDD
@@ -62,7 +74,8 @@ class RecipeRepository extends RepositoryAbstract
             'methods' => $recipe->getMethods(),
             'story' => $recipe->getStory(),
             'id_region' => $recipe->getId_region(),
-            'picture_recipe' => $recipe->getPicture_recipe()
+            'picture_recipe' => $recipe->getPicture_recipe(),
+            'id_user' => $this->app['user.manager']->getUser()->getId_user()
         ];
 
         // Appel à la méthode de RepositoryAbstract pour enregistrer
@@ -89,6 +102,7 @@ class RecipeRepository extends RepositoryAbstract
                 ->setPortion($data['portion'])
                 ->setIngredients($data['ingredients'])
                 ->setMethods($data['methods'])
+                ->setId_user($data["id_user"])
                 ->setStory($data['story']);
 
         return $recipe;

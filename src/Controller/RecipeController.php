@@ -17,9 +17,14 @@ class RecipeController extends ControllerAbstract
     public function indexAction($id_recipe)
     {
         $recipe = $this->app['recipe.repository']->find($id_recipe);
+        $user = $this->app['user.repository']->find($recipe->getId_user());
 
         return $this->render('recipe/index.html.twig',
-            ['recipe' => $recipe]);
+            [
+            'recipe' => $recipe,
+            'user' => $user
+            ]
+        );
     }
 
     public function listAction()
@@ -156,5 +161,15 @@ class RecipeController extends ControllerAbstract
         );
     }
 
+    public function userRecipeAction($id_user)
+    {
+        $recipe = $this->app['recipe.repository']->findById_user($id_user);
 
+
+        return $this->render('user/recipes_list.html.twig',
+            [
+                'recipe' => $recipe
+            ]
+        );
+    }
 }
