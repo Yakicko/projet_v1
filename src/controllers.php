@@ -28,6 +28,7 @@ $app->match('/region/index/{id_region}', 'region.controller:indexAction')->bind(
 $app->match('/contact/index', 'contact.controller:contactAction')->bind('contact_index');
 
 
+
 $app
     ->match('/utilisateur/inscription', 'user.controller:registerAction')
     ->bind('user_register')

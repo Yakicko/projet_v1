@@ -27,9 +27,33 @@
                     <div class="col-md-12">
                         <p>Auteur: <a href="{{ path('user_profil_public',{id_user:recipe.id_user})}}">{{ user.username }}</a></p>
                     </div>
+
+                    <!-- Fromulaire du commentaires -->
+
+                    <form method="post" >
+                        <div class="form-group">
+                            <label>Votre commentaire :</label>
+                            <textarea name="commentaire" class="form-control" rows="10"></textarea>
+                        </div>
+                        <button name="envoi" type="submit" class="btn btn-primary form-control">Envoyer</button>
+                    </form>
+
+                    <!-- Boucle pour afficher tout les commentaires-->
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <hr>
+                            {% for comment in comments %}
+                                <p>Posté par :{{ comment.username }}</p>
+
+                                <p>Commentaire :{{ comment.content }}</p>
+                                <hr>
+                            {% else %}
+                                <p>Aucun commentaire</p>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}
