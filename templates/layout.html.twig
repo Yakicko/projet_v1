@@ -101,9 +101,15 @@
         <div class="alert alert-{{ type }}">{{ flash|raw }}</div>
     {% endfor %}
 {% endfor %}
+
+<!--_______________________________________________________ CONTENT _____________________________________________________________________________-->
+
 <div class="container">
     {% block content %}{% endblock %}
 </div>
+
+
+<!--_______________________________________________________ FOOTER _____________________________________________________________________________-->
 <nav class="nav navbar-default">
 
     <div class="container">
@@ -189,10 +195,7 @@
         </div>
     </div>
 </nav>
-<div class="container">
-    {% block content %}{% endblock %}
-</div>
-                            
+                        
 {% block javascripts %}
     <script src="../web/js/jquery-3.2.1.min.js"></script>
     <script src="../web/js/bootstrap.min.js"></script>
