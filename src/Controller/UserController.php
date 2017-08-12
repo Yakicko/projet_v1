@@ -162,8 +162,8 @@ class UserController extends ControllerAbstract
         $user = $this->app['user.repository']->find($id_user);
         $region = $this->app["region.repository"]->find($user->getId_region());
         $nb_myRecipe = $this->app["user.repository"]->myRecipe($user->getId_user());
-		$nb_myComments = $this->app["user.repository"]->myComments($user->getId_user());
-		$nb_myRatings = $this->app["user.repository"]->myRatings($user->getId_user());
+        $nb_myComments = $this->app["user.repository"]->myComments($user->getId_user());
+        $nb_myRatings = $this->app["user.repository"]->myRatings($user->getId_user());
 
 
         return $this->render(
@@ -172,8 +172,8 @@ class UserController extends ControllerAbstract
                 "user" => $user,
                 'region' => $region,
                 'nb_myRecipe' => $nb_myRecipe,
-				'nb_myComments' => $nb_myComments,
-				'nb_myRatings' => $nb_myRatings
+                'nb_myComments' => $nb_myComments,
+                'nb_myRatings' => $nb_myRatings
             ]
         );
     }
