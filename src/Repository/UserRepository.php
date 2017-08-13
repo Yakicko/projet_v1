@@ -130,7 +130,7 @@ class UserRepository extends RepositoryAbstract
 		
 	}
 
-	public function delete (User $user)
+	public function delete(User $user)
     {
         $this->db->delete(
             'users',

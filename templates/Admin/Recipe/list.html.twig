@@ -1,0 +1,55 @@
+{% extends "admin_layout.html.twig" %}
+{% set active = 'admin' %}
+{% set adminActive = 'recipes' %}
+
+{% block title 'Admin Recettes' %}
+    
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Gestion Recettes</h1>
+    
+    <table class="table table-condensed">
+        <tr>
+            <th>ID</th>
+            <th>ID Région</th>
+            <th>ID Utilisateur</th>
+            <th>Titre</th>
+            <th>Photo</th>
+            <th>Ingrédient Star</th>
+            <th>Difficulté</th>
+            <th>Temps de préparation</th>
+            <th>Temps de cuisson</th>
+            <th>Portion</th>
+            <th>Ingrédients</th>
+            <th>Méthodes</th>
+            <th>Histoire</th>
+            <th>Etat</th>
+            <th>Actions</th>
+        </tr>
+        {% for recipe in recipes %}
+            <tr>
+                <td>{{ recipe.id_recipe }}</td>
+                <td>{{ recipe.id_region }}</td>
+                <td>{{ recipe.id_user }}</td>
+                <td>{{ recipe.title }}</td>
+                <td>{{ recipe.picture_recipe }}</td>
+                <td>{{ recipe.star_ingredient }}</td>
+                <td>{{ recipe.difficulty }}</td>
+                <td>{{ recipe.prep_time }}</td>
+                <td>{{ recipe.cook_time }}</td>
+                <td>{{ recipe.portion }}</td>
+                <td>{{ recipe.ingredients }}</td>
+                <td>{{ recipe.methods }}</td>
+                <td>{{ recipe.story }}</td>
+                <td>{{ recipe.status }}</td>
+                <td>
+                    <a href="{{ path('admin_recipe_delete', {id_recipe: recipe.id_recipe}) }}" 
+                       class="btn btn-danger">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

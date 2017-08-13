@@ -63,6 +63,15 @@ $app['admin.user.controller'] = function() use ($app){
     return new \Controller\Admin\UserController($app);
 };
 
+$app['admin.recipe.controller'] = function() use ($app){
+    return new \Controller\Admin\RecipeController($app);
+};
+
+$app['admin.region.controller'] = function() use ($app){
+    return new \Controller\Admin\RegionController($app);
+};
+
+
 //----------------------------- REPOSITORIES ---------------------------------//
 
 $app['user.repository'] = function() use ($app){

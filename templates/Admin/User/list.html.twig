@@ -1,4 +1,6 @@
-{% extends "layout.html.twig" %}
+{% extends "admin_layout.html.twig" %}
+{% set active = 'admin' %}
+{% set adminActive = 'users' %}
 
 {% block title 'Admin Utilisateurs' %}
     
@@ -16,7 +18,7 @@
             <th>Email</th>
             <th>ID Région</th>
             <th>Rôle</th>
-            <th>Editer</th>
+            <th>Actions</th>
         </tr>
         {% for user in users %}
             <tr>

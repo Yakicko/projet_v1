@@ -9,6 +9,7 @@
 namespace Repository;
 
 use Entity\Recipe;
+
 class RecipeRepository extends RepositoryAbstract
 {
     protected function getTable()
@@ -75,21 +76,32 @@ class RecipeRepository extends RepositoryAbstract
         }
     }
 
+    public function delete (Recipe $recipe)
+    {
+        $this->db->delete(
+            'recipes',
+                ['id_recipe' => $recipe->getId_recipe()]
+        );
+    }
+
     private function buildEntity(array $data)
     {
         $recipe = new Recipe();
 
-        $recipe->setId_recipe($data['id_recipe'])
-                ->setTitle($data['title'])
-                ->setStar_ingredient($data['star_ingredient'])
-                ->setPrep_time($data['prep_time'])
-                ->setCook_time($data['cook_time'])
-                ->setPicture_recipe($data['picture_recipe'])
-                ->setDifficulty($data['difficulty'])
-                ->setPortion($data['portion'])
-                ->setIngredients($data['ingredients'])
-                ->setMethods($data['methods'])
-                ->setStory($data['story']);
+        $recipe
+            ->setId_recipe($data['id_recipe'])
+            ->setId_region($data['id_region'])
+            ->setId_user($data['id_user'])
+            ->setTitle($data['title'])
+            ->setStar_ingredient($data['star_ingredient'])
+            ->setPrep_time($data['prep_time'])
+            ->setCook_time($data['cook_time'])
+            ->setPicture_recipe($data['picture_recipe'])
+            ->setDifficulty($data['difficulty'])
+            ->setPortion($data['portion'])
+            ->setIngredients($data['ingredients'])
+            ->setMethods($data['methods'])
+            ->setStory($data['story']);
 
         return $recipe;
     }

@@ -23,13 +23,13 @@
                         <a href="{{ path('admin_users') }}">Gestion Utilisateurs</a>
                     </li>
                     <li>
-                        <a href="{#{{ path('admin_recipes') }}#}">Gestion Recettes</a>
+                        <a href="{{ path('admin_recipes') }}">Gestion Recettes</a>
                     </li>
                     <li>
                         <a href="{#{{ path('admin_comments') }}#}">Gestion Commentaires</a>
                     </li>
                     <li>
-                        <a href="{#{{ path('admin_regions') }}#}">Gestion Régions</a>
+                        <a href="{{ path('admin_regions') }}">Gestion Régions</a>
                     </li>
                 </ul>
             </div>
@@ -100,6 +100,7 @@
                 <div class="alert alert-{{ type }}">{{ flash|raw }}</div>
             {% endfor %}
         {% endfor %}
+        {% block secondaryNavigation %}{% endblock %}
         {% block content %}{% endblock %}
         {% block javascripts %}
             <script src="../web/js/jquery-3.2.1.min.js"></script>

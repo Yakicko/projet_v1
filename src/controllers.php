@@ -55,6 +55,7 @@ $admin->before(function () use ($app){
 
 $app->mount('/admin', $admin);
 
+    //-------------- USER
 $admin
     ->get('/utilisateurs', 'admin.user.controller:listAction')
     ->bind('admin_users')
@@ -72,7 +73,35 @@ $admin
     ->bind('admin_user_delete')
 ;
 
+    //------------- RECIPE
+$admin
+    ->get('/recettes', 'admin.recipe.controller:listAction')
+    ->bind('admin_recipes')
+;
 
+$admin
+    ->get('/recette/suppression/{id_recipe}', 'admin.recipe.controller:deleteAction')
+    ->assert('id_recipe','\d+') // id doit être un nombre  */
+    ->bind('admin_recipe_delete')
+;
+
+    //------------- REGION
+$admin
+    ->get('/regions', 'admin.region.controller:listAction')
+    ->bind('admin_regions')
+;
+
+$admin
+    ->match('/region/edition/{id_region}', 'admin.region.controller:editAction')
+    ->value('id_region', null) // valeur par défaut pour l'id
+    ->bind('admin_region_edit')
+;
+
+$admin
+    ->get('/region/suppression/{id_region}', 'admin.region.controller:deleteAction')
+    ->assert('id_region','\d+') // id doit être un nombre
+    ->bind('admin_region_delete')
+;
 
 
 
