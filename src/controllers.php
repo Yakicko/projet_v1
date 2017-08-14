@@ -11,24 +11,64 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /******************** FRONT *****************************/
 
+$app
+    ->get('/', 'index.controller:indexAction')
+    ->bind('homepage')
+;
 
+    //------------ RECETTE
+$app
+    ->match('/recipe/create', 'recipe.controller:createAction')
+    ->bind('recipe_create')
+;
 
-$app->get('/', 'index.controller:indexAction')->bind('homepage');
+$app
+    ->match('/recipe/list', 'recipe.controller:listAction')
+    ->bind('recipe_list')
+;
 
-$app->match('/recipe/create', 'recipe.controller:createAction')->bind('recipe_create');
+$app
+    ->match('/recipe/index/{id_recipe}', 'recipe.controller:indexAction')
+    ->bind('recipe_index')
+;
 
-$app->match('/recipe/list', 'recipe.controller:listAction')->bind('recipe_list');
+$app
+    ->get('/recettes/utilisateur/{id_user}', 'recipe.controller:userRecipeAction')
+    ->bind('recipes_user')
+;
 
-$app->match('/recipe/index/{id_recipe}', 'recipe.controller:indexAction')->bind('recipe_index');
+    //------------ REGION
+$app
+    ->match('/region/index', 'region.controller:indexAction')
+    ->bind('region_index')
+;
 
-$app->match('/region/index', 'region.controller:indexAction')->bind('region_index');
+$app
+    ->match('/region/index/{id_region}', 'region.controller:indexAction')
+    ->bind('region_index')
+;
 
-$app->match('/region/index/{id_region}', 'region.controller:indexAction')->bind('region_index');
+    //------------ CONTACT
+$app
+    ->match('/contact/index', 'contact.controller:contactAction')
+    ->bind('contact_index')
+;
 
-
+    //------------ UTILISATEUR
 $app
     ->match('/utilisateur/inscription', 'user.controller:registerAction')
     ->bind('user_register')
+;
+
+$app
+    ->get('/utilisateur/profil', 'user.controller:profilAction')
+    ->bind('user_profil')
+;
+
+$app
+    ->get('/utilisateur/profil/public/{id_user}', 'user.controller:profilPublicAction')
+    ->assert('id', '\d+')
+    ->bind('user_profil_public')
 ;
 
 $app
@@ -103,16 +143,19 @@ $admin
     ->bind('admin_region_delete')
 ;
 
+    //------------- COMMENTS
+$admin
+    ->get('/comments', 'admin.comment.controller:listAction')
+    ->bind('admin_comments')
+;
 
+$admin
+    ->get('/comment/suppression/{id_comment}', 'admin.comment.controller:deleteAction')
+    ->assert('id_comment','\d+') // id doit être un nombre
+    ->bind('admin_comment_delete')
+;
 
-
-
-
-
-
-
-
-
+/******************** ERROR ******************************/
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {

@@ -101,8 +101,9 @@ class RecipeRepository extends RepositoryAbstract
             ->setPortion($data['portion'])
             ->setIngredients($data['ingredients'])
             ->setMethods($data['methods'])
-            ->setStory($data['story']);
-
+            ->setStory($data['story'])
+            ->setStatus($data['status'])
+        ;
         return $recipe;
     }
 }

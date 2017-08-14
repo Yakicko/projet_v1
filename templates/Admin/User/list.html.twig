@@ -16,7 +16,7 @@
             <th>Nom</th>
             <th>Prénom</th>
             <th>Email</th>
-            <th>ID Région</th>
+            <th>Région</th>
             <th>Rôle</th>
             <th>Actions</th>
         </tr>
@@ -28,7 +28,7 @@
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.id_region }}</td>
+                <td>{{ user.regionName }}</td>
                 <td>{{ user.status }}</td>
                 <td>
                     <a href="{{ path('admin_user_edit', {id_user: user.id_user}) }}" 

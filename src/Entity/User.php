@@ -24,6 +24,8 @@ class User
 
     private $password;
 
+    private $region;
+
     /**
      * @return mixed
      */
@@ -231,4 +233,61 @@ class User
 
         return $this;
     }
+
+    /*************************************** REGION *******************************/
+
+    /**
+     * @return mixed
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param mixed $region
+     *
+     * @return self
+     */
+    public function setRegion(Region $region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /*************************************** REGION NAME *******************************/
+
+    //private $region_name;
+
+    /**
+     * @param mixed $region_name
+     *
+     * @return self
+     */
+    /*public function setRegion_Name($region_name)
+    {
+        $this->region_name = $region_name;
+
+        return $this;
+    }*/
+
+    public function getRegionId()
+    {
+        if (!is_null($this->region)) {
+            return $this->region->getId_region();
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegionName()
+    {
+        if (!is_null($this->region)) {
+            return $this->region->getRegion_name();
+        }
+        return '';
+    }
+
 }

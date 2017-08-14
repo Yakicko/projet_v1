@@ -5,6 +5,7 @@ namespace Controller\Admin;
 
 use Controller\ControllerAbstract;
 use Entity\User;
+use Entity\Region;
 
 
 class UserController extends ControllerAbstract
@@ -33,7 +34,11 @@ class UserController extends ControllerAbstract
         } else {
 
             $user = new User();
+            $user->setRegion(new Region());
         }
+
+        $regions = $this->app["region.repository"]->findAll();
+        $errors = [];
 
         if (!empty($_POST)) {
             $user
@@ -42,8 +47,13 @@ class UserController extends ControllerAbstract
                 ->setEmail($_POST['email'])
                 ->setUsername($_POST['username'])
                 ->setCivility($_POST['civility'])
-                ->setId_region($_POST['id_region'])
+                //->setId_region($_POST['id_region'])
                 ->setStatus($_POST['status'])
+            ;
+
+            $user
+                ->getRegion()
+                ->setId_region($_POST['region'])
             ;
             
             if (empty($_POST['username'])){
@@ -71,6 +81,10 @@ class UserController extends ControllerAbstract
             } elseif(!empty($this->app['user.repository']->findByEmail($_POST['email'], $id_user))){
                 $errors['email'] = 'Cet email est déjà utilisé';
             }
+
+            if(empty($_POST['region'])){
+                $errors['region'] = 'La région est obligatoire';
+            }
             
             if (empty($errors)){
                 $this->app['user.repository']->save($user);
@@ -85,13 +99,11 @@ class UserController extends ControllerAbstract
         
         }
         
-        $regionsList = $this->app["region.repository"]->findAll();
-        
         return $this->render(
                 'admin/user/edit.html.twig',
                 [
                     'user' => $user,
-                    'regions' => $regionsList
+                    'regions' => $regions
                 ]
         );
     }

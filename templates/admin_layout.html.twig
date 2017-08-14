@@ -9,6 +9,9 @@
             <li {% if adminActive == 'recipes' %}class="active"{% endif %}>
                 <a href="{{ path('admin_recipes') }}">{{ 'Recettes' }}</a>
             </li>
+            <li {% if adminActive == 'comments' %}class="active"{% endif %}>
+                <a href="{{ path('admin_comments') }}">{{ 'Commentaires' }}</a>
+            </li>
             <li {% if adminActive == 'regions' %}class="active"{% endif %}>
                 <a href="{{ path('admin_regions') }}">{{ 'Régions' }}</a>
             </li>

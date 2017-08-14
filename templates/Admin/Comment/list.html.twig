@@ -1,0 +1,35 @@
+{% extends "admin_layout.html.twig" %}
+{% set active = 'admin' %}
+{% set adminActive = 'comments' %}
+
+{% block title 'Admin Commentaires' %}
+    
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Gestion Commentaires</h1>
+    
+    <table class="table table-hover">
+        <tr>
+            <th>ID</th>
+            <th>Utilisateur</th>
+            <th>Recette</th>
+            <th>Commentaire</th>
+            <th>Actions</th>
+        </tr>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.id_comment }}</td>
+                <td>{{ comment.id_user }}</td>
+                <td>{{ comment.id_recipe }}</td>
+                <td>{{ comment.content }}</td>
+                <td>
+                    <a href="{{ path('admin_comment_delete', {id_comment: comment.id_comment}) }}" 
+                       class="btn btn-danger">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

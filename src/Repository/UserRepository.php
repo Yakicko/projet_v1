@@ -3,6 +3,7 @@
 namespace Repository;
 
 use Entity\User;
+use Entity\Region;
 
 class UserRepository extends RepositoryAbstract
 {
@@ -17,7 +18,10 @@ class UserRepository extends RepositoryAbstract
      */
     public function findAll()
     {
-        $dbusers = $this->db->fetchAll('SELECT * FROM users');  
+    	$query = 'SELECT * FROM users u' . ' JOIN regions r ON u.id_region = r.id_region';
+
+        //$dbusers = $this->db->fetchAll('SELECT * FROM users');
+        $dbusers = $this->db->fetchAll($query);    
         
         $users = [];
         
@@ -37,11 +41,14 @@ class UserRepository extends RepositoryAbstract
      */
     public function find($id_user)
     {
+    	$query = 'SELECT u.*, r.region_name FROM users u'
+    			. ' JOIN regions r ON u.id_region = r.id_region'
+    			. ' WHERE u.id_user = :id_user'
+    	;
+
         $dbUser = $this->db->fetchAssoc(
-            'SELECT * FROM users WHERE id_user = :id_user',
-            [
-                ':id_user' => $id_user
-            ]
+            $query,
+            [ ':id_user' => $id_user ]
         );
         if (!empty($dbUser)){
             return $this->buildEntity($dbUser);
@@ -111,9 +118,9 @@ class UserRepository extends RepositoryAbstract
 					'email' => $user->getEmail(),
 					'username' => $user->getUsername(),
 					'civility' => $user->getCivility(),
-					'id_region' => $user->getId_region(),
 					'password' => $user->getPassword(),
-					'status' => $user->getStatus()
+					'status' => $user->getStatus(),
+					'id_region' => $user->getRegionId()
 				];
 
 	
@@ -125,8 +132,10 @@ class UserRepository extends RepositoryAbstract
 		// appel à la méthode de RepositoryAbstract pour enregistrer
 		$this->persist($data, $where);
 
-		// on set l'id quand on est en insert		
-		$user->setId_user($this->db->lastInsertId());
+		// on set l'id quand on est en insert
+		if(empty($user->getId_user())){	
+			$user->setId_user($this->db->lastInsertId());
+		}
 		
 	}
 
@@ -144,6 +153,13 @@ class UserRepository extends RepositoryAbstract
 	 */
 	private function buildEntity(array $data)
 	{
+		$region = new Region();
+
+		$region
+			->setId_region($data['id_region'])
+			->setRegion_name($data['region_name'])
+		;
+
 		$user = new User();
 
 		$user
@@ -154,10 +170,11 @@ class UserRepository extends RepositoryAbstract
 			->setUsername($data['username'])
 			->setCivility($data['civility'])
 			->setUsername($data['username'])
-			->setId_region($data['id_region'])
 			->setStatus($data['status'])
 			->setPassword($data['password'])
+			->setRegion($region)
 		;
+
 		return $user;
 	}
 }

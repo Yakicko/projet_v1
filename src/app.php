@@ -57,6 +57,11 @@ $app['recipe.controller'] = function () use ($app)
     return new \Controller\RecipeController($app);
 };
 
+$app['contact.controller'] = function () use ($app)
+{
+    return new \Controller\ContactController($app);
+};
+
 //----------------------------- BACK ---------------------------------//
 
 $app['admin.user.controller'] = function() use ($app){
@@ -71,6 +76,9 @@ $app['admin.region.controller'] = function() use ($app){
     return new \Controller\Admin\RegionController($app);
 };
 
+$app['admin.comment.controller'] = function() use ($app){
+    return new \Controller\Admin\CommentController($app);
+};
 
 //----------------------------- REPOSITORIES ---------------------------------//
 
@@ -85,6 +93,16 @@ $app['region.repository'] = function() use ($app){
 $app['recipe.repository'] = function () use ($app)
 {
     return new \Repository\RecipeRepository($app);
+};
+
+$app['regiondetail.repository'] = function () use ($app)
+{
+    return new \Repository\RegionDetailRepository($app);
+};
+
+$app['comment.repository'] = function () use ($app)
+{
+    return new \Repository\CommentRepository($app);
 };
 
 //-------------------- AUTRES SERVICES -------------------------------//

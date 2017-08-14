@@ -60,6 +60,7 @@ class RecipeController extends ControllerAbstract
                 ->setMethods($_POST['methods'])
                 ->setStory($_POST['story'])
                 ->setId_region($_POST['id_region'])
+                ->setStatus($_POST['status'])
                 ->setPicture_recipe($_FILES['picture_recipe']['name']);
 
 
