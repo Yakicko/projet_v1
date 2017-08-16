@@ -231,4 +231,28 @@ class User
 
         return $this;
     }
+    /*************************************** REGION NAME *******************************/
+
+    private $regionName;
+
+    /**
+     * @param mixed $region_name
+     *
+     * @return self
+     */
+    public function setRegionName($region_name)
+    {
+        $this->regionName = $region_name;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegionName()
+    {
+        return $this->regionName;
+
+    }
 }

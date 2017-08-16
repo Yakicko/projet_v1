@@ -69,6 +69,14 @@ class UserManager
 		return '';
 	}
 
+    public function getUserId()
+    {
+        if($this->session->has('user')){
+            return $this->session->get('user')->getId_user();
+        }
+        return null;
+    }
+
 	/*
 	@return bool
 	 */

@@ -37,11 +37,21 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 
 /* CONTROLLERS */
 
-//----------------------------- FRONT ---------------------------------//
-$app['user.controller'] = function() use ($app){
-    return new \Controller\UserController($app);
-};
+
 //----------------------------- BACK ---------------------------------//
+
+$app['admin.user.controller'] = function() use ($app){
+    return new \Controller\Admin\UserController($app);
+};
+$app['admin.recipe.controller'] = function() use ($app){
+    return new \Controller\Admin\RecipeController($app);
+};
+$app['admin.region.controller'] = function() use ($app){
+    return new \Controller\Admin\RegionController($app);
+};
+$app['admin.comment.controller'] = function() use ($app){
+    return new \Controller\Admin\CommentController($app);
+};
 
 //----------------------------- REPOSITORIES ---------------------------------//
 
@@ -62,6 +72,9 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 /* CONTROLLERS */
 
 //----------------------------- FRONT ---------------------------------//
+$app['user.controller'] = function() use ($app){
+    return new \Controller\UserController($app);
+};
 
 $app['region.controller'] = function() use ($app){
     return new \Controller\RegionController($app);
@@ -99,6 +112,10 @@ $app['regiondetail.repository'] = function () use ($app)
 $app['comment.repository'] = function () use ($app)
 {
     return new \Repository\CommentRepository($app);
+};
+$app['rating.repository'] = function () use ($app)
+{
+    return new \Repository\RatingRepository($app);
 };
 
 return $app;

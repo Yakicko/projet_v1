@@ -126,11 +126,45 @@ class Comment
         return $this;
     }
 
+    /*************************************** USERNAME *******************************/
+
+    private $userName;
+
+    public function setUserName($username)
+    {
+        $this->userName = $username;
+
+        return $this;
+    }
+
     public function getUserName()
     {
-        if (!empty($this->user)) {
-            return $this->user->getUsername();
-        }
+        return $this->userName;
+    }
+
+    /*************************************** RECIPE NAME *******************************/
+
+    private $recipeName;
+
+    /**
+     * @param mixed $username
+     *
+     * @return self
+     */
+    public function setRecipeName($title)
+    {
+        $this->recipeName = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRecipeName()
+    {
+        return $this->recipeName;
+
     }
 
 

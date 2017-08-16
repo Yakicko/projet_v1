@@ -8,7 +8,12 @@
         <div class="col-sm-8 col-sm-offset-2">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" class="img-responsive img-thumbnail" width="500px">
+                    <img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" class="img-responsive img-thumbnail"
+                         width="500px">
+                    {% for ratings in ratings %}
+                        <p>Moyenne de la recette :{{ ratings.moyenne|number_format(2,',', '.') }}/5 pour
+                            ({% for voters in voters %}{{ voters.votants }}{% endfor %}) participations</p>
+                    {% endfor %}
                 </div>
                 <div class="panel-body">
                     <div class="col-md-6">
@@ -25,18 +30,47 @@
                         <p>Anecdote: {{ recipe.story }}</p>
                     </div>
                     <div class="col-md-12">
-                        <p>Auteur: <a href="{{ path('user_profil_public',{id_user:recipe.id_user})}}">{{ user.username }}</a></p>
+                        <p>Auteur: <a
+                                    href="{{ path('user_profil_public',{id_user:recipe.id_user}) }}">{{ user.username }}</a>
+                        </p>
                     </div>
 
                     <!-- Fromulaire du commentaires -->
 
-                    <form method="post" >
-                        <div class="form-group">
-                            <label>Votre commentaire :</label>
-                            <textarea name="commentaire" class="form-control" rows="10"></textarea>
-                        </div>
-                        <button name="envoi" type="submit" class="btn btn-primary form-control">Envoyer</button>
-                    </form>
+                    {% if user_manager.getUser() %}
+                        <form method="post">
+                            <div class="form-group">
+                                <label>Votre commentaire :</label>
+                                <textarea name="content" class="form-control" rows="10"></textarea>
+                            </div>
+                            <button name="contentBtn" value="contentBtn" type="submit"
+                                    class="btn btn-primary form-control">Envoyer
+                            </button>
+                        </form>
+                        <form method="post">
+                            <div class="form-group">
+                                <label>note de la recette</label>
+                                <select name="rate" class="form-control">
+                                    <option>Indiquez la note</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <button name="rateBtn" value="rateBtn" type="submit" class="btn btn-primary form-control">
+                                Envoyer
+                            </button>
+                        </form>
+                    {% else %}
+                        <p class="text-danger text-center">Vous devez être connecté pour commenter et noter une
+                            recette</p>
+
+                        <a class="btn btn-primary btn-block"
+                           href="{{ path("user_login", {redirect: global.request.requestUri}) }}">Se connecter</a>
+                    {% endif %}
 
                     <!-- Boucle pour afficher tout les commentaires-->
                     <div class="panel-body">
@@ -44,7 +78,6 @@
                             <hr>
                             {% for comment in comments %}
                                 <p>Posté par :{{ comment.username }}</p>
-
                                 <p>Commentaire :{{ comment.content }}</p>
                                 <hr>
                             {% else %}

@@ -8,7 +8,6 @@
 
 namespace Repository;
 
-use Entity\Recipe;
 use Entity\Comment;
 use Entity\User;
 
@@ -21,7 +20,13 @@ class CommentRepository extends RepositoryAbstract
 
     public function findAll()
     {
-        $dbComments = $this->db->fetchAll('SELECT * FROM comments JOIN users u ON c.id_user = u.id_user');
+        //modif
+        $query = 'SELECT * FROM comments c'
+            . ' JOIN users u ON c.id_user = u.id_user'
+            . ' JOIN recipes r ON c.id_recipe = r.id_recipe'
+        ;
+
+        $dbComments = $this->db->fetchAll($query);
 
         $comments = [];
 
@@ -77,6 +82,28 @@ class CommentRepository extends RepositoryAbstract
         }
     }
 
+    public function find($id_comment)
+    {
+        $dbComment = $this->db->fetchAssoc(
+            'SELECT * FROM comments WHERE id_comment = :id_comment',
+            [
+                ':id_comment' => $id_comment
+            ]
+        );
+        if(!empty($dbComment)){
+            return $this->buildEntity($dbComment);
+        }
+    }
+
+    public function delete(Comment $comment)
+    {
+        $this->db->delete(
+            'comments',
+            ['id_comment' => $comment->getId_comment()]
+        );
+    }
+
+
     private function buildEntity(array $data)
     {
 
@@ -89,10 +116,18 @@ class CommentRepository extends RepositoryAbstract
 
         $user = new User();
 
-        $user
-            ->setId_user($data['id_user'])
-            ->setUsername($data['username'])
-        ;
+        if (isset($data['username'])) {
+            $comment->setUserName($data['username']);
+        }
+
+        if (isset($data['title'])) {
+            $comment->setRecipeName($data['title']);
+        }
+
+//        $user
+//            ->setId_user($data['id_user'])
+//            ->setUsername($data['username'])
+//        ;
 
         $comment->setUser($user);
 
