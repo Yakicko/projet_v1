@@ -19,7 +19,13 @@ class RecipeRepository extends RepositoryAbstract
 
     public function findAll()
     {
-        $dbRecipes = $this->db->fetchAll('SELECT * FROM recipes');
+        $query = "SELECT r.id_recipe, r.id_region, r.id_user, r.title, r.picture_recipe, r.star_ingredient, r.difficulty, r.prep_time, r.cook_time, r.portion, r.ingredients, r.methods, r.story, r.status, s.region_name, u.username FROM recipes r" 
+                . " JOIN regions s ON r.id_region = s.id_region"
+                . " JOIN users u ON r.id_user = u.id_user"
+                . " WHERE r.status = 'En attente'"
+        ;
+
+        $dbRecipes = $this->db->fetchAll($query);
 
         $recipes = [];
 
@@ -35,7 +41,10 @@ class RecipeRepository extends RepositoryAbstract
 
     public function find($id_recipe)
     {
-        $query = 'SELECT * FROM recipes WHERE id_recipe = :id_recipe';
+        $query = 'SELECT r.*, s.region_name FROM recipes r' 
+                . ' JOIN regions s ON r.id_region = s.id_region'
+                . ' WHERE id_recipe = :id_recipe'
+        ;
 
         $dbRecipe = $this->db->fetchAssoc($query,
             [
@@ -63,7 +72,8 @@ class RecipeRepository extends RepositoryAbstract
             'methods' => $recipe->getMethods(),
             'story' => $recipe->getStory(),
             'id_region' => $recipe->getId_region(),
-            'picture_recipe' => $recipe->getPicture_recipe()
+            'picture_recipe' => $recipe->getPicture_recipe(),
+            'status' => $recipe->getStatus()
         ];
 
         // Appel à la méthode de RepositoryAbstract pour enregistrer
@@ -74,6 +84,15 @@ class RecipeRepository extends RepositoryAbstract
         {
             $recipe->setId_recipe($this->db->lastInsertId());
         }
+    }
+
+    public function validRecipe(Recipe $recipe)
+    {
+        $data = [
+            'status' => 'validée'
+        ];
+
+        $this->persist($data, ['id_recipe' => $recipe->getId_recipe()]);
     }
 
     public function delete (Recipe $recipe)
@@ -104,6 +123,15 @@ class RecipeRepository extends RepositoryAbstract
             ->setStory($data['story'])
             ->setStatus($data['status'])
         ;
+
+        if (isset($data['region_name'])) {
+            $recipe->setRegionName($data['region_name']);
+        }
+
+        if (isset($data['username'])) {
+            $recipe->setUserName($data['username']);
+        }
+
         return $recipe;
     }
 }

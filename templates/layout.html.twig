@@ -14,7 +14,7 @@
 
 </head>
 <body>
-    {% if user_manager.admin %}
+    {#{% if user_manager.admin %}
         <nav class="navbar navbar-inverse">
             <div class="container">
                 <a class="navbar-brand">Menu Admin</a>
@@ -34,7 +34,7 @@
                 </ul>
             </div>
         </nav>
-    {% endif %}
+    {% endif %}#}
         <nav class="navbar navbar-default">
             <div class="container"> <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -65,28 +65,32 @@
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="">Profil</a></li>
-                        
-                        {% if user_manager.user %}{# si un utilisateur est connecté #}
-                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user_manager.username }} <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="">Profil</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
+                            {% if user_manager.admin %}
+                                <li>
+                                    <a href="{{ path('admin_users') }}">GESTION ADMIN</a>
+                            {% endif %}
+                                </li>
+                            {% if user_manager.user %}{# si un utilisateur est connecté #}
+                                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user_manager.username }} <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="">Profil</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Separated link</a></li>
+                                    </ul>
+                                </li>
+                        <li>
+                            <a href="{{ path('user_logout') }}">Se déconnecter</a>
                         </li>
-                    <li>
-                        <a href="{{ path('user_logout') }}">Se déconnecter</a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{{ path('user_register') }}">Créer un compte</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('user_login') }}">Se connecter</a>
-                    </li>
-                {% endif %}
+                            {% else %}
+                        <li>
+                            <a href="{{ path('user_register') }}">Créer un compte</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('user_login') }}">Se connecter</a>
+                        </li>
+                            {% endif %}
                     </ul>
                 </div>
             </div>
@@ -190,8 +194,8 @@
             </div>
         </nav>
         {% block javascripts %}
-            <script src="../web/js/jquery-3.2.1.min.js"></script>
-            <script src="../web/js/bootstrap.min.js"></script>
+            <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         {% endblock %}
     </body>
 </html>

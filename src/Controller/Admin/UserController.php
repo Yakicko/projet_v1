@@ -34,7 +34,6 @@ class UserController extends ControllerAbstract
         } else {
 
             $user = new User();
-            $user->setRegion(new Region());
         }
 
         $regions = $this->app["region.repository"]->findAll();
@@ -47,15 +46,10 @@ class UserController extends ControllerAbstract
                 ->setEmail($_POST['email'])
                 ->setUsername($_POST['username'])
                 ->setCivility($_POST['civility'])
-                //->setId_region($_POST['id_region'])
+                ->setId_region($_POST['region'])
                 ->setStatus($_POST['status'])
             ;
 
-            $user
-                ->getRegion()
-                ->setId_region($_POST['region'])
-            ;
-            
             if (empty($_POST['username'])){
                 $errors['username'] = 'Le pseudo est obligatoire';
             }elseif(!empty($this->app['user.repository']->isUnique($_POST['username'], $id_user))){
@@ -82,10 +76,6 @@ class UserController extends ControllerAbstract
                 $errors['email'] = 'Cet email est déjà utilisé';
             }
 
-            if(empty($_POST['region'])){
-                $errors['region'] = 'La région est obligatoire';
-            }
-            
             if (empty($errors)){
                 $this->app['user.repository']->save($user);
                 

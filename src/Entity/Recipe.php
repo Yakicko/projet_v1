@@ -334,4 +334,54 @@ class Recipe
         $this->picture_recipe = $picture_recipe;
         return $this;
     }
+
+    /*************************************** REGION NAME *******************************/
+
+    private $regionName;
+
+    /**
+     * @param mixed $region_name
+     *
+     * @return self
+     */
+    public function setRegionName($region_name)
+    {
+        $this->regionName = $region_name;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegionName()
+    {
+        return $this->regionName;
+        
+    }
+
+    /*************************************** USERNAME *******************************/
+
+    private $userName;
+
+    /**
+     * @param mixed $username
+     *
+     * @return self
+     */
+    public function setUserName($username)
+    {
+        $this->userName = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+        
+    }
 }

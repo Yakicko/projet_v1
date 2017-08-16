@@ -47,7 +47,7 @@ class RegionController extends ControllerAbstract
             if (empty($errors)){
                 $this->app['region.repository']->save($region);
                 
-                $this->addFlashMessage('La région est enregistrée');
+                $this->addFlashMessage('La région est bien enregistrée');
                 return $this->redirectRoute('admin_regions');
             } else {
                 $message = '<strong>Le formulaire contient des erreurs</strong>';
@@ -56,6 +56,7 @@ class RegionController extends ControllerAbstract
             }
         
         }
+
         return $this->render(
                 'admin/region/edit.html.twig',
                 [

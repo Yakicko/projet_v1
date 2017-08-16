@@ -120,6 +120,12 @@ $admin
 ;
 
 $admin
+    ->match('/recette/valider/{id_recipe}', 'admin.recipe.controller:validateAction')
+    ->value('id_user', null) // valeur par défaut pour l'id
+    ->bind('admin_recipe_validate')
+;
+
+$admin
     ->get('/recette/suppression/{id_recipe}', 'admin.recipe.controller:deleteAction')
     ->assert('id_recipe','\d+') // id doit être un nombre  */
     ->bind('admin_recipe_delete')

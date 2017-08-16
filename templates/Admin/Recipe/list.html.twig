@@ -8,40 +8,50 @@
 <div class="container">
     <h1 class="text-center">Gestion Recettes</h1>
     
-    <table class="table table-condensed">
-        <tr>
-            <th>ID</th>
-            <th>ID Région</th>
-            <th>ID Utilisateur</th>
-            <th>Titre</th>
-            <th>Photo</th>
-            <th>Ingrédient Star</th>
-            <th>Difficulté</th>
-            <th>Temps de préparation</th>
-            <th>Temps de cuisson</th>
-            <th>Portion</th>
-            <th>Ingrédients</th>
-            <th>Méthodes</th>
-            <th>Histoire</th>
-            <th>Etat</th>
-            <th>Actions</th>
-        </tr>
+    <table class="table table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th colspan="2" style="text-align: center;">ID</th>
+                <th colspan="2" style="text-align: center;">Région</th>
+                <th colspan="2" style="text-align: center;">Pseudo membre</th>
+                <th colspan="2" style="text-align: center;">Titre</th>
+                <th colspan="2" style="text-align: center;">Photo</th>
+                <th colspan="2" style="text-align: center;">Ingrédient Star</th>
+                <th colspan="2" style="text-align: center;">Difficulté</th>
+                <th colspan="2" style="text-align: center;">Temps de préparation</th>
+                <th colspan="2" style="text-align: center;">Temps de cuisson</th>
+                <th colspan="2" style="text-align: center;">Portion</th>
+                <th colspan="2" style="text-align: center;">Ingrédients</th>
+                <th colspan="2" style="text-align: center;">Méthodes</th>
+                <th colspan="2" style="text-align: center;">Histoire</th>
+                <th colspan="2" style="text-align: center;" class="danger">Etat</th>
+                <th colspan="2" style="text-align: center;">Valider</th>
+                <th colspan="2" style="text-align: center;">Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for recipe in recipes %}
             <tr>
-                <td>{{ recipe.id_recipe }}</td>
-                <td>{{ recipe.id_region }}</td>
-                <td>{{ recipe.id_user }}</td>
-                <td>{{ recipe.title }}</td>
-                <td>{{ recipe.picture_recipe }}</td>
-                <td>{{ recipe.star_ingredient }}</td>
-                <td>{{ recipe.difficulty }}</td>
-                <td>{{ recipe.prep_time }}</td>
-                <td>{{ recipe.cook_time }}</td>
-                <td>{{ recipe.portion }}</td>
-                <td>{{ recipe.ingredients }}</td>
-                <td>{{ recipe.methods }}</td>
-                <td>{{ recipe.story }}</td>
-                <td>{{ recipe.status }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.id_recipe }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.regionName }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.userName }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.title }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.picture_recipe }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.star_ingredient }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.difficulty }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.prep_time }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.cook_time }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.portion }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.ingredients }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.methods }}</td>
+                <td colspan="2" style="text-align: center;">{{ recipe.story }}</td>
+                <td colspan="2" style="text-align: center;" class="danger">{{ recipe.status }}</td>
+                <td colspan="2" style="text-align: center;">
+                    <a href="{{ path('admin_recipe_validate', {id_recipe: recipe.id_recipe}) }}" 
+                       class="btn btn-success">
+                        Valider
+                    </a>
+                </td>
                 <td>
                     <a href="{{ path('admin_recipe_delete', {id_recipe: recipe.id_recipe}) }}" 
                        class="btn btn-danger">
@@ -50,6 +60,7 @@
                 </td>
             </tr>
         {% endfor %}
+        </tbody>
     </table>
 </div>
 {% endblock %}

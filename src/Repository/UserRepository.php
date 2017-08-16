@@ -120,7 +120,7 @@ class UserRepository extends RepositoryAbstract
 					'civility' => $user->getCivility(),
 					'password' => $user->getPassword(),
 					'status' => $user->getStatus(),
-					'id_region' => $user->getRegionId()
+					'id_region' => $user->getId_region()
 				];
 
 	
@@ -153,13 +153,6 @@ class UserRepository extends RepositoryAbstract
 	 */
 	private function buildEntity(array $data)
 	{
-		$region = new Region();
-
-		$region
-			->setId_region($data['id_region'])
-			->setRegion_name($data['region_name'])
-		;
-
 		$user = new User();
 
 		$user
@@ -172,8 +165,12 @@ class UserRepository extends RepositoryAbstract
 			->setUsername($data['username'])
 			->setStatus($data['status'])
 			->setPassword($data['password'])
-			->setRegion($region)
+			->setId_region($data['id_region'])
 		;
+
+		if (isset($data['region_name'])) {
+			$user->setRegionName($data['region_name']);
+		}
 
 		return $user;
 	}

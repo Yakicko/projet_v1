@@ -21,7 +21,12 @@ class CommentRepository extends RepositoryAbstract
 
     public function findAll()
     {
-        $dbComments = $this->db->fetchAll('SELECT * FROM comments c JOIN users u ON c.id_user = u.id_user');
+        $query = 'SELECT * FROM comments c' 
+                . ' JOIN users u ON c.id_user = u.id_user'
+                . ' JOIN recipes r ON c.id_recipe = r.id_recipe'
+        ;
+
+        $dbComments = $this->db->fetchAll($query);
 
         $comments = [];
 
@@ -125,12 +130,15 @@ class CommentRepository extends RepositoryAbstract
 
         $user = new User();
 
-        $user
-            ->setId_user($data['id_user'])
-            ->setUsername($data['username'])
-        ;
-
         $comment->setUser($user);
+
+        if (isset($data['username'])) {
+            $comment->setUserName($data['username']);
+        }
+
+        if (isset($data['title'])) {
+            $comment->setRecipeName($data['title']);
+        }
 
         return $comment;
     }

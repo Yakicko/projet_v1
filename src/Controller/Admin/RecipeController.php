@@ -19,20 +19,35 @@ class RecipeController extends ControllerAbstract
             ]
         );
     }
+
+    public function validateAction($id_recipe)
+    {
+        $recipe = $this->app['recipe.repository']->find($id_recipe);
+        
+        if (!$recipe instanceof Recipe) {
+            $this->app->abort(404);
+        }
+
+        $this->app['recipe.repository']->validRecipe($recipe);
+        
+        $this->addFlashMessage('La recette est validée');
+        
+        return $this->redirectRoute('admin_recipes');
+    }
     
     public function deleteAction($id_recipe)
     {
-            $recipe = $this->app['recipe.repository']->find($id_recipe);
-            
-            if (!$recipe instanceof Recipe) {
-                $this->app->abort(404);
-            }
-            
-            $this->app['recipe.repository']->delete($recipe);
-            
-            $this->addFlashMessage('La recette est supprimée');
-            
-            return $this->redirectRoute('admin_recipes');
+        $recipe = $this->app['recipe.repository']->find($id_recipe);
+        
+        if (!$recipe instanceof Recipe) {
+            $this->app->abort(404);
+        }
+        
+        $this->app['recipe.repository']->delete($recipe);
+        
+        $this->addFlashMessage('La recette est supprimée');
+        
+        return $this->redirectRoute('admin_recipes');
     }
 
 }
