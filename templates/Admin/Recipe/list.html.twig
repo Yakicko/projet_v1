@@ -1,0 +1,77 @@
+{% extends "admin_layout.html.twig" %}
+{% set active = 'admin' %}
+{% set adminActive = 'recipes' %}
+
+{% block title 'Admin Recettes' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Gestion Recettes</h1>
+
+        <table class="table table-condensed table-bordered">
+            <thead>
+            <tr>
+                <th colspan="2" style="text-align: center;">ID</th>
+                <th colspan="2" style="text-align: center;">Région</th>
+                <th colspan="2" style="text-align: center;">Pseudo membre</th>
+                <th colspan="2" style="text-align: center;">Titre</th>
+                <th colspan="2" style="text-align: center;">Photo</th>
+                <th colspan="2" style="text-align: center;">Ingrédient Star</th>
+                <th colspan="2" style="text-align: center;">Difficulté</th>
+                <th colspan="2" style="text-align: center;">Temps de préparation</th>
+                <th colspan="2" style="text-align: center;">Temps de cuisson</th>
+                <th colspan="2" style="text-align: center;">Portion</th>
+                <th colspan="2" style="text-align: center;">Ingrédients</th>
+                <th colspan="2" style="text-align: center;">Méthodes</th>
+                <th colspan="2" style="text-align: center;">Histoire</th>
+                <th colspan="2" style="text-align: center;" class="danger">Etat</th>
+                <th colspan="2" style="text-align: center;">Valider</th>
+                <th colspan="2" style="text-align: center;">Supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for recipe in recipes %}
+                <tr>
+                    <td colspan="2" style="text-align: center;">{{ recipe.id_recipe }}</td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.regionName }}</td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.userName }}</td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.title }}</td>
+                    <td colspan="2" style="text-align: center;"><img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" class="img-thumbnail img-responsive" width="200px"></td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.star_ingredient }}</td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.difficulty }}</td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.prep_time }}</td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.cook_time }}</td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.portion }}</td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.ingredients }}</td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.methods }}</td>
+                    <td colspan="2" style="text-align: center;">{{ recipe.story }}</td>
+                    <td colspan="2" style="text-align: center;" class="danger">{{ recipe.status }}</td>
+                    <td colspan="2" style="text-align: center;">
+                        <a href="{{ path('admin_recipe_validate', {id_recipe: recipe.id_recipe}) }}"
+                           class="btn btn-success">
+                            Valider
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_recipe_delete', {id_recipe: recipe.id_recipe}) }}"
+                           class="btn btn-danger">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div style="text-align: center;">
+            <ul class="pagination border">
+                <li><a href="#">Previous</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">Next</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

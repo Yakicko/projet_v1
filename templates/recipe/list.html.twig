@@ -1,0 +1,91 @@
+{% extends "layout.html.twig" %}
+
+{% block title 'Creation Recette' %}
+
+{% block content %}
+    <h1>Toutes les recettes</h1>
+
+    <p><a href="{{ path('recipe_create') }}">Nouvelle Recette</a></p>
+
+    <form action="" method="post" id="myForm">
+        <div class="form-group">
+            <label>Ingrédient Principal</label>
+            <select id="star_ingredient" name="star_ingredient" class="form-control">
+                <option value="">Choisissez</option>
+                <option name="viande" value="viande">Viande</option>
+                <option name="poisson" value="poisson">Poisson</option>
+                <option name="fruits de mer" value="fruits de mer">Fruits de mer</option>
+                <option name="vegetarien" value="vegetarien">Vegetarien</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Difficulté</label>
+            <select id="difficulty" name="difficulty" class="form-control">
+                <option value="">Choisissez</option>
+                <option name="1" value="1">Facile</option>
+                <option name="2" value="2">Moyen</option>
+                <option name="3" value="3">Difficile</option>
+                <option name="4" value="4">Trés Difficile</option>
+                <option name="5" value="5">Guide Michelin</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Temps de Préparation</label>
+            <select id="prep_time" name="prep_time" class="form-control">
+                <option value="">Choisissez</option>
+                <option name="1" value="'00:00:00' AND '00:29:59'">Moins de 30 minutes</option>
+                <option name="2" value="'00:30:00' AND '00:59:59'">Entre 30 minues et 1 heure</option>
+                <option name="3" value="'01:00:00' AND '01:59:59'">Entre 1 heure et 2 heures</option>
+                <option name="4" value="'02:00:00' AND '24:00:00'">Supérieur a 2 heures</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Temps de Cuisson</label>
+            <select id="cook_time" name="cook_time" class="form-control">
+                <option value="">Choisissez</option>
+                <option name="1" value="'00:00:00' AND '00:29:59'">Moins de 30 minutes</option>
+                <option name="2" value="'00:30:00' AND '00:59:59'">Entre 30 minues et 1 heure</option>
+                <option name="3" value="'01:00:00' AND '01:59:59'">Entre 1 heure et 2 heures</option>
+                <option name="4" value="'02:00:00' AND '24:00:00'">Supérieur a 2 heures</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Portions</label>
+            <select id="portion" name="portion" class="form-control">
+                <option value="">Choisissez</option>
+                <option name="2/3" value="2 AND 3">Entre 2 et 3 personnes</option>
+                <option name="4/5" value="'4' AND '5'">Entre 4 et 5 personnes</option>
+                <option name="5/6" value="'6' AND '7'">Entre 6 et 7 personnes</option>
+                <option name="8+" value="'8' AND '99'">Plus de 8 personnes</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary form-control">Enregistrer</button>
+    </form>
+    <div id="response-div">
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+
+    <script>
+        var postUrl = '{{ path('recipe_search_ajax') }}';
+
+        $('#myForm').submit(function (event) {
+            event.preventDefault();
+            var $this = $(this);
+
+            var data = $this.serialize();
+            $.post(
+                postUrl,
+                data,
+                function (response) {
+                    $('#response-div').html(response);
+
+                },
+                'html'
+            )
+        });
+    </script>
+{% endblock %}

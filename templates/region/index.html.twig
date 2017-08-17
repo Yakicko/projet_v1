@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="starter-template">
+    <h1>{{ region.region_name }}</h1>
+
+    <p><img src="{{ asset('img/' ~ regionDetail.picture_region) }}" class="img-responsive img-thumbnail" width="500px">
+    </p>
+    {% for topRegions in topRegions %}
+        <p>Recette :{{ topRegions.title }}</p>
+        <p>Ingredient Star :{{ topRegions.star_ingredient }}</p>
+        {% endfor %}
+    <p></p>
+    <p>{{ regionDetail.region_story }}</p>
+    <p>{{ regionDetail.details }}</p>
+
+    </div>
+
+    {% endblock %}
