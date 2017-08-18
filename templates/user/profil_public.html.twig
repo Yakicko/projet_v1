@@ -4,7 +4,11 @@
         {#<p>{{ dump(user) }}</p>#}
 <div class="container">
     <div class="row">
-        <div class="col-sm-2" ><img class="img-responsive" src="https://www.gravatar.com/avatar/'.$gravatar.'?d=retro&s=150" /></div>
+        {% if user.user_picture is not empty  %}
+            <div class="col-sm-2" ><img class="img-responsive" src="{{ asset('photo/' ~ user.user_picture) }}" /></div>
+        {% else %}
+            <div class="col-sm-2" ><img class="img-responsive" src="https://www.gravatar.com/avatar/{{gravatar}}?d=retro&s=150" /></div>
+        {% endif %}
         <div class="col-sm-10" >
                 <table class="table">
                     <thead class="thead-inverse">

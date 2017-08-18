@@ -39,6 +39,55 @@ class RegionRepository extends RepositoryAbstract
 		}
 	}
 
+    public function isUnique($region_name, $excluded = null)
+    {
+        $queries = 'SELECT * FROM regions WHERE region_name = :region_name';
+        $param = [':region_name' => $region_name];
+
+        if(!is_null($excluded)){
+            $queries .= ' AND id_region != :id';
+            $param[ ':id' ] = $excluded;
+        }
+
+        $dbRegion = $this->db->fetchAssoc(
+            $queries,
+            $param
+        );
+
+        if(!empty($dbRegion)){
+            return $this->buildEntity($dbRegion);
+        }
+    }
+
+    public function save(Region $region)
+    {
+        // les données à enregistrer en bdd
+        $data = [
+            'region_name' => $region->getRegion_name()
+        ];
+
+
+        $where = !empty($region->getId_region())
+            ? ['id_region' => $region->getId_region()]
+            : null
+        ;
+
+        // appel à la méthode de RepositoryAbstract pour enregistrer
+        $this->persist($data, $where);
+
+        // on set l'id quand on est en insert
+        $region->setId_region($this->db->lastInsertId());
+
+    }
+
+    public function delete(Region $region)
+    {
+        $this->db->delete(
+            'regions',
+            ['id_region' => $region->getId_region()]
+        );
+    }
+
 	private function buildEntity(array $data)
 	{
 		$region = new Region();

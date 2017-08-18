@@ -19,11 +19,26 @@
                 <td>{{ recipe.portion }}</td>
                 <td>{{ recipe.prep_time }}</td>
                 <td>{{ recipe.cook_time }}</td>
-                <td>{{ recipe.difficulty }}</td>
+                <td>
+                    {% if recipe.difficulty is  same as("1") %}
+                        Facile
+                    {% elseif recipe.difficulty is  same as("2") %}
+                        Moyen
+                    {% elseif recipe.difficulty is  same as("3") %}
+                        Difficile
+                    {% elseif recipe.difficulty is  same as("4") %}
+                        Très Difficile
+                    {% elseif recipe.difficulty is  same as("5") %}
+                        Guide Michelin
+                    {% endif %}
+                </td>
                 <td><img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" class="img-thumbnail img-responsive"
                          width="200px"></td>
                 <td><a href="{{ path('recipe_index', {id_recipe: recipe.id_recipe}) }}">Voir</a></td>
             </tr>
         {% endfor %}
     </table>
+    {% for page in 1..nbPages %}
+        <button type="button" class="pagination" data-page="{{ page }}">{{ page }}<br>
+    {% endfor %}
 {% endif %}

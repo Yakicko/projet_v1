@@ -37,6 +37,53 @@ class Comment
     private $user;
 
     /**
+     *
+     * @var
+     */
+    private $comment_date;
+
+    /**
+     * @var
+     */
+    private $comment;
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     * @return Comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComment_date()
+    {
+        return $this->comment_date;
+    }
+
+    /**
+     * @param $comment_date
+     * @return $this
+     */
+    public function setComment_date($comment_date)
+    {
+        $this->comment_date = $comment_date;
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
     public function getId_comment()

@@ -16,8 +16,23 @@ class IndexController extends ControllerAbstract
     {
         $regions = $this->app['region.repository']->findAll();
 
+
         return $this->render('index.html.twig',
-            ['regions' => $regions]
+            [
+                'regions' => $regions,
+            ]
+        );
+    }
+
+    public function footerAction(){
+        $recipesCount = $this->app['recipe.repository']->totalRecipes();
+        $usersCount = $this->app['user.repository']->totalUsers();
+
+        return $this->render('footer.html.twig',
+            [
+                'recipesCount' => $recipesCount,
+                'usersCount'    => $usersCount,
+            ]
         );
     }
 }

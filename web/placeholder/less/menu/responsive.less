@@ -1,0 +1,133 @@
+.@{nav-class-name} {
+	position: relative;
+	&.breakpoint{
+		.@{menu-class-name}{
+			position: absolute;
+			top: 100%;
+			left: 0;
+			margin: 0;
+			padding: 0;
+			background: #333;
+			min-width: 300px;
+			display: none;
+			> li {
+				position: relative;
+				display: block;
+				float: none;
+				z-index: 1;
+				&.inactive-li{
+					display: none;
+				}
+				> a{
+					border-bottom: 1px solid #666;
+					padding: 15px;
+					font-size: 14px;
+					line-height: 1;
+					white-space: normal;
+					&:before{
+						display: none;
+					}
+				}
+			}
+			.sub-menu{
+				position: relative;
+				left: 0;
+				top: 0;
+				display: none;
+				z-index: 2;
+				width: 100%;
+				background: transparent;
+				margin: 0;
+				.box-shadow(none);
+				> li{
+					position: relative;
+					display: block;
+					float: none;
+					&.inactive-li{
+						display: none;
+					}
+					> a{
+						white-space: normal;
+						background: transparent;
+						color: #fff;
+						border-bottom: 1px solid #666;
+						padding: 15px;
+						font-size: 14px;
+						line-height: 1;
+						white-space: normal;
+					}
+					.sub-menu{
+						display: none;
+						position: relative;
+						left: 0;
+						top: 0;
+					}
+				}
+			}
+			.sub-menu-pointer{
+				display: block;
+				width: 20px;
+				height: 20px;
+				padding: 7px;
+				font-size: 14px;
+				background: #aaa;
+				color: #fff;
+				border-radius: 2px;
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				text-align: center;
+				vertical-align: middle;
+				cursor: pointer;
+				z-index: 10;
+				&.active{
+					background: @color-red;
+				}
+			}
+			> li:hover{
+				> .sub-menu{
+					display: none;
+				}
+			}
+			> li.active-li,
+			.sub-menu > li.active-li{
+				> .sub-menu{
+					display: block;
+				}
+				> a{
+					background: #151515;
+					border-bottom: 1px solid #444;
+				}
+			}
+
+			//To left more
+			> li{
+				&.to-left-more{
+					.sub-menu{
+						left: auto;
+						right: 0;
+					}
+				}
+			}
+
+			> li > a,
+			.sub-menu > li > a{
+				.sub-menu-mark{
+					display: none;
+				}
+			}
+		}
+		.breakpoint-handle{
+			display: inline-block;
+			font-size: 22px;
+			text-align: center;
+			padding: 4px 15px;
+			cursor: pointer;
+		}
+		&.active-menu{
+			.@{menu-class-name}{
+				display: block;
+			}
+		}
+	}
+}

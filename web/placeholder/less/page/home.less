@@ -1,0 +1,204 @@
+.home-recipe-of-the-day{
+	background: url(../placeholder/bg.jpg) no-repeat center center #333; 
+	background-size: cover; 
+	color: #fff;
+	h1, h2, h3, h4, h5, h6{
+		color: #fff;
+	}
+	a{
+		color: #eee;
+	}
+	.entry-photo{
+		position: relative;
+		background: #fff;
+		background: rgba(255, 255, 255, 0.5);
+		padding: 10px;
+		margin: 15px 0;
+		overflow: hidden;
+		img{
+			display: block;
+			margin: 0;
+		}
+		.badge{
+			position: absolute;
+			left: -5%;
+			top: 40%;
+			text-align: center;
+			width: 250px;
+			padding: 5px 0;
+			background: @color-scheme-primary;
+			color: #fff;
+			text-transform: capitalize;
+			z-index: 2;
+			.transform( rotateZ(-45deg) );
+			.transform-origin( 0 0 );
+		}
+	}
+	.entry-meta{
+		.meta{
+			display: inline-block;
+			float: left;
+			padding: 10px 15px;
+			min-width: 60px;
+			border-radius: 3px;
+			margin-top: 15px;
+			margin-right: 15px;
+			span{
+				display: inline-block;
+				float: left;
+				vertical-align: middle;
+				&.number{
+					text-transform: uppercase;
+					font-size: 12px;
+					margin-left: 10px;
+					line-height: 22px;
+				}
+				.the-icon{
+					font-size: 22px;
+					line-height: 22px;
+				}
+			}
+			&.favorites{
+				background: @color-pink;
+			}
+			&.likes{
+				background: @color-blue;
+			}
+			&.comments{
+				background: @color-green;
+			}
+		}
+	}
+	.entry-info-author{
+		position: relative;
+		padding-left: 96px;
+		padding-top: 5px;
+		min-height: 86px;
+		margin: 35px 0 10px 0;
+		.submited-by{
+			font-size: 11px;
+			text-transform: uppercase;
+			margin-bottom: 7px;
+		}
+		img{
+			margin: 0;
+			padding: 3px;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background: #fff;
+			background: rgba(255, 255, 255, 0.25);
+		}
+		a{
+			color: #fff;
+		}
+		.author-name{
+		}
+		.mark{
+			text-transform: uppercase;
+			font-size: 11px;
+			margin-left: 5px;
+		}
+		.total-recipes{
+			font-style: italic;
+			color: #ccc;
+		}
+	}
+}
+
+.home-blog-post{
+	position: relative;
+	padding: 15px 0;
+	padding-left: 86px;
+	min-height: 50px;
+	border-bottom: 1px solid #eee;
+	.entry-date{
+		position: absolute;
+		left: 0;
+		top: 15px;
+		text-align: center;
+		width: 86px;
+		.date{
+			display: block;
+			font-size: 28px;
+			font-family: @heading-font-family;
+			color: @color-scheme-primary;
+		}
+		.month{
+			font-size: 11px;
+			color: @color-gray;
+			text-transform: uppercase;
+			display: block;
+		}
+	}
+	.entry-title{
+		font-weight: 700;
+		margin-bottom: 7px;
+	}
+	.entry-content{
+		font-size: 13px;
+	}
+	&:last-of-type{
+		border-bottom: 0;
+	}
+}
+
+.home-collections{
+	.collection{
+		position: relative;
+		padding: 15px 0;
+		border-bottom: 1px solid #eee;
+		.entry-details{
+			display: inline-block;
+			float: left;
+		}
+		.total{
+			display: inline-block;
+			float: right;
+			top: 15px;
+			text-align: center;
+			width: 86px;
+			.number{
+				display: block;
+				font-size: 18px;
+				font-family: @heading-font-family;
+				color: @color-scheme-primary;
+			}
+			.text{
+				display: block;
+				font-size: 13px;
+				color: @color-gray;
+			}
+		}
+		.entry-title{
+			font-size: 14px;
+			font-weight: 700;
+			margin-bottom: 5px;
+		}
+		.meta{
+			color: @color-gray;
+			.sep{
+				margin-right: 5px;
+				margin-left: 5px;
+			}
+		}
+		&:last-of-type{
+			border-bottom: 0;
+		}
+	}
+}
+
+.home-authors{
+	margin: 15px 0 25px;
+	.author{
+		display: inline-block;
+		float: left;
+		margin: 5px;
+		img{
+			display: block;
+			margin: 0;
+			width: 80px;
+			height: 80px;
+		}
+	}
+}

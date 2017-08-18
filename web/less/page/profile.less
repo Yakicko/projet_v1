@@ -1,0 +1,540 @@
+/* Profile mini menu on top
+------------------------------------------------*/
+.profile-mini-menu{
+	display: block;
+	margin: 10px 0 0 0;
+	padding: 0;
+	list-style: none;
+	border-bottom: 1px solid #ddd;
+	li{
+		display: inline-block;
+		margin-bottom: -1px;
+		a{
+			display: block;
+			color: #777;
+			padding: 10px;
+			border-bottom: 1px solid transparent;
+			&:hover{
+				border-color: #ccc;
+			}
+		}
+		&.active{
+			a{
+				color: #444;
+				border-color: @color-scheme-primary;
+			}
+		}
+		&.right{
+			float: right;
+		}
+	}
+}
+
+textarea.private-messaging-textarea{
+	height: 143px;
+}
+
+.profile-user-bio{
+	position: relative;
+	border: 1px solid #ddd;
+	border-radius: @global-border-radius;
+	padding: 15px;
+	min-height: 50px;
+	color: #555;
+	background: #fafafa;
+	&:before{
+		content: " ";
+		display: block;
+		width: 16px;
+		height: 16px;
+		position: absolute;
+		top: 20px;
+		left: -9px;
+		text-indent: 9999px;
+		background: inherit;
+		border: 1px solid transparent;
+		border-left-color: inherit;
+		border-bottom-color: inherit;
+		z-index: 10;
+		.transform( rotate(45deg) );
+	}
+}
+
+.profile-user-tab{
+	display: none;
+	&.active{
+		display: block;
+	}
+	.tab-inner{
+		margin: 20px 0 @global-margin-bottom;
+	}
+}
+
+/* Profile user list
+------------------------------------------------*/
+.profile-rows{
+	list-style: none;
+	padding: 0;
+	margin: 20px 0 @global-margin-bottom;
+	color: @color-dark-gray;
+	border-top: 1px solid #eee;
+	li{
+		padding: 10px 0;
+		border-bottom: 1px solid #eee;
+		.the-icon,
+		.the-label,
+		.the-value{
+			display: inline-block;
+			float: left;
+		}
+		.the-icon{
+			width: 30px;
+			margin-right: 10px;
+			text-align: center;
+			font-size: 16px;
+			border-right: 1px solid #ddd;
+		}
+		.the-value{
+			float: right;
+			font-size: 12px;
+			margin: 0;
+		}
+		.eg-clearfix();
+	}
+}
+
+/* Social block
+------------------------------------------------*/
+.social-block{
+	display: none;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.5);
+	margin: 0;
+	.the-label{
+		color: #777;
+		font-size: 16px;
+	}
+	.profiles{
+		margin: 0;
+		text-align: center;
+	}
+	.social-profile{
+		display: inline-block;
+		width: 34px;
+		height: 34px;
+		margin: 5px 1px 5px 0;
+		background: #ddd;
+		border-radius: @global-border-radius;
+		text-align: center;
+		line-height: 36px;
+		font-size: 22px;
+		&,
+		a{
+			color: #fff;
+		}
+		&.facebook{
+			background: #3B5998;
+		}
+		&.twitter{
+			background: #00ACED;
+		}
+		&.google-plus{
+			background: #DD4B39;
+		}
+		&.vimeo{
+			background: #AAD450;
+		}
+		&.youtube{
+			background: #BB0000;
+		}
+		&.flickr{
+			background: #FF0084;
+		}
+	}
+}
+
+/* Profile avatar
+------------------------------------------------*/
+.profile-avatar{
+	position: relative;
+	overflow: hidden;
+	margin: 20px 0 @global-margin-bottom;
+	img{
+		display: block;
+		margin: 0 auto;
+		padding: 0;
+	}
+	&:hover{
+		.social-block{
+			display: block;
+		}
+	}
+}
+
+/* Following block
+------------------------------------------------*/
+.following-block{
+	margin: 20px 0 @global-margin-bottom;
+	.follow-col{
+		display: inline-block;
+		float: left;
+		width: 33.333333%;
+		// text-align: center;
+		.follow-col-in{
+			padding: 0 15px 0 0;
+		}
+		.count,
+		.title{
+			display: block;
+		}
+		.count{
+			font-size: 30px;
+			font-family: @heading-font-family;
+		}
+		.title{
+			font-size: 12px;
+			color: #777;
+			text-transform: uppercase;
+		}
+		&.reputation{
+			.count{
+				color: @color-red;
+			}
+		}
+		&.followers{
+			.follow-col-in{
+				// border-left: 1px solid #ddd;
+				// border-right: 1px solid #ddd;
+			}
+			.count{
+				color: @color-blue;
+			}
+		}
+		&.following{
+			.count{
+				color: @color-green;
+			}
+		}
+		a{
+			&:hover{
+				.title{
+					color: @link-color;
+				}
+			}
+		}
+	}
+}
+
+/* Awards block
+------------------------------------------------*/
+.awards-block{
+	margin: 10px 0 @global-margin-bottom;
+	.the-label{
+		color: #777;
+		font-size: 16px;
+	}
+	.awards{
+		margin: 15px 0;
+	}
+	.award-single{
+		display: inline-block;
+		float: left;
+		width: 36px;
+		height: 36px;
+		margin: 0 15px 15px 0;
+		background: #ddd;
+		border-radius: 5px;
+		text-align: center;
+		line-height: 36px;
+		font-size: 24px;
+		position: relative;
+		&:before{
+			content: " ";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: inherit;
+			border-radius: inherit;
+			.transform( rotate(30deg) );
+			z-index: 5;
+		}
+		&:after{
+			content: " ";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: inherit;
+			border-radius: inherit;
+			.transform( rotate(-30deg) );
+			z-index: 5;
+		}
+		i{
+			position: relative;
+			z-index: 10;
+		}
+		&,
+		a{
+			color: #fff;
+		}
+		&.black{
+			background: @color-black;
+		}
+		&.red{
+			background: @color-red;
+		}
+		&.green{
+			background: @color-green;
+		}
+		&.blue{
+			background: @color-blue;
+		}
+		&.orange{
+			background: @color-orange;
+		}
+		&.yellow{
+			background: @color-yellow;
+		}
+		&.pink{
+			background: @color-pink;
+		}
+		&.purple{
+			background: @color-purple;
+		}
+		&.teal{
+			background: @color-teal;
+		}
+		&.olive{
+			background: @color-olive;
+		}
+		&.dark-gray{
+			background: @color-dark-gray;
+		}
+		&.gray{
+			background: @color-gray;
+		}
+		&.primary{
+			background: @color-scheme-primary;
+		}
+	}
+}
+
+/* Profile main menu
+------------------------------------------------*/
+.rw-row.profile-main-menu-block{
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.profile-main-menu{
+	&,
+	ul{
+		.eg-clearfix();
+	}
+}
+.profile-main-menu{
+	ul{
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		text-align: center;
+		li{
+			display: inline-block;
+			float: left;
+			a{
+				display: block;
+				padding: 15px;
+				border-bottom: 3px solid transparent;
+				&:hover{
+					border-color: #eee;
+				}
+			}
+			.count,
+			.title{
+				display: inline-block;
+				line-height: 1;
+				font-size: 14px;
+			}
+			.count{
+				font-weight: 700;
+				margin-left: 5px;
+			}
+			.title{
+				// text-transform: uppercase;
+				color: #666;
+			}
+			&.active{
+				a{
+					border-bottom: 3px solid @color-scheme-primary;
+				}
+			}
+		}
+	}
+}
+
+/* Profile recipes list
+------------------------------------------------*/
+.profile-recipes-list{
+	.recipe{
+		position: relative;
+		padding: 15px 0 15px 90px;
+		min-height: 80px;
+		border-bottom: 1px solid #eee;
+		.photo{
+			position: absolute;
+			left: 0;
+			top: 15px;
+			img{
+				margin: 0;
+				padding: 0;
+			}
+		}
+		.info{
+			color: #777;
+			font-size: 12px;
+			.info-item{
+				padding-right: 10px;
+				margin-right: 10px;
+				border-right: 1px solid #ccc;
+				&:last-of-type{
+					border-right: 0;
+					margin-right: 0;
+					padding-right: 0;
+				}
+			}
+		}
+		.mark{
+			font-size: 12px;
+		}
+		&.no-border{
+			border-bottom: 0;
+		}
+	}
+}
+
+/* Profile collections list
+------------------------------------------------*/
+.profile-collections-list{
+	.collection{
+		padding: 25px 0;
+		border-bottom: 1px solid #eee;
+		.button{ 
+			margin-bottom: 0;
+		}
+		.title{
+			display: inline-block;
+			float: left;
+			font-size: 18px;
+			color: #444;
+			&:hover{
+				color: @link-color;
+			}
+		}
+		.mark.nr-of-items{
+			margin: 5px 0 5px 10px;
+			font-size: 10px;
+			text-transform: uppercase;
+			display: inline-block;
+			float: left;
+		}
+		.info{
+			color: #666;
+			font-size: 13px;
+			margin-bottom: 5px;
+			.info-item{
+				padding-right: 10px;
+				margin-right: 10px;
+				border-right: 1px solid #ccc;
+				&:last-of-type{
+					border-right: 0;
+					margin-right: 0;
+					padding-right: 0;
+				}
+			}
+		}
+		.photo{
+			display: inline-block;
+			float: right;
+			margin: 5px;
+			a{
+				display: block;
+			}
+			img{
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
+}
+
+/* Profile comments list
+------------------------------------------------*/
+.profile-comments-list{
+	.comment{
+		position: relative;
+		min-height: 50px;
+		padding: 15px 0;
+		padding-left: 62px;
+		.title{
+			margin-bottom: 10px;
+			color: #666;
+			font-size: 13px;
+		}
+		.photo{
+			position: absolute;
+			left: 0;
+			top: 15px;
+			width: 50px;
+			height: 50px;
+			img{
+				margin: 0;
+			}
+		}
+		.comment-text{
+			position: relative;
+			padding: 15px;
+			background: #fafafa;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			min-height: 50px;
+			&:before{
+				content: " ";
+				display: block;
+				position: absolute;
+				top: 19px;
+				left: -6px;
+				width: 7px;
+				height: 7px;
+				background: inherit;
+				border: 1px solid transparent;
+				border-left-color: inherit;
+				border-bottom-color: inherit;
+				.transform( rotate(45deg) );
+			}
+		}
+		.meta{
+			margin-top: 15px;
+			&,
+			a{
+				color: #666;
+				font-size: 13px;
+			}
+			a:hover{
+				color: @link-color;
+			}
+			.date,
+			.replies{
+				font-size: 12px;
+				display: inline-block;
+				float: left;
+				padding: 2px 5px;
+				margin: 0 5px 0 0;
+			}
+		}
+	}
+}

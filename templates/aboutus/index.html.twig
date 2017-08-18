@@ -1,0 +1,18 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row">
+       <div class="col-sm-6 col-sm-offset-3">
+           <img src="{{ asset('img/logo-wf3.png') }}" />
+           <h1>Qui sommes-nous ?</h1>
+           
+           <p>
+               Nous sommes une équipe de codeurs de l'école <a href="http://www.wf3.fr/" target="_blank">WebForce3</a>, passionnés de cuisine française. 
+               <br>Nous avons voulu à travers ce site partager les trésors culinaires de nos terroirs.
+               <br>Pour toute question ou suggestion, n'hésitez pas à nous contacter !
+           </p>
+           
+           <a href="{{ path('contact_index') }}">Contactez-nous !</a>
+        </div>
+    </div>
+{% endblock %}

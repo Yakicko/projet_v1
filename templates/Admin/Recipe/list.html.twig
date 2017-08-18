@@ -36,7 +36,7 @@
                     <td colspan="2" style="text-align: center;">{{ recipe.regionName }}</td>
                     <td colspan="2" style="text-align: center;">{{ recipe.userName }}</td>
                     <td colspan="2" style="text-align: center;">{{ recipe.title }}</td>
-                    <td colspan="2" style="text-align: center;">{{ recipe.picture_recipe }}</td>
+                    <td colspan="2" style="text-align: center;"><img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" class="img-thumbnail img-responsive"             width="200px"></td>
                     <td colspan="2" style="text-align: center;">{{ recipe.star_ingredient }}</td>
                     <td colspan="2" style="text-align: center;">{{ recipe.difficulty }}</td>
                     <td colspan="2" style="text-align: center;">{{ recipe.prep_time }}</td>

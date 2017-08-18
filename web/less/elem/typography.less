@@ -1,0 +1,185 @@
+.heading-style-mix( @size, @margin-top-ratio: 2, @margin-bottom-ratio: 3 ){
+	font-size: @size;
+	margin: unit( round( @size / @margin-top-ratio ), px) 0 unit( round( @size / @margin-bottom-ratio ), px) 0;
+}
+
+body{
+	background: @body-background-color url(../images/patterns/kale-salad.jpg) repeat 0 0 fixed;
+	font-size: @body-font-size;
+	color: @body-font-color;
+	font-family: @body-font-family;
+	line-height: @global-line-height;
+}
+
+/* Images
+------------------------------------------------*/
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+/* HoRizontal line
+------------------------------------------------*/
+hr{
+	background: @color-light-gray;
+	height: 1px;
+	border: 0;
+	padding: 0;
+	width: 100%;
+	margin: @global-margin-bottom 0;
+}
+
+/* Links
+------------------------------------------------*/
+a{
+	color: @link-color;
+	text-decoration: none;
+	&:hover{
+		color: @link-hover-color;
+	}
+}
+/* Headings
+------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6{
+	font-family: @heading-font-family;
+	font-weight: 400;
+	color: @heading-font-color;
+}
+h1{
+	.heading-style-mix( @h1-font-size);
+}
+h2{
+	.heading-style-mix( @h2-font-size);
+}
+h3{
+	.heading-style-mix( @h3-font-size);
+}
+h4{
+	.heading-style-mix( @h4-font-size);
+}
+h5{
+	.heading-style-mix( @h5-font-size);
+}
+h6{
+	.heading-style-mix( @h6-font-size);
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a,{
+	font-weight: 400;
+}
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, .entry-title a{
+	color: @color-dark-gray;
+	text-decoration: none;
+	&:hover{
+		color: @link-color;
+	}
+}
+
+
+/* Global margins
+------------------------------------------------*/
+p,
+ul,
+ol,
+table,
+img,
+figure,
+pre,
+blockquote
+{
+	margin-top: unit( round( @global-margin-bottom / 2 ), px);
+	margin-bottom: @global-margin-bottom;
+}
+
+/* Lists
+------------------------------------------------*/
+li > ul,
+li > ol {
+	margin-top: unit( round( @global-margin-bottom / 4 ), px);
+	margin-bottom: unit( round( @global-margin-bottom / 4 ), px);
+}
+
+/* Abbreviation
+------------------------------------------------*/
+abbr[title] {
+  cursor: help;
+  border-bottom: 1px dotted lighten(@body-font-color, 15%);
+}
+
+/* Acronym
+------------------------------------------------*/
+acronym[title] {
+  cursor: help;
+  border-bottom: 1px dashed lighten(@body-font-color, 15%);
+}
+
+/* Keyboard code
+------------------------------------------------*/
+kbd{
+	background: @color-black;
+	color: @color-white;
+	border-radius: @global-border-radius;
+	padding: 2px;
+}
+
+/* Pre, code
+------------------------------------------------*/
+pre,
+code{
+	border: 1px solid darken(@color-white, 10%);
+	background: darken(@color-white, 1%);
+	border-radius: @global-border-radius;
+	padding: 2px;
+}
+pre{
+	padding: 10px;
+}
+
+/* Blockquote, quote
+------------------------------------------------*/
+q{
+	font-style: italic;
+}
+blockquote{
+	position: relative;
+	margin-left: 0;
+	margin-right: 0;
+	padding: 10px 65px;
+	border: 0;
+	background: #fafafa;
+	color: @color-dark-gray;
+	font-size: unit( round(@body-font-size * 1.6 ), px);
+	overflow: hidden;
+	.box-shadow(0 2px 1px -1px ~"rgba(0,0,0, 0.2)", inset 0 -1px 1px 0 ~"rgba(255,255,255, 0.95)");
+	&:before,
+	&:after{
+		display: block;
+		position: absolute;
+		padding: 20px;
+		border-radius: 50px;
+		font-size: 26px;
+		color: lighten( @color-scheme-primary, 15% );
+		background: darken(#fafafa, 5%);
+		font-family: 'FontAwesome';
+		text-align: center;
+		font-style: normal;
+		font-weight: normal;
+		line-height: 1;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	&:before{
+		content: "\f10d";
+		left: -10px;
+		top: -10px;
+	}
+	&:after{
+		content: "\f10e";
+		right: -10px;
+		bottom: -10px;
+	}
+	cite{
+		font-size: unit( round(@body-font-size * 1.2 ), px);
+	}
+}

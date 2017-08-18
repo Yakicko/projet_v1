@@ -1,0 +1,151 @@
+.profile-notifications{
+	.notification{
+		position: relative;
+		padding: 20px 0 20px 175px;
+		min-height: 80px;
+		// border-bottom: 1px solid #eee;
+		.photo{
+			position: absolute;
+			left: 70px;
+			top: 15px;
+			z-index: 2;
+			img{
+				margin: 0;
+				padding: 0;
+			}
+		}
+		.the-sign{
+			position: absolute;
+			width: 48px;
+			height: 48px;
+			left: 0px;
+			top: 32px;
+			background: @color-gray;
+			border-radius: 48px;
+			color: #fff;
+			text-align: center;
+			font-size: 22px;
+			line-height: 1;
+			z-index: 3;
+			.the-icon{
+				padding: 13px 0;
+			}
+		}
+		.username{
+			color: @color-dark-gray;
+			font-weight: 700;
+			&:hover{
+				color: @link-color;
+			}
+		}
+		.date{
+			font-size: 13px;
+			color: #777;
+			margin-top: 5px;
+		}
+		.message{
+			position: relative;
+			padding: 10px;
+			margin: 5px 0;
+			background: #fafafa;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			&:before{
+				content: " ";
+				display: block;
+				position: absolute;
+				top: 15px;
+				left: -6px;
+				width: 7px;
+				height: 7px;
+				background: inherit;
+				border: 1px solid transparent;
+				border-left-color: inherit;
+				border-bottom-color: inherit;
+				.transform( rotate(45deg) );
+			}
+		}
+		&:after{
+			content: " ";
+			display: block;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 23px;
+			width: 3px;
+			background: @color-gray;
+			z-index: 1;
+		}
+		&:before{
+			content: " ";
+			display: block;
+			position: absolute;
+			top: -6px;
+			left: 19px;
+			width: 7px;
+			height: 7px;
+			border-radius: 10px;
+			background: #fff;
+			border: 2px solid  @color-gray;
+			z-index: 2;
+		}
+		&:first-of-type{
+			&:after{
+				top: 50%;
+			}
+			&:before{
+				display: none;
+			}
+		}
+		&:last-of-type{
+			&:after{
+				bottom: 50%;
+			}
+		}
+		&.comment{
+			.the-sign,
+			&:after{
+				background: @color-gray;
+			}
+			&:before{
+				border-color: @color-gray;
+			}
+		}
+		&.followed{
+			.the-sign,
+			&:after{
+				background: @color-purple;
+			}
+			&:before{
+				border-color: @color-purple;
+			}
+		}
+		&.liked{
+			.the-sign,
+			&:after{
+				background: @color-blue;
+			}
+			&:before{
+				border-color: @color-blue;
+			}
+		}
+		&.to-favorites{
+			.the-sign,
+			&:after{
+				background: @color-pink;
+			}
+			&:before{
+				border-color: @color-pink;
+			}
+		}
+		&.to-collection{
+			.the-sign,
+			&:after{
+				background: @color-green;
+			}
+			&:before{
+				border-color: @color-green;
+			}
+		}
+	}
+}

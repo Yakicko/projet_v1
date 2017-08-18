@@ -1,0 +1,83 @@
+// Colors
+@color-scheme-primary:          #21AABD;
+
+@color-white:                   #ffffff;
+@color-black:                   #23242C;
+@color-red:                     #EB5858;
+@color-green:                   #89C245;
+@color-blue:                    #58BDE7;
+@color-orange:                  #F6A856;
+@color-yellow:                  #F5D554;
+@color-pink:                    #F15274;
+@color-purple:                  #9462A4;
+@color-teal:                    #39CAB5;
+@color-olive:                   #A1B809;
+@color-dark-gray:               lighten(@color-black, 25%);
+@color-gray:                    lighten(@color-black, 50%);
+@color-light-gray:              lighten(@color-black, 75%);
+
+//Links
+@link-color:                    @color-scheme-primary;
+@link-hover-color:              darken( @color-scheme-primary, 10% );
+
+//Globals
+@global-line-height:            1.5;
+@global-margin-bottom:          unit( round( @body-font-size + 5% ), px);
+@global-border-radius:          3px;
+
+//Body
+@body-background-color:         #777;
+@body-font-size:                14px;
+@body-font-color:               lighten(@color-black, 15%);
+@body-font-family:              Arial, Helvetica, serif;
+
+//Headings
+@h1-font-size:                  unit( round( @body-font-size * 2.6 ), px);
+@h2-font-size:                  unit( round( @body-font-size * 2.3 ), px);
+@h3-font-size:                  unit( round( @body-font-size * 2.1 ), px);
+@h4-font-size:                  unit( round( @body-font-size * 1.9 ), px);
+@h5-font-size:                  unit( round( @body-font-size * 1.7 ), px);
+@h6-font-size:                  unit( round( @body-font-size * 1.5 ), px);
+@heading-font-color:            darken(@body-font-color, 10%);
+@heading-font-family:           "Dosis", Arial, Helvetica, serif;
+
+//Buttons
+@button-padding:                8px;
+@button-margin:                 3px;
+@button-border-width:           1px;
+
+//Form
+@form-border-radius:            3px;
+@form-padding-vertical:         7px;
+@form-padding-horizontal:       10px;
+@form-border-width:             1px;
+@form-border-color:             darken( @color-light-gray, 10% );
+@form-background-color:         @color-white;
+@form-text-color:               @color-black;
+
+//Widgets
+@widget-font-size:              unit( round( @body-font-size * 0.9 ), px);
+
+//Menu
+@menu-main-color:               #2A3744;
+
+//Sidebar
+@sidebar-width:                 300px;
+@sidebar-background-color:      #EDF0F0;
+@sidebar-border-color:          darken(@sidebar-background-color, 15%);
+
+// Rw Layout
+@rw-layout-width:               1140px;
+@rw-layout-border-radius:       4px;
+
+//Rw Header
+@rw-header-background-color:    #2A3744;
+@rw-header-text-color:          #fefefe;
+@rw-header-link-color:          lighten(@rw-header-background-color, 59%);
+
+// RW Container
+@rw-container-background-color: #fff;
+
+//Rw Row
+@rw-row-background-color:       #fefefe;
+@rw-row-border-color:           darken(@rw-row-background-color, 15%);

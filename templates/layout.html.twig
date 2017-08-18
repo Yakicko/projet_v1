@@ -8,204 +8,154 @@
     <title>{% block title '' %} Projet V1</title>
 
     {% block stylesheet %}
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Dosis">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-        <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('fonts/awards/awards.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}"/>
     {% endblock %}
-
 </head>
 <body>
-{% if user_manager.admin %}
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <a class="navbar-brand">Menu Admin</a>
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="{{ path('admin_users') }}">Gestion Utilisateurs</a>
-                </li>
-                <li>
-                    <a href="{{ path('admin_recipes') }}">Gestion Recettes</a>
-                </li>
-                <li>
-                    <a href="{{ path('admin_comments') }}">Gestion Commentaires</a>
-                </li>
-                <li>
-                    <a href="{{ path('admin_regions') }}">Gestion Régions</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-{% endif %}
+<section id="rw-layout" class="rw-layout"> <!--  conteneur genral du theme -->
 
-        <nav class="navbar navbar-default">
-            <div class="container"> <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
-                    <a class="navbar-brand" href="{{ path("homepage") }}">Brand</a></div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                        {% if user_manager.user %}<li><a href="{{ path('recipe_create') }}">Nouvelle Recette</a></li>{% endif %}
-                        <li><a href="{{ path('recipe_list') }}">Rechercher une recette</a></li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="navbar-form navbar-left">
-                        <div class="form-group"><input type="text" class="form-control" placeholder="Search"></div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ path('user_profil') }}">Profil</a></li>
-                        
-                        {% if user_manager.user %}{# si un utilisateur est connecté #}
-                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user_manager.username }} <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="">Profil</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>
-                    <li>
-                        <a href="{{ path('user_logout') }}">Se déconnecter</a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{{ path('user_register') }}">Créer un compte</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('user_login',{redirect: global.request.requestUri}) }}">Se connecter</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</nav>
-{% for type, flashes in app.session.flashbag.all %}
-    {% for flash in flashes %}
-        {% if type == 'error' %}
-            {# class alert-danger du bootstrap #}
-            {% set type = 'danger' %}
-        {% endif %}
-        <div class="alert alert-{{ type }}">{{ flash|raw }}</div>
+    <!--
+    // ===================================^__^=================================== //
+       Header
+    // ===================================^__^=================================== //
+    -->
+    <div class="rw-section rw-header">
+        <div class="rw-inner clearfix">
+            <div class="grid-container">
+
+                <div class="grid desk-8 mob-6 alpha clearfix">
+                    <div class="logo-holder">
+                        <a href="{{ path("homepage") }}">
+                            <img src="{{ asset('placeholder/logo.png') }}" class="logo" alt=""/>
+                        </a>
+                    </div>
+                    <nav id="the-main-menu" class="main-menu-nav menu-inline" data-breakpoint="1160">
+                        <ul class="menu horizontal">
+                            <li><a href="{{ path("homepage") }}">Accueil</a></li>
+                            {{ render(url('menu_regions')) }}
+                            <li>
+                                <a href="#">Recette</a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{ path('recipe_list') }}">Rechercher une recette</a></li>
+                                    {% if user_manager.user %}{# si un utilisateur est connecté #}
+                                        <li><a href="{{ path('recipe_create') }}">Ajouter une recette</a></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                            <!-- MENU ADMIN ----------------------------------------------------------------------------------------------->
+                            {% if user_manager.admin %}
+                                <li>
+                                    <a href="elem-colors.html">Menu Admin</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{{ path('admin_users') }}">Gestion Utilisateurs</a></li>
+                                        <li><a href="{{ path('admin_recipes') }}">Gestion Recettes</a></li>
+                                        <li><a href="{{ path('admin_comments') }}">Gestion Commentaires</a></li>
+                                        <li><a href="{{ path('admin_regions') }}">Gestion Régions</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+                <div class="grid desk-4 mob-6 omega">
+                    <nav id="the-user-menu" class="main-menu-nav">
+                        <ul class="menu horizontal align-right">
+                            <!-- User menu -->
+                            <li class="to-left-more">
+                                {% if user_manager.user %}{# si un utilisateur est connecté #}
+                                <div class="user-details-in-menu">
+
+                                    <a href="#" class="avatar"><img
+                                                src="https://www.gravatar.com/avatar/'.$gravatar.'?d=retro&s=150"
+                                                alt=""/></a>
+                                </div>
+                                <ul class="sub-menu">
+                                    <li class="separator"><a href="{{ path('user_profil') }}">Profil privé</a></li>
+                                    <li><a href="{{ path('recipe_create') }}">Ajouter une recette</a></li>
+                                    <li><a href="{{ path('user_logout') }}">Se déconnecter</a></li>
+                                    {% else %}
+                                    <div class="user-details-in-menu">
+                                        <a href="#"><span class="glyphicon glyphicon-user" style="font-size: 25px;"></span> Inscription / Connexion</a>
+                                    </div>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="{{ path('user_register') }}">Créer un compte</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('user_login', {redirect: global.request.requestUri}) }}">Se
+                                                connecter</a>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div> <!-- .grid-container -->
+        </div> <!-- .rw-inner -->
+    </div> <!-- .rw-header -->
+    {% for type, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            {% if type == 'error' %}
+                {# class alert-danger du bootstrap #}
+                {% set type = 'danger' %}
+            {% endif %}
+            <div class="alert alert-{{ type }}">{{ flash|raw }}</div>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
 
 
-<!--_______________________________________________________ ADMIN _____________________________________________________________________________-->
+    <!--_______________________________________________________ ADMIN _____________________________________________________________________________-->
 
-{% block secondaryNavigation %}{% endblock %}
+    {% block secondaryNavigation %}{% endblock %}
 
+    <!--_______________________________________________________ CONTENT _____________________________________________________________________________-->
 
-<!--_______________________________________________________ CONTENT _____________________________________________________________________________-->
+        {% block content %}{% endblock %}
 
-<div class="container">
-    {% block content %}{% endblock %}
-</div>
-
-
-<!--_______________________________________________________ FOOTER _____________________________________________________________________________-->
-<nav class="nav navbar-default">
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-2">
-                    <ul class="unstyled">
-                        <li>Projet V1
-                        <li>
-                        <li><a href="#">Qui sommes nous ?</a></li>
-                        <li><a href="{{ path('contact_index') }}">Contact</a></li>
-                        <li><a href="#">Contact & support</a></li>
-                        <li><a href="#">Enterprise</a></li>
-                        <li><a href="#">Site status</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2">
-                    <ul class="unstyled">
-                        <li>Applications
-                        <li>
-                        <li><a href="#">Product for Mac</a></li>
-                        <li><a href="#">Product for Windows</a></li>
-                        <li><a href="#">Product for Eclipse</a></li>
-                        <li><a href="#">Product mobile apps</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2">
-                    <ul class="unstyled">
-                        <li>Services
-                        <li>
-                        <li><a href="#">Web analytics</a></li>
-                        <li><a href="#">Presentations</a></li>
-                        <li><a href="#">Code snippets</a></li>
-                        <li><a href="#">Job board</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2">
-                    <ul class="unstyled">
-                        <li>Documentation
-                        <li>
-                        <li><a href="#">Product Help</a></li>
-                        <li><a href="#">Developer API</a></li>
-                        <li><a href="#">Product Markdown</a></li>
-                        <li><a href="#">Product Pages</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2">
-                    <ul class="unstyled">
-                        <li>Services
-                        <li>
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">Software</a></li>
-                        <li><a href="#">Product</a></li>
-                        <li><a href="#">Pages</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2">
-                    <ul class="unstyled">
-                        <li>More
-                        <li>
-                        <li><a href="#">Reseaux Sociaux</a></li>
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">Pinterest</a></li>
-                        <li><a href="#">Twiter</a></li>
-                    </ul>
+    <!--
+     // ===================================^__^=================================== //
+        Footer
+     // ===================================^__^=================================== //
+     -->
+    <div class="rw-section rw-footer">
+        <div class="rw-inner clearfix">
+            <div class="grid-container">
+                {{ render(url('footer_counts')) }}
+                <div class="grid desk-6">
+                    <div class="footer-menu">
+                        <ul>
+                            <li><a href="{{ path('contact_index') }}">Contact</a></li>
+                            <li><a href="{{ path("aboutus_index") }}">Qui sommes nous? </a></li>
+                            <li><a href="#">Mention légales</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+            <a href="#rw-layout" class="footer-to-top" title="Go to top">
+                <i class="fa fa-chevron-up"></i>
+            </a>
         </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-8">
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Privacy</a>
-                    <a href="#">Security</a>
-                </div>
-                <div class="span4">
-                    <p class="muted pull-right">© 2013 Company Name. All rights reserved</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-                        
+    </div> <!-- .layout-footer -->
+
+</section><!-- .rw-layout c'est la fin du conteneur general -->
 {% block javascripts %}
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/min/smk-menu.min.js') }}"></script>
+    <script src="{{ asset('js/rw-sidebar.js') }}"></script>
+    <script src="{{ asset('js/min/jquery.qtip.min.js') }}"></script>
+    <script src="{{ asset('js/min/smk-accordion.min.js') }}"></script>
+    <script src="{{ asset('js/min/smk-visual-select.min.js') }}"></script>
+    <script src="{{ asset('js/min/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/scripts.js') }}"></script>
 {% endblock %}
 </body>
 </html>

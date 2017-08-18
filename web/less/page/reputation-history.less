@@ -1,0 +1,25 @@
+.profile-reputation{
+	margin: 20px 0;
+	.reputation-event{
+		padding: 5px 0;
+		border-bottom: 1px solid #eee;
+		.points{
+			text-align: center;
+			.mark{
+				display: inline-block;
+				min-width: 40px;
+				padding: 1px 3px;
+				font-size: 12px;
+			}
+		}
+		.date{
+			color: darken(@color-gray, 20%);
+		}
+		&:nth-child(even){
+			background: #fafafa;
+		}
+	}
+}
+.profile-reputation-pagination{
+	margin: 20px 0;
+}

@@ -1,0 +1,65 @@
+.profile-private-messages{
+	margin: 0 0 20px 0;
+	.message{
+		position: relative;
+		padding: 25px 0 25px 95px;
+		border-bottom: 1px solid #ddd;
+		min-height: 80px;
+		.photo{
+			position: absolute;
+			top: 25px;
+			left: 0;
+			width: 80px;
+			height: 80px;
+			img{
+				margin: 0;
+				padding: 0;
+			}
+		}
+		.head{
+			margin-bottom: 5px;
+			.username,
+			.date,
+			.delete,
+			.replies-count {
+				display: inline-block;
+			}
+			.date,
+			.delete,
+			.replies-count,
+			.unread{
+				float: right;
+				font-size: 12px;
+				padding: 5px;
+				line-height: 1;
+				margin-left: 5px;
+			}
+			.username,
+			.unread{
+				float: left;
+			}
+			.unread{
+				font-size: 11px;
+				padding: 3px 5px;
+				margin: 2px 5px 1px 0;
+				text-transform: uppercase;
+			}
+			.date{
+				color: #777;
+			}
+			.delete{
+				text-align: center;
+				width: 22px;
+				padding: 5px 0;
+				cursor: pointer;
+				background: #fff;
+				color: @color-red;
+				border-radius: 2px;
+				&:hover{
+					color: #fff;
+					background: @color-red;
+				}
+			}
+		}
+	}
+}

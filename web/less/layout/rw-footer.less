@@ -1,0 +1,136 @@
+.rw-footer{
+	padding: 20px 15px;
+	background: darken(@rw-row-background-color, 3%);
+	border-top: 1px solid @sidebar-border-color;
+
+	.footer-totals{
+		position: relative;
+		.total{
+			margin: 5px 10px 5px 0;
+			&,
+			.value,
+			.type{
+				display: inline-block;
+				float: left;
+			}
+			.value{
+				display: inline-block;
+				font-family: @heading-font-family;
+				padding: 0 8px;
+			}
+			.type{
+				display: inline-block;
+				text-transform: uppercase;
+				padding: 2px 8px;
+				font-size: 12px;
+				font-weight: 700;
+				text-shadow: 1px 1px 1px rgba(255,255,255, 0.8);
+			}
+			&.red{
+				.value{
+					background: @color-red;
+				}
+				.type{
+					color: @color-red;
+				}
+			}
+			&.green{
+				.value{
+					background: @color-green;
+				}
+				.type{
+					color: @color-green;
+				}
+			}
+			&.blue{
+				.value{
+					background: @color-blue;
+				}
+				.type{
+					color: @color-blue;
+				}
+			}
+			&.purple{
+				.value{
+					background: @color-purple;
+				}
+				.type{
+					color: @color-purple;
+				}
+			}
+		}
+	}
+
+	.footer-menu{
+		font-size: 12px;
+		font-weight: 700;
+		ul, li{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			text-align: right;
+			li{
+				display: inline-block;
+				a{
+					display: block;
+					color: #555;
+					padding: 7px 5px;
+					&:hover{
+						color: @link-color;
+					}
+				}
+			}
+		}
+	}
+
+	.footer-to-top{
+		display: block;
+		position: absolute;
+		left: 50%;
+		top: -15px;
+		margin-left: -30px;
+		width: 60px;
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		font-size: 14px;
+		background: #fff;
+		color: @color-scheme-primary;
+		border: 1px solid @sidebar-border-color;
+		border-radius: 4px;
+		cursor: pointer;
+		&:hover{
+			background: @color-scheme-primary;
+			border-color: darken(@color-scheme-primary, 10%);
+			color: #fff;
+			.transition( all 200ms );
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.rw-footer{
+		.footer-totals{
+			text-align: center;
+			margin-top: 15px;
+			.total{
+				&,
+				.value,
+				.type{
+					float: none;
+					font-weight: 400;
+				}
+			}
+		}
+
+		.footer-menu{
+			font-size: 14px;
+			font-weight: 400;
+			margin-top: 10px;
+			ul{
+				text-align: center;
+			}
+		}
+	}
+}

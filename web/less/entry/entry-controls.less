@@ -1,0 +1,89 @@
+.entry-controls{
+	.control{
+		display: inline-block;
+		float: left;
+		border: 1px solid transparent;
+		background: darken(@color-white, 4%);
+		width: 24px;
+		height: 24px;
+		line-height: 24px;
+		text-align: center;
+		font-size: 14px;
+		border-radius: @global-border-radius;
+		margin-right: 5px;
+		color: @color-gray;
+
+		&.entry-to-favorites{
+			&:hover{
+				color: @color-pink;
+			}
+			&.active{
+				color: @color-white;
+				background: @color-pink;
+			}
+		}
+		&.entry-like{
+			&:hover{
+				color: @color-blue;
+			}
+			&.active{
+				color: @color-white;
+				background: @color-blue;
+			}
+		}
+	}
+
+	.control-tip{
+		position: relative;
+		display: inline-block;
+		float: left;
+		background: darken(@color-white, 2%);
+		border: 1px solid darken(@color-white, 14%);
+		border-radius: round( @global-border-radius * 0.5 );
+		font-size: unit( round( @body-font-size * 0.84 ), px);
+		color: darken(@color-white, 50%);
+		padding: 1px 3px;
+		margin: 2px 12px 2px 0;
+		&:before{
+			content: " ";
+			display: block;
+			width: 6px;
+			height: 6px;
+			background: inherit;
+			border-left: 1px solid;
+			border-bottom: 1px solid;
+			border-color: inherit;
+			position: absolute;
+			top: 50%;
+			left: -4px;
+			margin-top: -4px;
+			.transform( ~"rotate(45deg)" );
+		}
+	}
+
+	&.minimal{
+		.control{
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+			font-size: 13px;
+			background: transparent;
+			border: 0;
+			margin-right: 3px;
+		}
+		.control-tip{
+			background: transparent;
+			border: 0;
+			padding: 0;
+			margin: 0 10px 0 0;
+			font-size: 12px;
+			line-height: 20px;
+			height: 20px;
+			&:before{
+				display: none;
+			}
+		}
+	}
+
+	.eg-clearfix();
+}

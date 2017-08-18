@@ -19,6 +19,10 @@ $app->match('/recipe/list', 'recipe.controller:listAction')->bind('recipe_list')
 
 $app->match('/recipe/search-ajax', 'recipe.controller:searchAjaxAction')->bind('recipe_search_ajax');
 
+$app->match('/recipe/rating-ajax', 'recipe.controller:ratingAjaxAction')->bind('recipe_rating_ajax');
+
+//$app->match('/recipe/comment-ajax', 'recipe.controller:commentAjaxAction')->bind('recipe_comment_ajax');
+
 $app->match('/recipe/index/{id_recipe}', 'recipe.controller:indexAction')->bind('recipe_index');
 
 $app->match('/region/index', 'region.controller:indexAction')->bind('region_index');
@@ -27,6 +31,7 @@ $app->match('/region/index/{id_region}', 'region.controller:indexAction')->bind(
 
 $app->match('/contact/index', 'contact.controller:contactAction')->bind('contact_index');
 
+$app->match('/aboutus/index','aboutus.controller:indexAction')->bind('aboutus_index');
 
 
 $app
@@ -42,6 +47,10 @@ $app
     ->bind('user_profil');
 
 $app
+    ->match('/utilisateur/profil/edition', 'user.controller:profilEditAction')
+    ->bind('profil_edit');
+
+$app
     ->get('/utilisateur/profil/public/{id_user}', 'user.controller:profilPublicAction')
     ->assert('id', '\d+')
     ->bind('user_profil_public');
@@ -53,6 +62,15 @@ $app
 $app
     ->get('/recettes/utilisateur/{id_user}', 'recipe.controller:userRecipeAction')
     ->bind('recipes_user');
+
+$app
+    ->get('/menu/regions', 'region.controller:menuAction')
+    ->bind('menu_regions')
+;
+$app
+    ->get('/footer/count', 'index.controller:footerAction')
+    ->bind('footer_counts')
+;
 
 /******************** BACK ******************************/
 

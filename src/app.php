@@ -94,6 +94,10 @@ $app['contact.controller'] = function () use ($app)
     return new \Controller\ContactController($app);
 };
 
+$app['aboutus.controller'] = function () use ($app)
+{
+    return new \Controller\AboutusController($app);
+};
 
 //-------------------------REPOSITORIES---------------------------------//
 //

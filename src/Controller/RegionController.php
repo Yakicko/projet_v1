@@ -31,4 +31,16 @@ class RegionController extends ControllerAbstract
             ]
         );
     }
+
+    public function menuAction()
+    {
+        $regions = $this->app['region.repository']->findAll();
+
+        return $this->render(
+            'region/menu.html.twig',
+            [
+                'regions' => $regions
+            ]
+        );
+    }
 }

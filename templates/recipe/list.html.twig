@@ -8,6 +8,7 @@
     <p><a href="{{ path('recipe_create') }}">Nouvelle Recette</a></p>
 
     <form action="" method="post" id="myForm">
+        <input type="hidden" name="page" value="1">
         <div class="form-group">
             <label>Ingrédient Principal</label>
             <select id="star_ingredient" name="star_ingredient" class="form-control">
@@ -60,15 +61,13 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary form-control">Enregistrer</button>
-    </form>
-    <div id="response-div">
+        <div id="response-div">
 
-    </div>
+        </div>
+    </form>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-
-
     <script>
         var postUrl = '{{ path('recipe_search_ajax') }}';
 
@@ -77,6 +76,7 @@
             var $this = $(this);
 
             var data = $this.serialize();
+
             $.post(
                 postUrl,
                 data,
@@ -87,5 +87,15 @@
                 'html'
             )
         });
+
+        $('#response-div').on('click', '.pagination', function (event) {
+            var page = $(this).data('page');
+
+            var $form = $('#myForm');
+
+            $('input[name="page"]', $form).val(page);
+            $form.submit();
+        });
+
     </script>
 {% endblock %}

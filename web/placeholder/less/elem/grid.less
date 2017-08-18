@@ -1,0 +1,228 @@
+/**
+ * Smk Elastic Grid
+ * URI: https://github.com/Smartik89/Smk-Elastic-Grid
+ * License: MIT
+ *
+ * Author: Smartik
+ * Author URI: http://smartik.ws/
+ */
+
+@grid-max-width:      1140px;
+@gutter:              15px;
+@one-col:             100% / 12;
+@container:           ~".grid-container";
+@first-grid:          ~".alpha";
+@last-grid:           ~".omega";
+@first-n-last-grid:   ~".both";
+@eg-prefix:           ~"grid";
+@desk-prefix:         ~"desk-";
+@mob-prefix:          ~"mob-";
+@cols-prefix:         ~"1of";
+
+//Border-box 
+.box-sizing(@val: border-box){
+	-webkit-box-sizing: @val; 
+	-moz-box-sizing: @val;
+	box-sizing: @val;
+}
+
+// Gutter size
+.gutter(@width: @gutter){
+	padding-left: @width;
+	padding-right: @width;
+}
+
+// Clearfix
+.eg-clearfix() {
+	&:before,
+	&:after {
+		content: " ";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+//Clear floated elements
+.clear(){
+	display: block;
+	width: 100%;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	clear: both;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+// Default grid size
+.loopGrid-integer (@index: 12, @class) when (@index > 0) {
+	
+	@{container} .@{eg-prefix}.@{class}@{index}{
+		width: round( @one-col * @index, 8);
+	}
+	.loopGrid-integer(@index - 1, @class);// next iteration
+
+}
+
+.loopGrid-float (@index: 12, @class) when (@index > 0) {
+	@new-index: @index - 1;
+	@{container} .@{eg-prefix}.@{class}@{new-index}-5{
+		width: round( @one-col * @index - @one-col / 2, 8);
+	}
+	.loopGrid-float(@index - 1, @class);// next iteration
+}
+
+.loopGrid-cols (@index: 12, @class) when (@index > 0) {
+
+	@{container} .@{eg-prefix}.@{class}@{index}{
+		width: round( 100% / @index, 8);
+	}
+	.loopGrid-cols(@index - 1, @class);// next iteration
+
+}
+
+.loopGrid-base(@class1: @desk-prefix){
+	/* Integer grid
+	------------------------------------------------*/
+	.loopGrid-integer( 12, @class1 );
+	/* Float grid
+	------------------------------------------------*/
+	.loopGrid-float( 12, @class1 );
+	/* Columns grid
+	------------------------------------------------*/
+	.loopGrid-cols( 12,  ~"@{class1}@{cols-prefix}" );
+}
+
+
+/**
+ * --------------------------------------------------------------------------
+ * Grid container
+ * --------------------------------------------------------------------------
+ */
+@{container}{
+	display: block;
+	position: relative;
+	width:100%;
+	margin: 0 auto;
+	max-width: @grid-max-width;
+	.gutter(0);
+	img{
+		max-width: 100%;
+		height: auto;
+	}
+}
+
+/**
+ * --------------------------------------------------------------------------
+ * Grid global
+ * --------------------------------------------------------------------------
+ */
+@{container}{
+	.@{eg-prefix}{
+		position: relative;
+		display: inline-block;
+		float: left;
+		margin: 0;
+		min-height: 1px;
+		.gutter(@gutter);
+		.box-sizing();
+		&@{first-grid}{
+			padding-left: 0;
+		}
+		&@{last-grid}{
+			padding-right: 0;
+		}
+		&@{first-n-last-grid}{
+			.gutter(0);
+		}
+	}
+}
+
+.mobile-clear{
+	height: 0;
+	display: none;
+}
+
+
+/**
+ * --------------------------------------------------------------------------
+ * Default Grid size
+ * --------------------------------------------------------------------------
+ */
+.loopGrid-base(@desk-prefix);
+
+/**
+ * --------------------------------------------------------------------------
+ * Responsive
+ * --------------------------------------------------------------------------
+ */
+@baseWidth: 100px;
+@columnCount: 12;
+
+
+
+.columnBuilder (@index: 12) when (@index > 0) {
+  @gridClass-int:   ~'.@{desk-prefix}@{index}';
+  @gridClass-float: ~'.@{desk-prefix}@{index}-5';
+  @gridClass-col:   ~'.@{desk-prefix}@{cols-prefix}@{index}';
+
+  @{gridClass-int},
+  @{gridClass-float},
+  @{gridClass-col} {
+    .extender(){
+      &:extend(.mobile-100-percents all);
+    }
+    .extender();
+  }
+  //iterate the loop just as you were doing
+  .columnBuilder(@index - 1);
+}
+//call the loop starting at 1
+.columnBuilder(12);
+
+
+
+@media only screen and (max-width: 768px) {
+
+	@{container}{
+		.@{eg-prefix}.mobile-100-percents{
+			width: 100%;
+			&@{first-grid},
+			&@{last-grid}{
+				padding-left: 0;
+				padding-right: 0;
+			}
+		}
+	}
+	.loopGrid-base(@mob-prefix);
+
+	.mobile-clear{
+		.clear();
+	}
+
+}
+
+@media only screen and (max-width: 480px) {
+	@{container}{
+		.@{eg-prefix}.@{mob-prefix} {
+			&1, &2, &3, &4, &5, &6, &7, &8, &9, &10, &11, &12{
+			width: 100%;
+			}
+		}
+	}
+}
+
+/**
+ * --------------------------------------------------------------------------
+ * Clearfix
+ * --------------------------------------------------------------------------
+ */
+.clearfix,
+@{container} {
+	.eg-clearfix();
+}
+.clear { 
+	.clear();
+}

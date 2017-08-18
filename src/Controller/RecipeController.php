@@ -12,6 +12,8 @@ namespace Controller;
 use Entity\Comment;
 use Entity\Rating;
 use Entity\Recipe;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class RecipeController extends ControllerAbstract
@@ -20,10 +22,8 @@ class RecipeController extends ControllerAbstract
     {
         $recipe = $this->app['recipe.repository']->find($id_recipe);
         $user = $this->app['user.repository']->find($recipe->getId_user());
-        $comments = $this->app['comment.repository']->findByIdRecipe($id_recipe);
         $ratings = $this->app['rating.repository']->avgRate($id_recipe);
         $voters = $this->app['rating.repository']->countRating($id_recipe);
-
 
         //------------------------------------------------------------------------
         $comment = new Comment();
@@ -32,7 +32,6 @@ class RecipeController extends ControllerAbstract
         $errors = [];
 
         if (isset($_POST['contentBtn'])) {
-            echo 'là';
             $comment
                 ->setContent($_POST['content'])
                 ->setId_recipe($id_recipe)
@@ -79,6 +78,7 @@ class RecipeController extends ControllerAbstract
         }
         //----------------------------------------------------------------------------
 
+        $comments = $this->app['comment.repository']->findByIdRecipe($id_recipe);
 
         return $this->render('recipe/index.html.twig',
             [
@@ -102,7 +102,13 @@ class RecipeController extends ControllerAbstract
 
     public function searchAjaxAction()
     {
-        $recipes = $this->app['recipe.repository']->filtered($_POST);
+        $nbRecipePerPage = 3;
+
+        $recipes = $this->app['recipe.repository']->filtered($_POST, $nbRecipePerPage);
+        $totalRecipes = $this->app['recipe.repository']->filtered($_POST, 0);
+
+        $nbRecipes = count($totalRecipes);
+        $nbPages = ceil($nbRecipes / $nbRecipePerPage);
 
         $message="ok";
 
@@ -115,10 +121,63 @@ class RecipeController extends ControllerAbstract
             'recipe/table.html.twig',
             [
                 'recipes' => $recipes,
-                'message' => $message
+                'message' => $message,
+                'nbPages' => $nbPages
             ]
         );
     }
+
+    public function ratingAjaxAction(Request $request)
+    {
+        $errors = [];
+
+        $id_recipe = $request->request->get('id_recipe');
+        $rate = $request->request->get('rate');
+
+        $rating = new Rating();
+        $rating->setId_recipe($id_recipe);
+        $rating->setRate($rate);
+
+        if ($this->app['rating.repository']->ifRating($id_recipe, $this->app['user.manager']->getUserId())) {
+            $errors['didpost'] = 'Vous avez deja voté';
+            $this->addFlashMessage($errors['didpost'], 'error');
+        }
+        else{
+            $this->app['rating.repository']->save($rating);
+        }
+
+        $avg = $this->app['rating.repository']->avgRate($id_recipe);
+        $voters = $this->app['rating.repository']->countRating($id_recipe);
+
+        return $this->app->json([
+            'voters' => $voters,
+            'avg' => number_format($avg, 2, ',', ' '),
+        ], 200);
+    }
+
+//    public function commentAjaxAction(Request $request)
+//    {
+//        $id_recipe = $request->request->get('id_recipe');
+//        $content = $request->request->get('content');
+//
+//        $comment = new Comment();
+//        $comment->setId_recipe($id_recipe);
+//        $comment->setContent($content);
+//        $comment->setId_user($this->app['user.manager']->getUser()->getId_user());
+//        $comment->setComment_date(date("Y-m-d H:i:s"));
+//
+//        $this->app['comment.repository']->save($comment);
+//
+//        $commentresponse = [
+//            'content' => $comment->getContent(),
+//            'username' => $this->app['user.manager']->getUser()->getUsername(),
+//            'id_user' => $comment->getId_user(),
+//        ];
+//
+//        return $this->app->json(
+//            $commentresponse
+//        );
+//    }
 
     public function createAction()
     {

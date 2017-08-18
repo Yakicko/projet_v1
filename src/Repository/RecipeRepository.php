@@ -38,40 +38,53 @@ class RecipeRepository extends RepositoryAbstract
         return $recipes;
     }
 
-    public function filtered(array $filters)
+    public function totalRecipes() {
+        $query = "SELECT COUNT(id_recipe) FROM recipes";
+
+        return $this->db->fetchColumn($query);
+    }
+
+    public function filtered(array $filters, $nbResult)
     {
         $recipe = 'SELECT * FROM recipes WHERE 1=1';
 
 
-            if (isset($filters["star_ingredient"]) and $filters["star_ingredient"]){
-                $recipe .= " AND star_ingredient = '" . $filters["star_ingredient"] . "'";
+        if (isset($filters["star_ingredient"]) and $filters["star_ingredient"]) {
+            $recipe .= " AND star_ingredient = '" . $filters["star_ingredient"] . "'";
         }
-            if (isset($filters["difficulty"]) and $filters["difficulty"]){
-                $recipe .= " AND difficulty = " . $filters["difficulty"];
+        if (isset($filters["difficulty"]) and $filters["difficulty"]) {
+            $recipe .= " AND difficulty = " . $filters["difficulty"];
         }
-            if (isset($filters["prep_time"]) and $filters["prep_time"]){
-                $recipe .= " AND prep_time BETWEEN " . $filters["prep_time"];
+        if (isset($filters["prep_time"]) and $filters["prep_time"]) {
+            $recipe .= " AND prep_time BETWEEN " . $filters["prep_time"];
         }
-            if (isset($filters["cook_time"]) and $filters["cook_time"]){
-                $recipe .= " AND cook_time BETWEEN " . $filters["cook_time"];
+        if (isset($filters["cook_time"]) and $filters["cook_time"]) {
+            $recipe .= " AND cook_time BETWEEN " . $filters["cook_time"];
         }
-            if (isset($filters["portion"]) and $filters["portion"]){
-                $recipe .= " AND portion BETWEEN " . $filters["portion"];
+        if (isset($filters["portion"]) and $filters["portion"]) {
+            $recipe .= " AND portion BETWEEN " . $filters["portion"];
         }
 
-            $recipe .= " AND status = 'validee'" ;
+        $recipe .= " AND status = 'validee'";
 
-            $dbStarIngredient = $this->db->fetchAll($recipe);
+        if (!empty($nbResult)) {
+            $page = isset($filters['page']) ? $filters['page'] : 1;
+            $offset = ceil(($page - 1) * $nbResult);
 
-            $topIngredient = [];
-
-            foreach ($dbStarIngredient as $dbTop) {
-                $recipe = $this->buildEntity($dbTop);
-
-                $topIngredient[] = $recipe;
-            }
-            return $topIngredient;
+            $recipe .= ' LIMIT ' . $nbResult . ' OFFSET ' . $offset;
         }
+
+        $dbStarIngredient = $this->db->fetchAll($recipe);
+
+        $topIngredient = [];
+
+        foreach ($dbStarIngredient as $dbTop) {
+            $recipe = $this->buildEntity($dbTop);
+
+            $topIngredient[] = $recipe;
+        }
+        return $topIngredient;
+    }
 
 
     public function find($id_recipe)

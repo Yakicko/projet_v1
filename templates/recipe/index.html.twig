@@ -10,10 +10,8 @@
                 <div class="panel-heading">
                     <img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" class="img-responsive img-thumbnail"
                          width="500px">
-                    {% for ratings in ratings %}
-                        <p>Moyenne de la recette :{{ ratings.moyenne|number_format(2,',', '.') }}/5 pour
-                            ({% for voters in voters %}{{ voters.votants }}{% endfor %}) participations</p>
-                    {% endfor %}
+                        <p>Moyenne de la recette :<span id="avg">{{ ratings|number_format(2,',', ' ') }}</span>/5 pour
+                        <span id="voters">({{ voters }})</span> participations</p>
                 </div>
                 <div class="panel-body">
                     <div class="col-md-6">
@@ -23,8 +21,8 @@
                         <p>Difficulté: {{ recipe.difficulty }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p>Ingrédients de la recette: {{ recipe.ingredients }}</p>
-                        <p>Etapes de la recette: {{ recipe.methods }}</p>
+                        <p>Ingrédients de la recette: {{ recipe.ingredients|nl2br }}</p>
+                        <p>Etapes de la recette: {{ recipe.methods|nl2br  }}</p>
                     </div>
                     <div class="col-md-12">
                         <p>Anecdote: {{ recipe.story }}</p>
@@ -38,8 +36,9 @@
                     <!-- Fromulaire du commentaires -->
 
                     {% if user_manager.getUser() %}
-                        <form method="post">
+                        <form method="post" id="myComment">
                             <div class="form-group">
+                                <input type="hidden" value="{{ recipe.id_recipe }}" name="id_recipe">
                                 <label>Votre commentaire :</label>
                                 <textarea name="content" class="form-control" rows="10"></textarea>
                             </div>
@@ -47,7 +46,8 @@
                                     class="btn btn-primary form-control">Envoyer
                             </button>
                         </form>
-                        <form method="post">
+                        <form method="post" id="myRate">
+                            <input type="hidden" value="{{ recipe.id_recipe }}" name="id_recipe">
                             <div class="form-group">
                                 <label>note de la recette</label>
                                 <select name="rate" class="form-control">
@@ -74,10 +74,13 @@
 
                     <!-- Boucle pour afficher tout les commentaires-->
                     <div class="panel-body">
-                        <div class="col-md-12">
+                        <div class="col-md-12" id="resultComments">
                             <hr>
                             {% for comment in comments %}
-                                <p>Posté par :{{ comment.username }}</p>
+                                <p>
+                                    Posté par : {{ comment.username }}, le {{ comment.comment_date|date('d/m/Y') }}
+                                    à {{ comment.comment_date|date('H:i') }}
+                                </p>
                                 <p>Commentaire :{{ comment.content }}</p>
                                 <hr>
                             {% else %}
@@ -89,4 +92,45 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var postUrl = '{{ path('recipe_rating_ajax') }}';
+
+        {#var postUrl2 = '{{ path('recipe_comment_ajax') }}';#}
+
+        $('#myRate').submit(function (event) {
+            event.preventDefault();
+            var $this = $(this);
+
+            var data = $this.serialize();
+            $.post(
+                postUrl,
+                data,
+                function (response) {
+                    $('#avg').html(response.avg);
+                    $('#voters').html(response.voters);
+                },
+                'json'
+            )
+        });
+        {#$('#myComment').submit(function (event) {#}
+            {#event.preventDefault();#}
+            {#var $this = $(this);#}
+
+            {#var data = $this.serialize();#}
+            {#$.post(#}
+                {#postUrl2,#}
+                {#data,#}
+                {#function (response) {#}
+                    {#console.log(response);#}
+                    {#$commentTemplates = $('<p>Posté par : {{ comment.username }}, le {{ comment.comment_date|date(\'#}
+                    {#d / m / Y\') }}');#}
+                    {#$('#resultComments').append(response.content);#}
+                {#},#}
+                {#'json'#}
+            {#)#}
+        {#});#}
+    </script>
 {% endblock %}

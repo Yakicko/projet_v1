@@ -1,58 +1,64 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-        {#<p>{{ dump(user) }}</p>#}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-2" ><img class="img-responsive" src="https://www.gravatar.com/avatar/'.$gravatar.'?d=retro&s=150" /></div>
-        <div class="col-sm-10" >
+    {#<p>{{ dump(user) }}</p>#}
+    <div class="container">
+        <div class="row">
+            {% if user.user_picture %}
+                <div class="col-sm-2" ><img class="img-responsive" src="{{ asset('photo/' ~ user.user_picture) }}" /></div>
+            {% else %}
+                <div class="col-sm-2" ><img class="img-responsive" src="https://www.gravatar.com/avatar/{{gravatar}}?d=retro&s=150" /></div>
+            {% endif %}
+            <div class="col-sm-10">
                 <table class="table">
                     <thead class="thead-inverse">
-                        <tr>
-                            <th colspan="2">Bienvenue sur votre profil !</th>
-                        </tr>
+                    <tr>
+                        <th colspan="2">Bienvenue sur votre profil !</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">Pseudo</th>
-                            <td>{{ user.username }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Nom</th>
-                            <td>{{ user.lastname }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Prénom</th>
-                            <td>{{ user.firstname }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Email</th>
-                            <td>{{ user.email }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Région</th>
-                            <td>{{ region.region_name }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Statut</th>
-                            <td>{{ user.status }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Mes recettes</th>
-                            <td>{{ nb_myRecipe }}<a href="{{ path("recipes_user",{id_user:user.id_user}) }}">&nbsp&nbsp&nbspVoir mes recettes...</a></td>                        
-                        </tr>
-                        <tr>
-                            <th scope="row">Mes commentaires</th>
-                            <td>{{ nb_myComments }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Mes notes</th>
-                            <td>{{ nb_myRatings }}</td>
-                        </tr>
+                    <tr>
+                        <th scope="row">Pseudo</th>
+                        <td>{{ user.username }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nom</th>
+                        <td>{{ user.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Prénom</th>
+                        <td>{{ user.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Région</th>
+                        <td>{{ region.region_name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Statut</th>
+                        <td>{{ user.status }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mes recettes</th>
+                        <td>{{ nb_myRecipe }}<a href="{{ path("recipes_user",{id_user:user.id_user}) }}">&nbsp&nbsp&nbspVoir
+                                mes recettes...</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mes commentaires</th>
+                        <td>{{ nb_myComments }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mes notes</th>
+                        <td>{{ nb_myRatings }}</td>
+                    </tr>
                     </tbody>
                 </table>
+                <a href="{{ path("profil_edit") }}">Modifier le profile</a>
             </div>
         </div>
     </div>
-</div>
+    </div>
 {% endblock %}

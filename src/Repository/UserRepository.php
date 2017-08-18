@@ -114,6 +114,11 @@ class UserRepository extends RepositoryAbstract
         }
     }
 
+    public function totalUsers() {
+        $query = "SELECT COUNT(id_user) FROM users";
+
+        return $this->db->fetchColumn($query);
+    }
 
     public function myRecipe($id_user)
     {
@@ -165,7 +170,8 @@ class UserRepository extends RepositoryAbstract
             'civility' => $user->getCivility(),
             'id_region' => $user->getId_region(),
             'status' => $user->getStatus(),
-            'password' => $user->getPassword()
+            'password' => $user->getPassword(),
+            'user_picture' => $user->getUser_picture()
         ];
 
         $where = !empty($user->getId_user())
@@ -208,6 +214,7 @@ class UserRepository extends RepositoryAbstract
             ->setStatus($data['status'])
             ->setPassword($data['password'])
             ->setId_region($data['id_region'])
+            ->setUser_picture($data['user_picture'])
         ;
 
         if (isset($data['region_name'])) {

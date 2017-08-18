@@ -1,0 +1,126 @@
+.post-comments{
+	list-style: none;
+	padding: 0;
+	margin: 30px 0;
+	.comment,
+	ul{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.comment-header{
+		position: relative;
+	}
+	.avatar{
+		margin: 0;
+		max-width: 80px;
+		max-height: 80px;
+	}
+	.content{
+		background: #fff;
+		padding: 10px;
+		p:last-of-type{
+			margin-bottom: 10px;
+		}
+	}
+	.comment{
+		position: relative;
+		padding-left: 90px;
+		min-height: 80px;
+		margin-bottom: 30px;
+	}
+	.comment-avatar{
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.comment-time{
+		display: inline-block;
+		background: #eee;
+		font-size: 12px;
+		padding: 1px 6px;
+		margin-left: 10px;
+	}
+	.comment-reply{
+		background: #fff;
+		display: block;
+		padding: 10px 15px;
+		border-top: 1px dashed #eee;
+		&:hover{
+			background: #fafafa;
+		}
+	}
+	.comment-vote{
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 12px;
+		font-weight: 700;
+		.control{
+			display: inline-block;
+			padding: 0 5px 1px;
+			background: transparent;
+			color: #ccc;
+			text-align: center;
+			cursor: pointer;
+			&:hover{
+				color: #aaa;
+			}
+		}
+		.upvote{
+			&.active{
+				color: @color-blue;
+			}
+		}
+		.downvote{
+			&.active{
+				color: @color-red;
+			}
+		}
+		.counter{	
+			display: inline-block;
+			padding: 1px;
+			text-align: center;
+			&.positive{}
+			&.negative{
+				color: @color-red;
+			}
+		}
+	}
+
+	// Child comments
+	ul .comment{
+		margin: 0;
+		padding: 0;
+		min-height: 40px;
+		border-top: 1px solid #eee;
+		.content{
+			padding: 20px 10px 20px 60px;
+			p:first-of-type{
+				margin-top: 5px;
+			}
+		}
+		.avatar{
+			max-width: 40px;
+			max-height: 40px;
+		}
+		.comment-avatar{
+			top: 20px;
+			left: 10px;
+		}
+	}
+}
+
+.comment-form-question{
+	float: right;
+	color: darken( @color-light-gray, 10% );
+	&:hover{
+		color: @color-dark-gray;
+	}
+}
+.form-allowed-tags{
+	code{
+		background: transparent;
+		border: 0;
+	}
+}

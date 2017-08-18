@@ -1,19 +1,123 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <div class="starter-template">
-    <h1>{{ region.region_name }}</h1>
+<!--
+    // ===================================^__^=================================== //
+    Content
+    // ===================================^__^=================================== //
+    -->
 
-    <p><img src="{{ asset('img/' ~ regionDetail.picture_region) }}" class="img-responsive img-thumbnail" width="500px">
-    </p>
-    {% for topRegions in topRegions %}
-        <p>Recette :{{ topRegions.title }}</p>
-        <p>Ingredient Star :{{ topRegions.star_ingredient }}</p>
-        {% endfor %}
-    <p></p>
-    <p>{{ regionDetail.region_story }}</p>
-    <p>{{ regionDetail.details }}</p>
+    <div class="rw-container rw-section">
+        <div class="rw-inner clearfix">
 
-    </div>
+            <!-- Main content -->
+            <div class="rw-column rw-content">
 
+                <div class="rw-row subtle large home-recipe-of-the-day">
+                    <div class="grid-container">
+                        <div class="grid desk-6">
+                            <div class="entry-photo">
+                                <div class="badge">{{ region.region_name }}</div>
+                                <img src="{{ asset('img/' ~ regionDetail.picture_region) }}" alt="" />
+                            </div>
+                        </div>
+                        <div class="grid desk-6">
+                            <h3><a href="#">{{ region.region_name }}</a></h3>
+                            <p><ins>Anectode :</ins></p>
+                            <p>{{ regionDetail.region_story }}</p>
+                            <p><ins>info pratique :</ins></p>
+                            <p>{{ regionDetail.details }}</p>
+                            <div class="entry-meta clearfix">
+                                <div class="meta favorites">
+                                    <span class="icon"><i class="the-icon fa fa-heart-o"></i></span>
+                                    <span class="number">89 favorites</span>
+                                </div>
+                                <div class="meta likes">
+                                    <span class="icon"><i class="the-icon fa fa-thumbs-o-up"></i></span>
+                                    <span class="number">225 likes</span>
+                                </div>
+                                <div class="meta comments">
+                                    <span class="icon"><i class="the-icon fa fa-comments"></i></span>
+                                    <span class="number">26 comments</span>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rw-row subtle large">
+
+                    <div class="grid-container carousel-container">
+
+                        <div class="grid desk-6 mob-6">
+                            <h4 class="carousel-posts-heading">Les tops recettes de la régions</h4>
+                        </div>
+                        <div class="grid desk-6 mob-6">
+                            <div class="carousel-posts-nav clearfix">
+                                <div class="carousel-posts-nav-next"><i class="fa fa-chevron-right"></i></div>
+                                <div class="carousel-posts-nav-prev"><i class="fa fa-chevron-left"></i></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div class="home-carousel-posts clearfix">
+                            <!-- Les top recette par région -->
+                            {% for topRegions in topRegions %}
+                                <div class="entry style-columns">
+                                    <div class="entry-photo">
+                                        <img src="{{ asset('photo/' ~ topRegions.picture_recipe) }}" alt="" />
+                                    </div>
+                                    <div class="entry-title">
+                                        <a href="#">{{ topRegions.title }}</a>
+                                    </div>
+                                    <div class="entry-meta">
+                                        <span class="date">Mettre le nom de l'auteur ID = {{ topRegions.id_user }}</span>
+                                    </div>
+                                    <div class="entry-content">
+                                        <p>{{ topRegions.star_ingredient }}</p>
+                                    </div>
+                                    <div class="entry-controls">
+                                        <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i class="fa fa-heart-o"></i> </a><span class="control-tip">24</span>
+                                        <a href="#" class="control entry-like" title="I like this!"> <i class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">115</span>
+                                    </div>
+                                </div> <!-- .entry -->
+                            {% endfor %}
+                        </div> <!-- .home-carousel-posts -->
+
+                    </div>
+
+                </div> <!-- .rw-row -->
+
+                <div class="rw-row subtle">
+
+                    <div class="grid-container">
+
+                        <div class="grid desk-12">
+                            <h4>Top authors</h4>
+                            <div class="home-authors clearfix">
+                                <a href="#" class="author" title="Mark Smith"><img src="assets/placeholder/people/80x80/1.jpg" alt="" /></a>
+                                <a href="#" class="author" title="Mary Hernandez"><img src="assets/placeholder/people/80x80/2.jpg" alt="" /></a>
+                                <a href="#" class="author" title="Tony Anderson"><img src="assets/placeholder/people/80x80/3.jpg" alt="" /></a>
+                                <a href="#" class="author" title="Elizabeth Brown"><img src="assets/placeholder/people/80x80/4.jpg" alt="" /></a>
+                                <a href="#" class="author" title="John Johnson"><img src="assets/placeholder/people/80x80/5.jpg" alt="" /></a>
+                                <a href="#" class="author" title="Mary Martin"><img src="assets/placeholder/people/80x80/6.jpg" alt="" /></a>
+                                <a href="#" class="author" title="Elizabeth Hill"><img src="assets/placeholder/people/80x80/7.jpg" alt="" /></a>
+                                <a href="#" class="author" title="Anthony Phillips"><img src="assets/placeholder/people/80x80/8.jpg" alt="" /></a>
+                                <a href="#" class="author" title="Anthony Garcia"><img src="assets/placeholder/people/80x80/9.jpg" alt="" /></a>
+                                <a href="#" class="author" title="Paul Lee"><img src="assets/placeholder/people/80x80/10.jpg" alt="" /></a>
+                                <a href="#" class="author" title="Jason Phillips"><img src="assets/placeholder/people/80x80/11.jpg" alt="" /></a>
+                                <a href="#" class="author" title="Ruth Campbell"><img src="assets/placeholder/people/80x80/12.jpg" alt="" /></a>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+
+                </div> <!-- .rw-row -->
+
+            </div>
+
+        </div> <!-- .rw-inner -->
+    </div> <!-- .rw-container -->
     {% endblock %}
