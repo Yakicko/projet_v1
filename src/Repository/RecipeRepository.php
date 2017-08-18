@@ -123,7 +123,7 @@ class RecipeRepository extends RepositoryAbstract
 
             $topRegions[] = $recipe;
         }
-        return $topRegions;
+        return $dbTopRegion;
     }
 
 
