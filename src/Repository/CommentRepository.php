@@ -136,8 +136,7 @@ class CommentRepository extends RepositoryAbstract
             <br />Voici votre commentaire, on vous laisse refléchir là-dessus: <p>" . $dbMail['content'] . "</p>";
 
             @mail($dbMail['email'], $subject, $msg, 'From: ' . $sender);
-        } 
-        //return $this->buildEntity($dbMail);
+        }
     }
 
     public function delete(Comment $comment)

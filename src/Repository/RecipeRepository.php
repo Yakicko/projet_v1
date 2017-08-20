@@ -19,7 +19,7 @@ class RecipeRepository extends RepositoryAbstract
 
     public function findAll()
     {
-        $query = "SELECT r.id_recipe, r.id_region, r.id_user, r.title, r.picture_recipe, r.star_ingredient, r.difficulty, r.prep_time, r.cook_time, r.portion, r.ingredients, r.methods, r.story, r.status, s.region_name, u.username FROM recipes r"
+        $query = "SELECT r.*, s.region_name, u.username FROM recipes r"
             . " JOIN regions s ON r.id_region = s.id_region"
             . " JOIN users u ON r.id_user = u.id_user"
             . " WHERE r.status = 'En attente'"
@@ -36,6 +36,80 @@ class RecipeRepository extends RepositoryAbstract
         }
 
         return $recipes;
+    }
+
+    public function findSort($orderField = 'username', $order = 'ASC')
+    {
+        $query = "SELECT r.*, s.region_name, u.username FROM recipes r"
+            . " JOIN regions s ON r.id_region = s.id_region"
+            . " JOIN users u ON r.id_user = u.id_user"
+        ;
+
+        $query .= " ORDER BY $orderField $order";
+
+        $dbRecipes = $this->db->fetchAll($query);
+
+        $recipes = [];
+
+        foreach ($dbRecipes as $dbRecipe)
+        {
+            $recipe = $this->buildEntity($dbRecipe);
+
+            $recipes[] = $recipe;
+        }
+
+        return $recipes;
+    }
+
+    public function deleteMail($id_recipe)
+    {
+        $query = 'SELECT r.*, u.username, u.email FROM recipes r JOIN users u ON r.id_user = u.id_user WHERE id_recipe = :id_recipe';
+
+        $dbMail = $this->db->fetchAssoc($query, [':id_recipe' => $id_recipe]);
+
+        if(!empty($dbMail)){
+
+            // Subject of confirmation email.
+            $subject = 'Suppression de votre recette';
+
+            // Who should the confirmation email be from?
+            $sender = 'J\'ai faim! <no-reply@myemail.co.uk>';
+
+            $msg = $dbMail['username'] . ",\n\nNous jugeons votre recette inappropriée et nous l'avons donc supprimée.
+            <br />";
+
+            @mail($dbMail['email'], $subject, $msg, 'From: ' . $sender);
+        }
+    }
+
+    public function validateMail($id_recipe)
+    {
+        $query = 'SELECT r.*, u.username, u.email FROM recipes r JOIN users u ON r.id_user = u.id_user WHERE id_recipe = :id_recipe';
+
+        $dbMail = $this->db->fetchAssoc($query, [':id_recipe' => $id_recipe]);
+
+        if(!empty($dbMail)){
+
+            // Subject of confirmation email.
+            $subject = 'Validation de votre recette';
+
+            // Who should the confirmation email be from?
+            $sender = 'J\'ai faim! <no-reply@myemail.co.uk>';
+
+            $msg = $dbMail['username'] . ",\n\nNous vous informons que votre recette est validée et sera en ligne dans les plus brefs des délais.
+            <br />";
+
+            @mail($dbMail['email'], $subject, $msg, 'From: ' . $sender);
+        }
+    }
+
+    public function validRecipe(Recipe $recipe)
+    {
+        $data = [
+            'status' => 'validee'
+        ];
+
+        $this->persist($data, ['id_recipe' => $recipe->getId_recipe()]);
     }
 
     public function filtered(array $filters)
@@ -151,15 +225,6 @@ class RecipeRepository extends RepositoryAbstract
         if (empty($recipe->getId_recipe())) {
             $recipe->setId_recipe($this->db->lastInsertId());
         }
-    }
-
-    public function validRecipe(Recipe $recipe)
-    {
-        $data = [
-            'status' => 'validee'
-        ];
-
-        $this->persist($data, ['id_recipe' => $recipe->getId_recipe()]);
     }
 
     public function delete (Recipe $recipe)
