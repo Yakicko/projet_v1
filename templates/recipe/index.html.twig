@@ -76,6 +76,11 @@
                     <div class="panel-body">
                         <div class="col-md-12" id="resultComments">
                             <hr>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src="{{ asset("photo/" ~ user.getUser_picture()) }}" class="img-circle" >
+                                </div>
+                                <div class="col-md-10">
                             {% for comment in comments %}
                                 <p>
                                     Posté par : {{ comment.username }}, le {{ comment.comment_date|date('d/m/Y') }}
@@ -86,6 +91,8 @@
                             {% else %}
                                 <p>Aucun commentaire</p>
                             {% endfor %}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
