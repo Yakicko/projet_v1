@@ -19,10 +19,12 @@
         "symfony/monolog-bridge": "~2.8|^3.0",
         "symfony/process": "~2.8|^3.0",
         "symfony/security": "~2.8|^3.0",
-        "symfony/translation": "~2.8|^3.0",
+        "symfony/translation": "^3.3",
         "symfony/twig-bridge": "~2.8|^3.0",
         "symfony/validator": "~2.8|^3.0",
-        "doctrine/dbal": "~2.2"
+        "doctrine/dbal": "~2.2",
+        "ttskch/pagination-service-provider": "^4.0",
+        "pmaxs/silex-locale": "^2.0"
     },
     "autoload": {
         "psr-0": { "": "src/" }

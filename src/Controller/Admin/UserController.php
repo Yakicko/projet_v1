@@ -12,8 +12,11 @@ class UserController extends ControllerAbstract
 {
     public function listAction()
     {
-        $users = $this->app['user.repository']->findAll();
-
+        if (isset($_GET['col'])) {
+            $users = $this->app['user.repository']->findSort($_GET['col'], $_GET['order']);
+        } else{
+            $users = $this->app['user.repository']->findAll();
+        }
         return $this->render(
             'admin/user/list.html.twig',
             [

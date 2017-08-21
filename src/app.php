@@ -12,12 +12,15 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register(new AssetServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
+
 $app['twig'] = $app->extend('twig', function ($twig, $app) {
     // add custom globals, filters, tags, ...
     $twig->addGlobal('user_manager', $app['user.manager']);
 
     return $twig;
 });
+
+
 
 // Ajout doctrine DBAL ($app['db'])
 // Nécessite l'installation par composer : composer require doctrine/dbal:~2.2
