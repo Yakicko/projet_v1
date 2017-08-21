@@ -1,12 +1,6 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-<!--
-    // ===================================^__^=================================== //
-    Content
-    // ===================================^__^=================================== //
-    -->
-
     <div class="rw-container rw-section">
         <div class="rw-inner clearfix">
 
@@ -18,15 +12,18 @@
                         <div class="grid desk-6">
                             <div class="entry-photo">
                                 <div class="badge">{{ region.region_name }}</div>
-                                <img src="{{ asset('img/' ~ regionDetail.picture_region) }}" alt="" />
+                                <img id="photoRegion" src="{{ asset('img/' ~ regionDetail.picture_region) }}" alt=""/>
                             </div>
                         </div>
                         <div class="grid desk-6">
                             <h3><a href="#">{{ region.region_name }}</a></h3>
-                            <p><ins>Anectode :</ins></p>
                             <p>{{ regionDetail.region_story }}</p>
-                            <p><ins>info pratique :</ins></p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias asperiores aspernatur
+                                assumenda,
+                                at deserunt dolorem doloremque esse ex iure libero magnam magni modi quam quasi
+                                quibusdam, similique tempore tenetur vero?</p>
                             <p>{{ regionDetail.details }}</p>
+
                             <div class="entry-meta clearfix">
                                 <div class="meta favorites">
                                     <span class="icon"><i class="the-icon fa fa-heart-o"></i></span>
@@ -42,16 +39,17 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
+
+
                         </div>
                     </div>
                 </div>
-
-                {#<div class="rw-row subtle large">
+                <div class="rw-row subtle large">
 
                     <div class="grid-container carousel-container">
 
                         <div class="grid desk-6 mob-6">
-                            <h4 class="carousel-posts-heading">Les tops recettes de la régions</h4>
+                            <h4 class="carousel-posts-heading">TOP des recettes de la région !</h4>
                         </div>
                         <div class="grid desk-6 mob-6">
                             <div class="carousel-posts-nav clearfix">
@@ -62,83 +60,224 @@
                         <div class="clear"></div>
 
                         <div class="home-carousel-posts clearfix">
-                            <!--___________________________________________________________________
-                            /                   LES TOP RECETTE DES REGIONS                        /
-                           ----------------------------------------------------------------------->
-                            
+
+                            <!-- Entry -->
                             {% for topRegions in topRegions %}
                                 <div class="entry style-columns">
                                     <div class="entry-photo">
-                                        <img src="{{ asset('photo/' ~ topRegions.picture_recipe) }}" alt="" />
+                                        <img id="photo-top5" src="{{ asset('photo/' ~ topRegions.picture_recipe) }}" alt=""/>
                                     </div>
                                     <div class="entry-title">
                                         <a href="#">{{ topRegions.title }}</a>
                                     </div>
                                     <div class="entry-meta">
-                                        <span class="date">Mettre le nom de l'auteur ID = {{ topRegions.id_user }}</span>
+                                        <span class="date">21 Aug 2014</span>
                                     </div>
                                     <div class="entry-content">
-                                        <p>{{ topRegions.star_ingredient }}</p>
+                                        <p>Recette de "user.username"</p>
                                     </div>
-                                    <div class="entry-controls">
-                                        <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i class="fa fa-heart-o"></i> </a><span class="control-tip">24</span>
-                                        <a href="#" class="control entry-like" title="I like this!"> <i class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">115</span>
-                                    </div>
-                                </div> <!-- /.entry -->
+                                </div> <!-- .entry -->
                             {% endfor %}
-                        </div> <!-- /.home-carousel-posts -->
 
-                    </div> <!-- /.grid-container carousel-container -->
+                        </div> <!-- .home-carousel-posts -->
 
-                </div> <!-- /.rw-row -->#}
-                
-        <div class="span12">
-            <div class="well">
-                <h4 class="carousel-posts-heading">Les tops recettes de la régions</h4>
-                <div id="myCarousel" class="carousel fdi-Carousel slide">
-                     <!-- Carousel items -->
-                        <div class="carousel fdi-Carousel slide" id="eventCarousel" data-interval="0">
-                            <div class="carousel-inner onebyone-carosel">
-                                {% for topRegions in topRegions %}
-                                <div class="item {% if loop.first %}active{% endif %}">
-                                    <div class="col-md-4">
-                                        <a href="{{ path("recipe_index",{id_recipe:topRegions.id_recipe}) }}"><img src="{{ asset('photo/' ~ topRegions.picture_recipe) }}" class="img-responsive center-block"></a>
-                                        <div class="text-center">{{topRegions.title}}</div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                                
-                            </div>
-                            <a class="left carousel-control" href="#eventCarousel" data-slide="prev"></a>
-                            <a class="right carousel-control" href="#eventCarousel" data-slide="next"></a>
+                    </div>
+
+                </div> <!-- .rw-row -->
+
+                <div class="rw-row subtle large border-tb">
+
+                    <div class="grid-container carousel-container">
+
+                        <div class="grid desk-6 mob-6">
+                            <h4 class="carousel-posts-heading">Latest recipes</h4>
                         </div>
-                        <!--/carousel-inner-->
-                    </div><!--/myCarousel-->
-                </div>
-            </div>
+                        <div class="grid desk-6 mob-6">
+                            <div class="carousel-posts-nav clearfix">
+                                <div class="carousel-posts-nav-next"><i class="fa fa-chevron-right"></i></div>
+                                <div class="carousel-posts-nav-prev"><i class="fa fa-chevron-left"></i></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div class="home-carousel-posts clearfix">
+
+                            <!-- Entry -->
+                            <div class="entry style-columns">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/350x240/18.jpg" alt=""/>
+                                </div>
+                                <div class="entry-title">
+                                    <a href="#">African Chicken Peanut Stew</a>
+                                </div>
+                                <div class="entry-meta">
+                                    <span class="date">21 Aug 2014</span>
+                                </div>
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, con sectetur adipisicing elit, sed do eiusmod
+                                        tempor incididunt...</p>
+                                </div>
+                                <div class="entry-controls">
+                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">24</span>
+                                    <a href="#" class="control entry-like" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">115</span>
+                                </div>
+                            </div> <!-- .entry -->
+
+                            <!-- Entry -->
+                            <div class="entry style-columns">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/350x240/19.jpg" alt=""/>
+                                </div>
+                                <div class="entry-title">
+                                    <a href="#">Beer Braised Chicken and Onions</a>
+                                </div>
+                                <div class="entry-meta">
+                                    <span class="date">21 Aug 2014</span>
+                                </div>
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, con sectetur adipisicing elit, sed do eiusmod
+                                        tempor incididunt...</p>
+                                </div>
+                                <div class="entry-controls">
+                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">24</span>
+                                    <a href="#" class="control entry-like" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">115</span>
+                                </div>
+                            </div> <!-- .entry -->
+
+                            <!-- Entry -->
+                            <div class="entry style-columns">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/350x240/20.jpg" alt=""/>
+                                </div>
+                                <div class="entry-title">
+                                    <a href="#">Chicken Curry Salad</a>
+                                </div>
+                                <div class="entry-meta">
+                                    <span class="date">21 Aug 2014</span>
+                                </div>
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, con sectetur adipisicing elit, sed do eiusmod
+                                        tempor incididunt...</p>
+                                </div>
+                                <div class="entry-controls">
+                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">24</span>
+                                    <a href="#" class="control entry-like" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">115</span>
+                                </div>
+                            </div> <!-- .entry -->
+
+                            <!-- Entry -->
+                            <div class="entry style-columns">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/350x240/10.jpg" alt=""/>
+                                </div>
+                                <div class="entry-title">
+                                    <a href="#">Beer Braised Chicken and Onions</a>
+                                </div>
+                                <div class="entry-meta">
+                                    <span class="date">21 Aug 2014</span>
+                                </div>
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, con sectetur adipisicing elit, sed do eiusmod
+                                        tempor incididunt...</p>
+                                </div>
+                                <div class="entry-controls">
+                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">24</span>
+                                    <a href="#" class="control entry-like" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">115</span>
+                                </div>
+                            </div> <!-- .entry -->
+
+                            <!-- Entry -->
+                            <div class="entry style-columns">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/350x240/11.jpg" alt=""/>
+                                </div>
+                                <div class="entry-title">
+                                    <a href="#">Chicken Curry Salad</a>
+                                </div>
+                                <div class="entry-meta">
+                                    <span class="date">21 Aug 2014</span>
+                                </div>
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, con sectetur adipisicing elit, sed do eiusmod
+                                        tempor incididunt...</p>
+                                </div>
+                                <div class="entry-controls">
+                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">24</span>
+                                    <a href="#" class="control entry-like" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">115</span>
+                                </div>
+                            </div> <!-- .entry -->
+
+                            <!-- Entry -->
+                            <div class="entry style-columns">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/350x240/12.jpg" alt=""/>
+                                </div>
+                                <div class="entry-title">
+                                    <a href="#">Chicken Curry Salad</a>
+                                </div>
+                                <div class="entry-meta">
+                                    <span class="date">21 Aug 2014</span>
+                                </div>
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, con sectetur adipisicing elit, sed do eiusmod
+                                        tempor incididunt...</p>
+                                </div>
+                                <div class="entry-controls">
+                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">24</span>
+                                    <a href="#" class="control entry-like" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">115</span>
+                                </div>
+                            </div> <!-- .entry -->
+
+                        </div> <!-- .home-carousel-posts -->
+
+                    </div>
+
+                </div> <!-- .rw-row -->
+
                 <div class="rw-row subtle">
 
                     <div class="grid-container">
 
                         <div class="grid desk-12">
-                            
-<!--___________________________________________________________________ TOP AUTHOR ___________________________________________________________________-->
-                            
                             <h4>Top authors</h4>
                             <div class="home-authors clearfix">
-                               {# <a href="#" class="author" title="Mark Smith"><img src="assets/placeholder/people/80x80/1.jpg" alt="" /></a>
-                                <a href="#" class="author" title="Mary Hernandez"><img src="assets/placeholder/people/80x80/2.jpg" alt="" /></a>
-                                <a href="#" class="author" title="Tony Anderson"><img src="assets/placeholder/people/80x80/3.jpg" alt="" /></a>
-                                <a href="#" class="author" title="Elizabeth Brown"><img src="assets/placeholder/people/80x80/4.jpg" alt="" /></a>
-                                <a href="#" class="author" title="John Johnson"><img src="assets/placeholder/people/80x80/5.jpg" alt="" /></a>
-                                <a href="#" class="author" title="Mary Martin"><img src="assets/placeholder/people/80x80/6.jpg" alt="" /></a>
-                                <a href="#" class="author" title="Elizabeth Hill"><img src="assets/placeholder/people/80x80/7.jpg" alt="" /></a>
-                                <a href="#" class="author" title="Anthony Phillips"><img src="assets/placeholder/people/80x80/8.jpg" alt="" /></a>
-                                <a href="#" class="author" title="Anthony Garcia"><img src="assets/placeholder/people/80x80/9.jpg" alt="" /></a>
-                                <a href="#" class="author" title="Paul Lee"><img src="assets/placeholder/people/80x80/10.jpg" alt="" /></a>
-                                <a href="#" class="author" title="Jason Phillips"><img src="assets/placeholder/people/80x80/11.jpg" alt="" /></a>
-                                <a href="#" class="author" title="Ruth Campbell"><img src="assets/placeholder/people/80x80/12.jpg" alt="" /></a>
-#}                            </div>
+                                <a href="#" class="author" title="Mark Smith"><img
+                                            src="{{  asset('placeholder/people/80x80/1.jpg')}}" alt=""/></a>
+                                <a href="#" class="author" title="Mary Hernandez"><img
+                                            src="assets/placeholder/people/80x80/2.jpg" alt=""/></a>
+                                <a href="#" class="author" title="Tony Anderson"><img
+                                            src="assets/placeholder/people/80x80/3.jpg" alt=""/></a>
+                                <a href="#" class="author" title="Elizabeth Brown"><img
+                                            src="assets/placeholder/people/80x80/4.jpg" alt=""/></a>
+                                <a href="#" class="author" title="John Johnson"><img
+                                            src="assets/placeholder/people/80x80/5.jpg" alt=""/></a>
+                                <a href="#" class="author" title="Mary Martin"><img
+                                            src="assets/placeholder/people/80x80/6.jpg" alt=""/></a>
+                                <a href="#" class="author" title="Elizabeth Hill"><img
+                                            src="assets/placeholder/people/80x80/7.jpg" alt=""/></a>
+                                <a href="#" class="author" title="Anthony Phillips"><img
+                                            src="assets/placeholder/people/80x80/8.jpg" alt=""/></a>
+                                <a href="#" class="author" title="Anthony Garcia"><img
+                                            src="assets/placeholder/people/80x80/9.jpg" alt=""/></a>
+                                <a href="#" class="author" title="Paul Lee"><img
+                                            src="assets/placeholder/people/80x80/10.jpg" alt=""/></a>
+                                <a href="#" class="author" title="Jason Phillips"><img
+                                            src="assets/placeholder/people/80x80/11.jpg" alt=""/></a>
+                                <a href="#" class="author" title="Ruth Campbell"><img
+                                            src="assets/placeholder/people/80x80/12.jpg" alt=""/></a>
+                            </div>
                         </div>
                         <div class="clear"></div>
 
@@ -150,7 +289,4 @@
 
         </div> <!-- .rw-inner -->
     </div> <!-- .rw-container -->
-    <script>
-        
-    </script>
-    {% endblock %}
+{% endblock %}

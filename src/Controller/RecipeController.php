@@ -69,7 +69,7 @@ class RecipeController extends ControllerAbstract
             if (empty($errors)) {
                 $this->app['rating.repository']->save($rating);
 
-                $this->addFlashMessage('Votre vote a bien été enregistré');
+                $this->addFlashMessage('Votre vote a bien été enregistré');;
             } else {
                 $message = '<strong>La note contient des erreurs</strong>';
                 $message .= '<br>' . implode('<br>', $errors);
@@ -79,7 +79,7 @@ class RecipeController extends ControllerAbstract
         //----------------------------------------------------------------------------
 
         $comments = $this->app['comment.repository']->findByIdRecipe($id_recipe);
-               
+
         return $this->render('recipe/index.html.twig',
             [
                 'recipe' => $recipe,
@@ -102,7 +102,7 @@ class RecipeController extends ControllerAbstract
 
     public function searchAjaxAction()
     {
-        $nbRecipePerPage = 3;
+        $nbRecipePerPage = 8;
 
         $recipes = $this->app['recipe.repository']->filtered($_POST, $nbRecipePerPage);
         $totalRecipes = $this->app['recipe.repository']->filtered($_POST, 0);
@@ -207,6 +207,7 @@ class RecipeController extends ControllerAbstract
                     ->setPicture_recipe($_FILES['picture_recipe']['name'])
                     ->setId_user($this->app['user.manager']->getUserId())
                     ->setStatus('En attente');
+
 
 
                 if (empty($_POST['title'])) {

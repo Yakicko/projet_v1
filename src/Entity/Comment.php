@@ -188,7 +188,7 @@ class Comment
     {
         return $this->userName;
     }
-    
+
     /*************************************** RECIPE NAME *******************************/
 
     private $recipeName;
@@ -213,7 +213,6 @@ class Comment
         return $this->recipeName;
 
     }
-    
 
 
 }

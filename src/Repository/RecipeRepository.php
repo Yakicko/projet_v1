@@ -123,7 +123,7 @@ class RecipeRepository extends RepositoryAbstract
 
             $topRegions[] = $recipe;
         }
-        return $dbTopRegion;
+        return $topRegions;
     }
 
 
@@ -154,7 +154,8 @@ class RecipeRepository extends RepositoryAbstract
             'story' => $recipe->getStory(),
             'id_region' => $recipe->getId_region(),
             'picture_recipe' => $recipe->getPicture_recipe(),
-            'id_user' => $this->app['user.manager']->getUser()->getId_user()
+            'id_user' => $this->app['user.manager']->getUser()->getId_user(),
+            'date_recipe' => date("Y-m-d")
         ];
 
         // Appel à la méthode de RepositoryAbstract pour enregistrer
@@ -183,6 +184,7 @@ class RecipeRepository extends RepositoryAbstract
         );
     }
 
+
     private function buildEntity(array $data)
     {
         $recipe = new Recipe();
@@ -201,6 +203,7 @@ class RecipeRepository extends RepositoryAbstract
             ->setMethods($data['methods'])
             ->setId_user($data["id_user"])
             ->setStory($data['story']);
+            //->setDate_recipe($data['date_recipe']);
 
         if (isset($data['region_name'])) {
             $recipe->setRegionName($data['region_name']);

@@ -159,6 +159,7 @@ class UserRepository extends RepositoryAbstract
         return $nb_myRatings;
     }
 
+
     public function save(User $user)
     {
         // les données à enregistrer en bdd

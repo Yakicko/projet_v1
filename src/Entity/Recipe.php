@@ -82,6 +82,29 @@ class Recipe
     private $picture_recipe;
 
     /**
+     * @var
+     */
+    private $date_recipe;
+
+    /**
+     * @return mixed
+     */
+    public function getDate_recipe()
+    {
+        return $this->date_recipe;
+    }
+
+    /**
+     * @param mixed $date_recipe
+     * @return Recipe
+     */
+    public function setDate_recipe($date_recipe)
+    {
+        $this->date_recipe = $date_recipe;
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
     public function getId_recipe()

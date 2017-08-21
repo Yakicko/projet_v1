@@ -1,104 +1,503 @@
 {% extends "layout.html.twig" %}
-
 {% block content %}
-    <div class="starter-template">
-        <h1>{{ recipe.title }}</h1>
-    </div>
-    <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" class="img-responsive img-thumbnail"
-                         width="500px">
-                        <p>Moyenne de la recette :<span id="avg">{{ ratings|number_format(2,',', ' ') }}</span>/5 pour
-                        <span id="voters">({{ voters }})</span> participations</p>
-                </div>
-                <div class="panel-body">
-                    <div class="col-md-6">
-                        <p>Temps de préparation: {{ recipe.prep_time }}</p>
-                        <p>Temps de cuisson: {{ recipe.cook_time }}</p>
-                        <p>Nombre de personnes: {{ recipe.portion }}</p>
-                        <p>Difficulté: {{ recipe.difficulty }}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>Ingrédients de la recette: {{ recipe.ingredients|nl2br }}</p>
-                        <p>Etapes de la recette: {{ recipe.methods|nl2br  }}</p>
-                    </div>
-                    <div class="col-md-12">
-                        <p>Anecdote: {{ recipe.story }}</p>
-                    </div>
-                    <div class="col-md-12">
-                        <p>Auteur: <a
-                                    href="{{ path('user_profil_public',{id_user:recipe.id_user}) }}">{{ user.username }}</a>
-                        </p>
-                    </div>
+    <div class="rw-section rw-container right-sidebar">
+        <div class="rw-inner clearfix">
+            <!-- Sidebar -->
+            <div class="rw-column rw-sidebar">
+                <div class="the-sidebar">
+                    <!-- Widget -->
+                    <aside class="widget widget-search">
 
-                    <!-- Fromulaire du commentaires -->
+                        <div class="widget-title"><h3>Search</h3></div>
 
-                    {% if user_manager.getUser() %}
-                        <form method="post" id="myComment">
-                            <div class="form-group">
-                                <input type="hidden" value="{{ recipe.id_recipe }}" name="id_recipe">
-                                <label>Votre commentaire :</label>
-                                <textarea name="content" class="form-control" rows="10"></textarea>
-                            </div>
-                            <button name="contentBtn" value="contentBtn" type="submit"
-                                    class="btn btn-primary form-control">Envoyer
-                            </button>
+                        <form method="get" class="search-form" action="">
+                            <input type="text" class="search-field fullwidth" name="s"
+                                   placeholder="Type keyword and press enter" value="">
                         </form>
+                    </aside> <!-- .widget -->
+                    <!-- / Widget -->
+                    <aside class="widget">
+                        <div class="widget-title"><h3>Like it or not !</h3></div>
+                     {% if user_manager.getUser() %}
                         <form method="post" id="myRate">
                             <input type="hidden" value="{{ recipe.id_recipe }}" name="id_recipe">
-                            <div class="form-group">
-                                <label>note de la recette</label>
-                                <select name="rate" class="form-control">
-                                    <option>Indiquez la note</option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                            <button name="rateBtn" value="rateBtn" type="submit" class="btn btn-primary form-control">
-                                Envoyer
-                            </button>
+                            <select name="rate" class="form-control">
+                                <option>Notez la recette !</option>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <button name="rateBtn" value="rateBtn" type="submit" class="btn btn-primary">Vote</button>
                         </form>
                     {% else %}
                         <p class="text-danger text-center">Vous devez être connecté pour commenter et noter une
                             recette</p>
-
                         <a class="btn btn-primary btn-block"
                            href="{{ path("user_login", {redirect: global.request.requestUri}) }}">Se connecter</a>
                     {% endif %}
+                    </aside>
+                    <!-- Widget -->
+                    <aside class="widget widget-posts">
 
-                    <!-- Boucle pour afficher tout les commentaires-->
-                    <div class="panel-body">
-                        <div class="col-md-12" id="resultComments">
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <img src="{{ asset("photo/" ~ user.getUser_picture()) }}" class="img-circle" >
+                        <div class="widget-title"><h3>Most popular recipes</h3></div>
+                        <div class="widget-posts-list">
+                            <!-- Entry -->
+                            <div class="post">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/50x50/4.jpg" alt=""/>
                                 </div>
-                                <div class="col-md-10">
-                            {% for comment in comments %}
-                                <p>
-                                    Posté par : {{ comment.username }}, le {{ comment.comment_date|date('d/m/Y') }}
-                                    à {{ comment.comment_date|date('H:i') }}
-                                </p>
-                                <p>Commentaire :{{ comment.content }}</p>
-                                <hr>
-                            {% else %}
-                                <p>Aucun commentaire</p>
-                            {% endfor %}
+                                <div class="entry-title">
+                                    <a href="#">Consectetur adipisicing elit do eiusmod</a>
                                 </div>
+                                <div class="entry-controls minimal">
+                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">127</span>
+                                    <a href="#" class="control entry-like" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">322</span>
+                                    <a href="#" class="control entry-comments" title="Comments"> <i
+                                                class="fa fa-comments"></i> </a> <span class="control-tip">102</span>
+                                </div>
+                            </div> <!-- .entry -->
+
+                            <!-- Entry -->
+                            <div class="post">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/50x50/7.jpg" alt=""/>
+                                </div>
+                                <div class="entry-title">
+                                    <a href="#">Deliciae superbam praecustodio gualitatibus</a>
+                                </div>
+                                <div class="entry-controls minimal">
+                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">169</span>
+                                    <a href="#" class="control entry-like active" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">452</span>
+                                    <a href="#" class="control entry-comments" title="Comments"> <i
+                                                class="fa fa-comments"></i> </a> <span class="control-tip">87</span>
+                                </div>
+                            </div> <!-- .entry -->
+
+                            <!-- Entry -->
+                            <div class="post">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/50x50/14.jpg" alt=""/>
+                                </div>
+                                <div class="entry-title">
+                                    <a href="#">Glaebam eminentiam destitutus firmare</a>
+                                </div>
+                                <div class="entry-controls minimal">
+                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">127</span>
+                                    <a href="#" class="control entry-like" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">322</span>
+                                    <a href="#" class="control entry-comments" title="Comments"> <i
+                                                class="fa fa-comments"></i> </a> <span class="control-tip">102</span>
+                                </div>
+                            </div> <!-- .entry -->
+
+                            <!-- Entry -->
+                            <div class="post">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/50x50/5.jpg" alt=""/>
+                                </div>
+                                <div class="entry-title">
+                                    <a href="#">Suspicio inncem tantum septima ossibus</a>
+                                </div>
+                                <div class="entry-controls minimal">
+                                    <a href="#" class="control entry-to-favorites active" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">255</span>
+                                    <a href="#" class="control entry-like" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">471</span>
+                                    <a href="#" class="control entry-comments" title="Comments"> <i
+                                                class="fa fa-comments"></i> </a> <span class="control-tip">120</span>
+                                </div>
+                            </div> <!-- .entry -->
+
+                            <!-- Entry -->
+                            <div class="post">
+                                <div class="entry-photo">
+                                    <img src="assets/placeholder/food/50x50/9.jpg" alt=""/>
+                                </div>
+                                <div class="entry-title">
+                                    <a href="#">Incididunt ut labore et dolore magna aliqua</a>
+                                </div>
+                                <div class="entry-controls minimal">
+                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i
+                                                class="fa fa-heart-o"></i> </a><span class="control-tip">127</span>
+                                    <a href="#" class="control entry-like" title="I like this!"> <i
+                                                class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">322</span>
+                                    <a href="#" class="control entry-comments" title="Comments"> <i
+                                                class="fa fa-comments"></i> </a> <span class="control-tip">102</span>
+                                </div>
+                            </div> <!-- .entry -->
+                        </div>
+
+                    </aside> <!-- .widget -->
+                    <!-- / Widget -->
+
+                    <!-- Widget -->
+                    <aside class="widget widget-categories">
+
+                        <div class="widget-title"><h3>Categories</h3></div>
+
+                        <ul>
+                            <li><a href="#">Breakfast <span class="mark light-gray">157</span></a></li>
+                            <li><a href="#">Lunch <span class="mark light-gray">24</span></a></li>
+                            <li><a href="#">Beverages <span class="mark light-gray">54</span></a></li>
+                            <li><a href="#">Appetizers <span class="mark light-gray">359</span></a></li>
+                            <li><a href="#">Soups <span class="mark light-gray">98</span></a></li>
+                            <li><a href="#">Salads <span class="mark light-gray">195</span></a></li>
+                            <li><a href="#">Main dishes: Beef <span class="mark light-gray">280</span></a></li>
+                            <li><a href="#">Main dishes: Poultry <span class="mark light-gray">450</span></a></li>
+                            <li><a href="#">Main dishes: Pork <span class="mark light-gray">84</span></a></li>
+                            <li><a href="#">Main dishes: Seafood <span class="mark light-gray">370</span></a></li>
+                            <li><a href="#">Main dishes: Vegetarian <span class="mark light-gray">328</span></a></li>
+                            <li><a href="#">Side dishes: Vegetables <span class="mark light-gray">352</span></a></li>
+                            <li><a href="#">Side dishes: Other <span class="mark light-gray">99</span></a></li>
+                            <li><a href="#">Desserts <span class="mark light-gray">348</span></a></li>
+                            <li><a href="#">Canning / Freezing <span class="mark light-gray">61</span></a></li>
+                            <li><a href="#">Breads <span class="mark light-gray">234</span></a></li>
+                            <li><a href="#">Holidays <span class="mark light-gray">374</span></a></li>
+                            <li><a href="#">Entertaining <span class="mark light-gray">176</span></a></li>
+                        </ul>
+
+                    </aside> <!-- .widget -->
+                    <!-- / Widget -->
+
+                    <!-- Widget -->
+                    <aside class="widget widget-authors">
+
+                        <div class="widget-title"><h3>Top authors</h3></div>
+
+                        <ul>
+                            <li>
+                                <img src="assets/placeholder/people/50x50/15.jpg" alt=""/>
+                                <div class="author-name"><a href="#">Michelle Nelson</a> <span class="mark green"
+                                                                                               title="Pro member!">Pro</span>
+                                </div>
+                                <div class="author-meta">
+                                    <span class="meta" title="421 total recipes submited"><i
+                                                class="fa fa-newspaper-o"></i> 421</span>
+                                    <span class="meta" title="26252 reputation points"><i class="fa fa-bullseye"></i>26k</span>
+                                    <span class="meta" title="350 comments"><i class="fa fa-comments"></i>350</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="assets/placeholder/people/50x50/13.jpg" alt=""/>
+                                <div class="author-name"><a href="#">Steven Martinez</a> <span class="mark orange"
+                                                                                               title="VIP member!">Vip</span>
+                                </div>
+                                <div class="author-meta">
+                                    <span class="meta" title="399 total recipes submited"><i
+                                                class="fa fa-newspaper-o"></i> 399</span>
+                                    <span class="meta" title="19722 reputation points"><i class="fa fa-bullseye"></i>19k</span>
+                                    <span class="meta" title="330 comments"><i class="fa fa-comments"></i>330</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="assets/placeholder/people/50x50/10.jpg" alt=""/>
+                                <div class="author-name"><a href="#">Daniel Thompson</a></div>
+                                <div class="author-meta">
+                                    <span class="meta" title="297 total recipes submited"><i
+                                                class="fa fa-newspaper-o"></i> 297</span>
+                                    <span class="meta" title="22803 reputation points"><i class="fa fa-bullseye"></i>22k</span>
+                                    <span class="meta" title="337 comments"><i class="fa fa-comments"></i>337</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="assets/placeholder/people/50x50/20.jpg" alt=""/>
+                                <div class="author-name"><a href="#">Sandra Williams</a></div>
+                                <div class="author-meta">
+                                    <span class="meta" title="249 total recipes submited"><i
+                                                class="fa fa-newspaper-o"></i> 249</span>
+                                    <span class="meta" title="20024 reputation points"><i class="fa fa-bullseye"></i>20k</span>
+                                    <span class="meta" title="816 comments"><i class="fa fa-comments"></i>816</span>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </aside> <!-- .widget -->
+                    <!-- / Widget -->
+
+                    <!-- Widget -->
+                    <aside class="widget widget-accordion-posts">
+
+                        <div class="widget-title"><h3>From the blog</h3></div>
+
+                        <!-- Accordion begin -->
+                        <ul class="jquery_accordion" data-show-icon="false" data-active-index="2">
+
+                            <li>
+                                <div><i class="fa fa-bell"></i> Recent posts</div>
+
+                                <div class="widget-posts-list">
+                                    <!-- Entry -->
+                                    <div class="post">
+                                        <div class="entry-photo">
+                                            <img src="assets/placeholder/blog/50x50/4.jpg" alt=""/>
+                                        </div>
+                                        <div class="entry-title">
+                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
+                                        </div>
+                                        <div class="entry-date">13 September 2014</div>
+                                    </div> <!-- .entry -->
+
+                                    <!-- Entry -->
+                                    <div class="post">
+                                        <div class="entry-photo">
+                                            <img src="assets/placeholder/blog/50x50/5.jpg" alt=""/>
+                                        </div>
+                                        <div class="entry-title">
+                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
+                                        </div>
+                                        <div class="entry-date">27 August 2014</div>
+                                    </div> <!-- .entry -->
+
+                                    <!-- Entry -->
+                                    <div class="post">
+                                        <div class="entry-photo">
+                                            <img src="assets/placeholder/blog/50x50/6.jpg" alt=""/>
+                                        </div>
+                                        <div class="entry-title">
+                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
+                                        </div>
+                                        <div class="entry-date">05 May 2014</div>
+                                    </div> <!-- .entry -->
+                                </div>
+
+                            </li>
+
+                            <li>
+                                <div><i class="fa fa-heart"></i> Popular posts</div>
+
+                                <div class="widget-posts-list">
+                                    <!-- Entry -->
+                                    <div class="post">
+                                        <div class="entry-photo">
+                                            <img src="assets/placeholder/blog/50x50/7.jpg" alt=""/>
+                                        </div>
+                                        <div class="entry-title">
+                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
+                                        </div>
+                                        <div class="entry-date">14 June 2014</div>
+                                    </div> <!-- .entry -->
+
+                                    <!-- Entry -->
+                                    <div class="post">
+                                        <div class="entry-photo">
+                                            <img src="assets/placeholder/blog/50x50/8.jpg" alt=""/>
+                                        </div>
+                                        <div class="entry-title">
+                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
+                                        </div>
+                                        <div class="entry-date">27 January 2014</div>
+                                    </div> <!-- .entry -->
+
+                                    <!-- Entry -->
+                                    <div class="post">
+                                        <div class="entry-photo">
+                                            <img src="assets/placeholder/blog/50x50/1.jpg" alt=""/>
+                                        </div>
+                                        <div class="entry-title">
+                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
+                                        </div>
+                                        <div class="entry-date">23 February 2014</div>
+                                    </div> <!-- .entry -->
+                                </div>
+
+                            </li>
+
+                            <li>
+                                <div><i class="fa fa-comment"></i> Latest comments</div>
+                                <div class="widget-comments-list">
+                                    <div class="comment">
+                                        <div class="entry-photo">
+                                            <img src="assets/placeholder/people/50x50/2.jpg" alt=""/>
+                                        </div>
+                                        <div>
+                                            <a href="#">Michelle Nelson</a><br>
+                                            Et certamen honestum et disputatio splendida! omnis est enim de dignitate...
+                                        </div>
+                                    </div> <!-- .entry -->
+
+                                    <div class="comment">
+                                        <div class="entry-photo">
+                                            <img src="assets/placeholder/people/50x50/5.jpg" alt=""/>
+                                        </div>
+                                        <div>
+                                            <a href="#">Steven King</a><br>
+                                            Great. Thank you for help. :) I'll let you know if there's more.
+                                        </div>
+                                    </div> <!-- .entry -->
+
+                                    <div class="comment">
+                                        <div class="entry-photo">
+                                            <img src="assets/placeholder/people/50x50/8.jpg" alt=""/>
+                                        </div>
+                                        <div>
+                                            <a href="#">Richard Thomas</a><br>
+                                            Et certamen honestum et disputatio splendida! omnis est enim de virtutis...
+                                        </div>
+                                    </div> <!-- .entry -->
+                                </div>
+
+                            </li>
+
+                        </ul>
+                        <!-- Accordion end -->
+
+                    </aside> <!-- .widget -->
+                    <!-- / Widget -->
+
+                    <!-- Widget -->
+                    <aside class="widget widget-text">
+
+                        <div class="widget-title"><h3>Text widget</h3></div>
+
+                        <div class="widget-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat.</p>
+                        </div> <!-- .entry -->
+
+                    </aside> <!-- .widget -->
+                    <!-- / Widget -->
+
+                </div> <!-- .the-sidebar -->
+            </div> <!-- .rw-sidebar -->
+
+
+            <!-- Main content -->
+            <div class="rw-column rw-content">
+                <div class="rw-row page-breadcrumb">
+                    <a href="{{ path('homepage') }}">Accueil</a> &raquo; <a
+                            href="{{ path('recipe_list') }}">Recettes</a> &raquo; <span>{{ recipe.title }}</span>
+                </div>
+                <div class="rw-row page-title">
+
+                    <h1>{{ recipe.title }}</h1>
+
+                </div>
+                <div class="rw-row">
+                    <!--
+                    // ===================================^__^=================================== //
+                       Entry first
+                    // ===================================^__^=================================== //
+                    -->
+                    <div class="entry style-columns">
+                        <div class="entry-photo single-recipe-photo-cover">
+                            <img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" alt="">
+                            <div class="recipe-tools">
                             </div>
                         </div>
-                    </div>
+                        <div class="entry-content clearfix">
+                            <div class="recipe-content">
+                                <div class="single-recipe-ingredients">
+                                    <h3 class="recipe-headlines ingredients first">Ingredients de la recette:</h3>
+                                    <p>{{ recipe.ingredients|nl2br }}</p>
+                                </div>
+                                <h3 class="recipe-headlines preparation-mode">Etapes de la recette:</h3>
+                                <p>{{ recipe.methods|nl2br }}</p>
+                                <h3 class="recipe-headlines footnotes">Anecdotes:</h3>
+                                <p>{{ recipe.story }}</p>
+                            </div>
+                            <div class="recipe-meta">
+                                <ul>
+                                    <li>
+                                        <div class="entry-info-author">
+                                            <img src="{{ asset('placeholder/15.jpg') }}">
+                                            <div class="author-name">
+                                            Auteur de la recette : <a href="{{ path('user_profil_public',{id_user:recipe.id_user}) }}">{{ user.username }}</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li><i class="the-icon fa fa-calendar" title="{{ recipe.date_recipe }}"></i> <span>{{ recipe.date_recipe|date('d/m/Y') }}</span>
+                                    </li>
+                                    <li><i class="the-icon fa fa-star-o" aria-hidden="true" title="rate"></i><span><span
+                                                    id="avg">{{ ratings|number_format(2,',', ' ') }}</span>/5 pour
+                                        <span id="voters">({{ voters }})</span> votants</span></li>
+                                    <li>
+                                        <div><i class="the-icon fa fa-book" title="Category"></i>
+                                            <span>{{ recipe.star_ingredient }}</a></span></div>
+                                    </li>
+                                    <li>
+                                        <div><i class="the-icon fa fa-tasks" title="Difficulty"></i>
+                                            <span>Difficulté: {{ recipe.difficulty }}</span></div>
+                                    </li>
+                                    <li>
+                                        <div><i class="the-icon fa fa-clock-o" title="Preparation time"></i>
+                                            <span>{{ recipe.prep_time }}</span></div>
+                                    </li>
+                                    <li>
+                                        <div><i class="the-icon glyphicon glyphicon-time" title="Cooking time"></i>
+                                            <span>{{ recipe.cook_time }}</span></div>
+                                    </li>
+                                    <li>
+                                        <div><i class="the-icon fa fa-users" title="Portions"></i>
+                                            <span>Pour {{ recipe.portion }} personnes</span></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> <!-- .entry-content -->
+                        <div class="clear"></div>
+                    </div> <!-- .entry -->
+                    <div class="clear"></div>
+                </div> <!-- .rw-row -->
+                <div class="rw-row light-gray border-tb">
+                    <div class="rw-row">
+                        <!-- <h2>Leave a Reply</h2> -->
+                                <h2>Commentaires :</h2>
+                                <ul class="post-comments">
+                                    {% for comment in comments %}
+                                    <li class="comment">
+                                        <div class="comment-avatar">
+                                            <img src="{{ asset('placeholder/15.jpg') }}" class="avatar" alt=""/>
+                                        </div>
+                                        <div class="content">
+                                            <div class="comment-header">
+                                                <a href="{{ path('user_profil_public',{id_user:recipe.id_user}) }}">Posté
+                                                    par :{{ comment.username }}</a><span
+                                                        class="comment-time">le{{ comment.comment_date|date('d/m/Y') }}
+                                                    à {{ comment.comment_date|date('H:i') }}</span>
+                                            </div>
+                                            <p>{{ comment.content }}</p>
+                                            {% else %}
+                                                <p>Aucun commentaire</p>
+                                            {% endfor %}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div><!-- #respond -->
+                <div class="rw-row">
+                {% if user_manager.getUser() %}
+                <div id="myComment" class="comment-respond clearfix">
+                    <div class="grid-container">
+                        <form action="" method="post" class="comment-form">
+                            <div class="grid desk-12 alpha omega">
+                                <div>Inscrivez un commentaire</div>
+                                <textarea name="content"></textarea>
+                            </div>
+                            <p class="form-submit clearfix align-right">
+                                <input name="contentBtn" class="button primary" type="submit" value="Postez un Commentaire"/>
+                            </p>
+                        </form>
+                        {% else %}
+                            <p class="text-danger text-center">Vous devez être connecté pour commenter une
+                                recette</p>
+                            <a class="btn btn-primary btn-block"
+                               href="{{ path("user_login", {redirect: global.request.requestUri}) }}">Se
+                                connecter</a>
+                        {% endif %}
+                    </div> <!-- .rw-row -->
                 </div>
-            </div>
-        </div>
-    </div>
+            </div> <!-- .rw-content -->
+        </div> <!-- .rw-inner -->
+    </div> <!-- .rw-container -->
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -123,21 +522,21 @@
             )
         });
         {#$('#myComment').submit(function (event) {#}
-            {#event.preventDefault();#}
-            {#var $this = $(this);#}
+        {#event.preventDefault();#}
+        {#var $this = $(this);#}
 
-            {#var data = $this.serialize();#}
-            {#$.post(#}
-                {#postUrl2,#}
-                {#data,#}
-                {#function (response) {#}
-                    {#console.log(response);#}
-                    {#$commentTemplates = $('<p>Posté par : {{ comment.username }}, le {{ comment.comment_date|date(\'#}
-                    {#d / m / Y\') }}');#}
-                    {#$('#resultComments').append(response.content);#}
-                {#},#}
-                {#'json'#}
-            {#)#}
+        {#var data = $this.serialize();#}
+        {#$.post(#}
+        {#postUrl2,#}
+        {#data,#}
+        {#function (response) {#}
+        {#console.log(response);#}
+        {#$commentTemplates = $('<p>Posté par : {{ comment.username }}, le {{ comment.comment_date|date(\'#}
+        {#d / m / Y\') }}');#}
+        {#$('#resultComments').append(response.content);#}
+        {#},#}
+        {#'json'#}
+        {#)#}
         {#});#}
     </script>
 {% endblock %}

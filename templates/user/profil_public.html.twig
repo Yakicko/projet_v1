@@ -1,50 +1,90 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-        {#<p>{{ dump(user) }}</p>#}
-<div class="container">
-    <div class="row">
-        {% if user.user_picture is not empty  %}
-            <div class="col-sm-2" ><img class="img-responsive" src="{{ asset('photo/' ~ user.user_picture) }}" /></div>
-        {% else %}
-            <div class="col-sm-2" ><img class="img-responsive" src="https://www.gravatar.com/avatar/{{gravatar}}?d=retro&s=150" /></div>
-        {% endif %}
-        <div class="col-sm-10" >
-                <table class="table">
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th colspan="2">Bienvenue sur le profil de {{ user.username }} !</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Pseudo</th>
-                            <td>{{ user.username }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Région</th>
-                            <td>{{ region.region_name }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Statut</th>
-                            <td>{{ user.status }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Ses recettes</th>
-                            <td>{{ nb_myRecipe }}<a href="{{ path("recipes_user",{id_user:user.id_user}) }}">&nbsp&nbsp&nbspVoir ses recettes...</a></td>                        
-                        </tr>
-                        <tr>
-                            <th scope="row">Ses commentaires</th>
-                            <td>{{ nb_myComments }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Ses notes</th>
-                            <td>{{ nb_myRatings }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="rw-container rw-section">
+    <div class="rw-inner clearfix">
+    <!-- Main content -->
+    <div class="rw-column rw-content">
+
+        <div class="rw-row page-breadcrumb">
+            <a href="{{ path('homepage') }}">Accueil</a> &raquo; <span>Profil de {{ user.username }}</span>
+        </div>
+        <div class="rw-row page-title">
+            <div class="grid-container">
+                <div class="grid desk-8 mob-8 alpha">
+                    <h1>Profil de {{ user.username }}</h1>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="rw-row subtle">
+        <div class="grid-container">
+
+            <div class="grid desk-12">
+                <ul class="profile-mini-menu">
+                    <li class="active"><a href="#user-summary">En Bref</a></li>
+                </ul> <!-- .profile-mini-menu -->
+            </div>
+            <div class="clear"></div>
+            <div class="grid desk-3">
+                <div class="profile-avatar">
+                    {% if user.user_picture %}
+                        <div><img class="img-responsive" src="{{ asset('photo/' ~ user.user_picture) }}" width="256px" height="256px"/></div>
+                    {% else %}
+                        <div><img class="img-responsive" src="https://www.gravatar.com/avatar/{{gravatar}}?d=retro&s=150" /></div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="grid desk-9">
+
+                <div id="user-summary" class="profile-user-tab active">
+                    <div class="grid desk-6 alpha">
+                        <ul class="profile-rows">
+                            <li>
+                                <i class="the-icon fa fa-user"></i>
+                                <span class="the-label">Pseudo: </span>
+                                <span class="the-value mark purple">{{ user.username }}</span>
+                            </li>
+                            <li>
+                                <i class="the-icon fa fa-home"></i>
+                                <span class="the-label">Region: </span>
+                                <span class="the-value">{{ region.region_name }}</span>
+                            </li>
+                            <li>
+                                <i class="the-icon fa fa-globe"></i>
+                                <span class="the-label">Statut: </span>
+                                <span class="the-value">{{ user.status }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="grid desk-6 omega">
+                        <div class="following-block clearfix">
+                            <div class="follow-col reputation">
+                                <div class="follow-col-in">
+                                    <span class="count">{{ nb_myRecipe }}</span><span class="title">Recettes</span>
+                                </div>
+                            </div>
+                            <div class="follow-col followers">
+                                <div class="follow-col-in">
+                                    <span class="count">{{ nb_myRatings }}</span><span class="title">Notes</span>
+                                </div>
+                            </div>
+                            <div class="follow-col following">
+                                <div class="follow-col-in">
+                                    <span class="count">{{ nb_myComments }}</span><span class="title">Commentaires</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div> <!-- #user-summary -->
+            </div>
+            <div class="clear"></div>
+
+        </div> <!-- .grid-container -->
+    </div> <!-- .rw-row -->
+
 {% endblock %}

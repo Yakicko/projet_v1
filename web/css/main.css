@@ -1,13 +1,6 @@
-.navbar{
-	height: 50px;
-}
-.navbar-inverse{
-	margin-bottom: 0;
-}
-
 .map__image
 {
-	width: 50%;
+	width: 100%;
 	float: left;
 }
 
@@ -24,7 +17,7 @@
 
 .map__list{
 	float: right;
-	width: 50%;
+	width: 100%;
 }
 
 .map__list a {
@@ -43,8 +36,15 @@
 	word-break:break-all;
 }
 
-.carousel-inner.onebyone-carosel { margin: auto; width: 90%; }
-.onebyone-carosel .active.left { left: -33.33%; }
-.onebyone-carosel .active.right { left: 33.33%; }
-.onebyone-carosel .next { left: 33.33%; }
-.onebyone-carosel .prev { left: -33.33%; }
+.profile-recipes-list .recipe{
+	border-bottom: none;
+}
+
+#photo-top5{
+	width: 350px;
+	height: 216px;
+}
+#photoRegion{
+	width: 560px;
+	height: 380px;
+}

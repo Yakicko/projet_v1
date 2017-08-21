@@ -9,11 +9,12 @@
 
     {% block stylesheet %}
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Dosis">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Caveat">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}"/>
         <link rel="stylesheet" href="{{ asset('fonts/awards/awards.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}"/>
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}"/>
     {% endblock %}
 </head>
 <body>
@@ -27,11 +28,10 @@
     <div class="rw-section rw-header">
         <div class="rw-inner clearfix">
             <div class="grid-container">
-
                 <div class="grid desk-8 mob-6 alpha clearfix">
                     <div class="logo-holder">
                         <a href="{{ path("homepage") }}">
-                            <img src="{{ asset('placeholder/logo.png') }}" class="logo" alt=""/>
+                            <img src="{{ asset('img/logo-moche.png') }}" class="logo" alt=""/>
                         </a>
                     </div>
                     <nav id="the-main-menu" class="main-menu-nav menu-inline" data-breakpoint="1160">
@@ -50,7 +50,7 @@
                             <!-- MENU ADMIN ----------------------------------------------------------------------------------------------->
                             {% if user_manager.admin %}
                                 <li>
-                                    <a href="elem-colors.html">Menu Admin</a>
+                                    <a href="#">Menu Admin</a>
                                     <ul class="sub-menu">
                                         <li><a href="{{ path('admin_users') }}">Gestion Utilisateurs</a></li>
                                         <li><a href="{{ path('admin_recipes') }}">Gestion Recettes</a></li>
@@ -68,17 +68,11 @@
                             <!-- User menu -->
                             <li class="to-left-more">
                                 {% if user_manager.user %}{# si un utilisateur est connecté #}
-                                
                                 <div class="user-details-in-menu">
-                                    {% if user_manager.user.getUser_picture() %}
-                                        <a href="#" class="avatar"><img
-                                                src="{{ asset("photo/" ~ user_manager.user.getUser_picture()) }}"
+
+                                    <a href="#" class="avatar"><img
+                                                src="https://www.gravatar.com/avatar/'.$gravatar.'?d=retro&s=150"
                                                 alt=""/></a>
-                                    {% else %}
-                                        <a href="#" class="avatar"><img
-                                                    src="https://www.gravatar.com/avatar/{{ user_manager.getUsername(true) }}?d=retro&s=150"
-                                                    alt=""/></a>
-                                    {% endif %}
                                 </div>
                                 <ul class="sub-menu">
                                     <li class="separator"><a href="{{ path('user_profil') }}">Profil privé</a></li>
@@ -107,6 +101,14 @@
             </div> <!-- .grid-container -->
         </div> <!-- .rw-inner -->
     </div> <!-- .rw-header -->
+
+
+
+    <!--_______________________________________________________ ADMIN _____________________________________________________________________________-->
+
+    {% block secondaryNavigation %}{% endblock %}
+
+    <!--_______________________________________________________ CONTENT _____________________________________________________________________________-->
     {% for type, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
             {% if type == 'error' %}
@@ -116,14 +118,6 @@
             <div class="alert alert-{{ type }}">{{ flash|raw }}</div>
         {% endfor %}
     {% endfor %}
-
-
-    <!--_______________________________________________________ ADMIN _____________________________________________________________________________-->
-
-    {% block secondaryNavigation %}{% endblock %}
-
-    <!--_______________________________________________________ CONTENT _____________________________________________________________________________-->
-
         {% block content %}{% endblock %}
 
     <!--

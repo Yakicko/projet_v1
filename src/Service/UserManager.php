@@ -61,15 +61,10 @@ class UserManager
 	/*
 	@return string
 	 */
-	public function getUsername($hash = false)
+	public function getUsername()
 	{
 		if($this->session->has('user')){
-                    if($hash)
-                    {
-                        return hash("md5",strtolower($this->session->get('user')->getUsername()));
-                    }else{
 			return $this->session->get('user')->getUsername();
-                    }
 		}
 		return '';
 	}

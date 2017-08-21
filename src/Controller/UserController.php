@@ -13,8 +13,7 @@ class UserController extends ControllerAbstract
         $errors = [];
         $regionList = [];
 
-        if (!empty($_POST)) 
-        {
+        if (!empty($_POST)) {
             $user
                 ->setLastname($_POST['lastname'])
                 ->setFirstname($_POST['firstname'])
@@ -68,13 +67,13 @@ class UserController extends ControllerAbstract
                 $this->app['user.repository']->save($user);
 
                 return $this->redirectRoute('user_login');
-            } 
-            else 
-            {
+
+            } else {
                 $message = '<strong>Le formulaire contient des erreurs</strong>';
                 $message .= '<br>' . implode('<br>', $errors);
                 $this->addFlashMessage($message, 'error');
             }
+
         }
 
         $regionsList = $this->app["region.repository"]->findAll();
@@ -123,9 +122,7 @@ class UserController extends ControllerAbstract
                 }
                 $this->addFlashMessage('Identification incorrecte', 'error');
             }
-        } 
-        else 
-        {
+        } else {
             return $this->redirectRoute('homepage');
         }
 
@@ -151,12 +148,10 @@ class UserController extends ControllerAbstract
             $nb_myComments = $this->app["user.repository"]->myComments($user->getId_user());
             $nb_myRatings = $this->app["user.repository"]->myRatings($user->getId_user());
             $gravatar = hash("md5",strtolower($user->getUsername()));
-        } 
-        else 
-        {
+            $recipe = $this->app['recipe.repository']->findById_user($user->getId_user());
+        } else {
             return $this->redirectRoute('user_login');
         }
-        
         return $this->render(
             "user/profil.html.twig",
             [
@@ -165,7 +160,8 @@ class UserController extends ControllerAbstract
                 'nb_myRecipe' => $nb_myRecipe,
                 'nb_myComments' => $nb_myComments,
                 'nb_myRatings' => $nb_myRatings,
-                'gravatar' => $gravatar
+                'gravatar' => $gravatar,
+                'recipe'    => $recipe,
             ]
         );
     }
@@ -185,8 +181,7 @@ class UserController extends ControllerAbstract
         $regions = $this->app["region.repository"]->findAll();
         $errors = [];
 
-        if (!empty($_POST)) 
-        {
+        if (!empty($_POST)) {
             $user
                 ->setLastname($_POST['lastname'])
                 ->setFirstname($_POST['firstname'])
@@ -195,26 +190,20 @@ class UserController extends ControllerAbstract
                 ->setUser_picture($_FILES['user_picture']['name'])
             ;
 
-            if(empty($_POST['lastname']))
-            {
+            if(empty($_POST['lastname'])){
                 $errors['lastname'] = 'Le nom est obligatoire';
-            } 
-            elseif(strlen($_POST['lastname']) > 100)
-            {
+            } elseif(strlen($_POST['lastname']) > 100){
                 $errors['lastname'] = 'Le nom ne doit pas faire plus de 100 caractères';
             }
 
             if(empty($_POST['firstname'])){
                 $errors['firstname'] = 'Le prénom est obligatoire';
-            } 
-            elseif(strlen($_POST['firstname']) > 100)
-            {
+            } elseif(strlen($_POST['firstname']) > 100){
                 $errors['firstname'] = 'Le prénom ne doit pas faire plus de 100 caractères';
             }
 
             // vérification si l'utilisateur a chargé une image
-            if (!empty($_FILES['user_picture']['name'])) 
-            {
+            if (!empty($_FILES['user_picture']['name'])) {
                 // si ce n'est pas vide alors un fichier a bien été chargé via le formulaire.
 
                 // on concatène la référence sur le titre afin de ne jamais avoir un fichier avec un nom déjà existant sur le serveur.
@@ -235,33 +224,28 @@ class UserController extends ControllerAbstract
                 // nous pouvons donc vérifier si $extension fait partie des valeur autorisé dans $tab_extension_valide
                 $verif_extension = in_array($extension, $tab_extension_valide); // in_array vérifie si une valeur fournie en 1er argument fait partie des valeurs contenues dans un tableau array fourni en 2eme argument.
 
-                if ($verif_extension && !$errors) 
-                {
+                if ($verif_extension && !$errors) {
                     // si $verif_extension est égal à true et que $erreur n'est pas égal à true (il n'y a pas eu d'erreur au préalable)
                     $photo_dossier = $this->app['photo_dir'] . $photo_bdd;
 
                     copy($_FILES['user_picture']['tmp_name'], $photo_dossier);
                     // copy() permet de copier un fichier depuis un emplacement fourni en premier argument vers un autre emplacement fourni en deuxième argument.
-                } 
-                elseif (!$verif_extension) 
-                {
+                } elseif (!$verif_extension) {
                     $errors['user_picture'] = 'Le format de la photo n\'est pas autorisé';
                 }
             }
 
-            if (empty($errors))
-            {
+            if (empty($errors)){
                 $this->app['user.repository']->save($user);
 
                 $this->addFlashMessage('Modification enregistrée');
                 return $this->redirectRoute('user_profil');
-            } 
-            else 
-            {
+            } else {
                 $message = '<strong>Le formulaire contient des erreurs</strong>';
                 $message .= '<br>' . implode('<br>', $errors);
                 $this->addFlashMessage($message, 'error');
             }
+
         }
 
         return $this->render(
