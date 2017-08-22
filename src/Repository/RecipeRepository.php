@@ -23,6 +23,7 @@ class RecipeRepository extends RepositoryAbstract
             . " JOIN regions s ON r.id_region = s.id_region"
             . " JOIN users u ON r.id_user = u.id_user"
             . " WHERE r.status = 'En attente'"
+            . " ORDER BY r.date_recipe ASC"
         ;
 
         $dbRecipes = $this->db->fetchAll($query);
@@ -30,29 +31,6 @@ class RecipeRepository extends RepositoryAbstract
         $recipes = [];
 
         foreach ($dbRecipes as $dbRecipe) {
-            $recipe = $this->buildEntity($dbRecipe);
-
-            $recipes[] = $recipe;
-        }
-
-        return $recipes;
-    }
-
-    public function findSort($orderField = 'username', $order = 'ASC')
-    {
-        $query = "SELECT r.*, s.region_name, u.username FROM recipes r"
-            . " JOIN regions s ON r.id_region = s.id_region"
-            . " JOIN users u ON r.id_user = u.id_user"
-        ;
-
-        $query .= " ORDER BY $orderField $order";
-
-        $dbRecipes = $this->db->fetchAll($query);
-
-        $recipes = [];
-
-        foreach ($dbRecipes as $dbRecipe)
-        {
             $recipe = $this->buildEntity($dbRecipe);
 
             $recipes[] = $recipe;
@@ -103,50 +81,106 @@ class RecipeRepository extends RepositoryAbstract
         }
     }
 
-    public function validRecipe(Recipe $recipe)
+    public function creationMail($id_recipe)
     {
-        $data = [
-            'status' => 'validee'
-        ];
+        $query = 'SELECT r.*, u.username, u.email FROM recipes r JOIN users u ON r.id_user = u.id_user WHERE id_recipe = :id_recipe';
 
-        $this->persist($data, ['id_recipe' => $recipe->getId_recipe()]);
+        $dbMail = $this->db->fetchAssoc($query, [':id_recipe' => $id_recipe]);
+
+        if(!empty($dbMail)){
+
+            // Subject of confirmation email.
+            $subject = 'Validation d\'une recette en attente';
+
+            // Who should the confirmation email be from?
+            $sender = 'J\'ai faim! <no-reply@myemail.co.uk>';
+
+            $msg = $dbMail['username'] . " viens de créer une recette. Voici les détails: \r\n" 
+            . "- \r\n" . $dbMail['id_recipe'] 
+            . "- \r\n" . $dbMail['title']
+            ;
+
+            @mail('reyesgregorie@gmail.com', $subject, $msg, 'From yours truly !');
+        }
     }
 
-    public function filtered(array $filters)
+    public function totalRecipes() {
+        $query = "SELECT COUNT(id_recipe) FROM recipes";
+
+        return $this->db->fetchColumn($query);
+    }
+
+    public function filtered(array $filters, $nbResult)
     {
         $recipe = 'SELECT * FROM recipes WHERE 1=1';
 
 
-            if (isset($filters["star_ingredient"]) and $filters["star_ingredient"]){
-                $recipe .= " AND star_ingredient = '" . $filters["star_ingredient"] . "'";
+        if (isset($filters["star_ingredient"]) and $filters["star_ingredient"]) {
+            $recipe .= " AND star_ingredient = '" . $filters["star_ingredient"] . "'";
         }
-            if (isset($filters["difficulty"]) and $filters["difficulty"]){
-                $recipe .= " AND difficulty = " . $filters["difficulty"];
+        if (isset($filters["difficulty"]) and $filters["difficulty"]) {
+            $recipe .= " AND difficulty = " . $filters["difficulty"];
         }
-            if (isset($filters["prep_time"]) and $filters["prep_time"]){
-                $recipe .= " AND prep_time BETWEEN " . $filters["prep_time"];
+        if (isset($filters["prep_time"]) and $filters["prep_time"]) {
+            $recipe .= " AND prep_time BETWEEN " . $filters["prep_time"];
         }
-            if (isset($filters["cook_time"]) and $filters["cook_time"]){
-                $recipe .= " AND cook_time BETWEEN " . $filters["cook_time"];
+        if (isset($filters["cook_time"]) and $filters["cook_time"]) {
+            $recipe .= " AND cook_time BETWEEN " . $filters["cook_time"];
         }
-            if (isset($filters["portion"]) and $filters["portion"]){
-                $recipe .= " AND portion BETWEEN " . $filters["portion"];
-        }
-
-            $recipe .= " AND status = 'validee'" ;
-
-            $dbStarIngredient = $this->db->fetchAll($recipe);
-
-            $topIngredient = [];
-
-            foreach ($dbStarIngredient as $dbTop) {
-                $recipe = $this->buildEntity($dbTop);
-
-                $topIngredient[] = $recipe;
-            }
-            return $topIngredient;
+        if (isset($filters["portion"]) and $filters["portion"]) {
+            $recipe .= " AND portion BETWEEN " . $filters["portion"];
         }
 
+        $recipe .= " AND status = 'validee'";
+
+        if (!empty($nbResult)) {
+            $page = isset($filters['page']) ? $filters['page'] : 1;
+            $offset = ceil(($page - 1) * $nbResult);
+
+            $recipe .= ' LIMIT ' . $nbResult . ' OFFSET ' . $offset;
+        }
+
+        $dbStarIngredient = $this->db->fetchAll($recipe);
+
+        $topIngredient = [];
+
+        foreach ($dbStarIngredient as $dbTop) {
+            $recipe = $this->buildEntity($dbTop);
+
+            $topIngredient[] = $recipe;
+        }
+        return $topIngredient;
+    }
+
+    public function lastRecipe($id_region)
+    {
+        $dbLastRecipe = $this->db->fetchAll('SELECT recipes.*, users.* FROM recipes JOIN regions ON recipes.id_region = regions.id_region JOIN users ON users.id_user = recipes.id_user JOIN rating ON recipes.id_recipe = rating.id_recipe WHERE regions.id_region = :id_region ORDER BY date_recipe DESC LIMIT 5 ',
+            [
+                ":id_region" => $id_region
+            ]
+        );
+        return $dbLastRecipe;
+    }
+
+    public function countStarIngredient()
+    {
+        $dbCountStarIngredient = $this->db->fetchAll('SELECT count(star_ingredient) AS total, recipes.* FROM recipes GROUP BY star_ingredient ORDER BY count(star_ingredient) ');
+        return $dbCountStarIngredient;
+    }
+
+    public function topAuthor()
+    {
+        $dbTopAuthor = $this->db->fetchAll('SELECT count(recipes.id_user) AS result, users.* FROM recipes JOIN users ON recipes.id_user = users.id_user GROUP BY recipes.id_user ORDER BY count(recipes.id_user) DESC LIMIT 5');
+
+        return $dbTopAuthor;
+    }
+
+    public function topComment()
+    {
+        $dbTopComment = $this->db->fetchAll('SELECT count(comments.id_comment) AS topComment, recipes.* FROM comments JOIN recipes ON comments.id_recipe = recipes.id_recipe GROUP BY comments.id_recipe ORDER BY count(comments.id_recipe) DESC LIMIT 5');
+
+        return $dbTopComment;
+    }
 
     public function find($id_recipe)
     {
@@ -169,22 +203,15 @@ class RecipeRepository extends RepositoryAbstract
 
     public function top($id_region)
     {
-        $query = 'SELECT * FROM recipes JOIN rating ON recipes.id_recipe = rating.id_recipe WHERE id_region = :id_recipe ORDER BY rate DESC LIMIT 5';
+        $query = 'SELECT recipes.*, avg(rate), users.* FROM recipes JOIN regions ON recipes.id_region = regions.id_region JOIN users ON users.id_user = recipes.id_user JOIN rating ON recipes.id_recipe = rating.id_recipe WHERE regions.id_region = :id_region GROUP BY rate DESC LIMIT 5 ';
 
         $dbTopRegion = $this->db->fetchAll($query,
             [
-                ':id_recipe' => $id_region
+                ':id_region' => $id_region
             ]
         );
 
-        $topRegions = [];
-
-        foreach ($dbTopRegion as $dbTop) {
-            $recipe = $this->buildEntity($dbTop);
-
-            $topRegions[] = $recipe;
-        }
-        return $topRegions;
+        return $dbTopRegion;
     }
 
 
@@ -215,7 +242,8 @@ class RecipeRepository extends RepositoryAbstract
             'story' => $recipe->getStory(),
             'id_region' => $recipe->getId_region(),
             'picture_recipe' => $recipe->getPicture_recipe(),
-            'id_user' => $this->app['user.manager']->getUser()->getId_user()
+            'id_user' => $this->app['user.manager']->getUser()->getId_user(),
+            'date_recipe' => date("Y-m-d")
         ];
 
         // Appel à la méthode de RepositoryAbstract pour enregistrer
@@ -227,6 +255,15 @@ class RecipeRepository extends RepositoryAbstract
         }
     }
 
+    public function validRecipe(Recipe $recipe)
+    {
+        $data = [
+            'status' => 'validee'
+        ];
+
+        $this->persist($data, ['id_recipe' => $recipe->getId_recipe()]);
+    }
+
     public function delete (Recipe $recipe)
     {
         $this->db->delete(
@@ -234,6 +271,7 @@ class RecipeRepository extends RepositoryAbstract
             ['id_recipe' => $recipe->getId_recipe()]
         );
     }
+
 
     private function buildEntity(array $data)
     {
@@ -252,7 +290,8 @@ class RecipeRepository extends RepositoryAbstract
             ->setIngredients($data['ingredients'])
             ->setMethods($data['methods'])
             ->setId_user($data["id_user"])
-            ->setStory($data['story']);
+            ->setStory($data['story'])
+            ->setDate_recipe($data['date_recipe']);
 
         if (isset($data['region_name'])) {
             $recipe->setRegionName($data['region_name']);

@@ -1,0 +1,81 @@
+.members-list{
+	.member{
+		position: relative;
+		padding: 25px 0 25px 95px;
+		min-height: 80px;
+		border-bottom: 1px solid #ddd;
+		.user-avatar{
+			position: absolute;
+			display: block;
+			top: 25px;
+			left: 0;
+			width: 80px;
+			height: 80px;
+			margin: 0;
+			img{
+				margin: 0;
+				padding: 0;
+			}
+		}
+		.user-details,
+		.user-follow{
+			min-height: 80px;
+		}
+		.user-details{
+			position: relative;
+			.name{
+				display: inline-block;
+				float: left;
+				font-size: 17px;
+				color: #555;
+				&:hover{
+					color: @link-color;
+				}
+			}
+			.user-level{
+				margin: 4px 0 0 10px;
+				font-size: 10px;
+				text-transform: uppercase;
+				display: inline-block;
+				float: left;
+			}
+			.info{
+				color: #666;
+			}
+		}
+		.user-reputation{
+			.count{
+				font-size: 20px;
+				font-family: @heading-font-family;
+				color: @color-red;
+			}
+			.text{
+				font-size: 14px;
+				color: #777;
+				text-transform: uppercase;
+			}
+		}
+		.user-follow{
+			text-align: right;
+			.button{
+				margin-right: 0;
+			}
+			.followers-count{
+				display: block;
+				margin-top: 10px;
+				color: #666;
+				font-size: 12px;
+				text-transform: uppercase;
+			}
+		}
+	}
+	.members-pagination{
+		margin: 20px 0;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.members-list .member .user-follow{
+		text-align: left;
+	}
+}

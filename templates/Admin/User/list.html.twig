@@ -5,16 +5,16 @@
 {% block title 'Admin Utilisateurs' %}
 
 {% block content %}
-    <div class="container">
-        <h1 class="text-center">Gestion Utilisateurs</h1>
-
+    <h1 class="text-center">Gestion Utilisateurs</h1>
         <table class="table table-hover">
             <tr>
                 <th>ID</th>
                 <th>
-                    <a href="{{ path('admin_users', {col: 'username', order: 'DESC'}) }}"><span class="glyphicon glyphicon-arrow-down"></span></a>
-                        Pseudo
-                    <a href="{{ path('admin_users', {col: 'username', order: 'ASC'}) }}"><span class="glyphicon glyphicon-arrow-up"></span></a>
+                    <a href="{{ path('admin_users', {col: 'username', order: 'DESC'}) }}"><span
+                                class="glyphicon glyphicon-arrow-down"></span></a>
+                    Pseudo
+                    <a href="{{ path('admin_users', {col: 'username', order: 'ASC'}) }}"><span
+                                class="glyphicon glyphicon-arrow-up"></span></a>
                 </th>
                 <th>Civilité</th>
                 <th>Nom</th>
@@ -48,4 +48,5 @@
             {% endfor %}
         </table>
     </div>
+</div>
 {% endblock %}

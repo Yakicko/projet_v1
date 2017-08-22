@@ -1,0 +1,222 @@
+.help-container{
+	.help-boxes{
+		margin: 20px 0;
+		.box{
+			display: block;
+			background: #fff;
+			color: #666;
+			border: 1px solid #272822;
+			border-radius: 3px;
+			padding: 15px;
+			text-align: center;
+			margin: 50px 0 15px 0;
+			&,
+			.the-icon,
+			.title,
+			.description{
+				display: block;
+				.transition( all 200ms );
+			}
+			.the-icon{
+				position: relative;
+				border-color: inherit;
+				background: inherit;
+				color: @color-gray;
+				font-size: 44px;
+				line-height: 1;
+				padding: 0;
+				display: block;
+				width: 44px;
+				height: 44px;
+				margin: 0 auto;
+				top: -48px;
+				&:before,
+				&:after{
+					content: " ";
+					border: 1px solid #111;
+					border-color: inherit;
+					background: inherit;
+					border-radius: 10px;
+					display: block;
+					width: 76px;
+					height: 76px;
+					position: absolute;
+					top: -50%;
+					left: 50%;
+					margin-left: -38px;
+					margin-top: 7px;
+					z-index: 1;
+					.transform( rotate( 45deg ) );
+				}
+				&:after{
+					.transform( rotate( 35deg ) );
+					z-index: 2;
+				}
+				.sign{
+					position: relative;
+					z-index: 3;
+				}
+			}
+			.title{
+				padding: 5px 0;
+				font-size: 22px;
+				text-transform: uppercase;
+			}
+			.description{
+				min-height: 74px;
+				line-height: 74px;
+				color: @color-gray;
+				span{
+					display: inline-block; 
+					vertical-align: middle;
+					font-size: 14px;
+					line-height: 1.6;
+				}
+			}
+			&.faq{
+				border-color: @color-blue;
+				.the-icon,
+				.title{
+					color: @color-blue;
+				}
+				&:hover{
+					border-color: darken(@color-blue, 10%);
+					.the-icon,
+					.title{
+						color: darken(@color-blue, 10%);
+					}
+				}
+			}
+			&.ask{
+				border-color: @color-green;
+				.the-icon,
+				.title{
+					color: @color-green;
+				}
+				&:hover{
+					border-color: darken(@color-green, 10%);
+					.the-icon,
+					.title{
+						color: darken(@color-green, 10%);
+					}
+				}
+			}
+			&.all{
+				border-color: @color-purple;
+				.the-icon,
+				.title{
+					color: @color-purple;
+				}
+				&:hover{
+					border-color: darken(@color-purple, 10%);
+					.the-icon,
+					.title{
+						color: darken(@color-purple, 10%);
+					}
+				}
+			}
+		}
+	}
+
+	// Faq page
+	.faq-search{
+		margin: 20px 0;
+		input{
+			display: block;
+			width: 70%;
+			border-width: 2px;
+			font-size: 22px;
+			color: @color-dark-gray;
+			padding: 10px;
+			margin: 0 auto;
+		}
+	}
+
+	.questions-block{
+		.header{
+			display: block;
+			font-size: 18px;
+			color: #555;
+			margin-top: 20px;
+			padding: 0;
+			border-top: 1px solid @color-light-gray;
+			border-bottom: 1px solid @color-light-gray;
+			.title{
+				display: inline-block;
+				padding: 9px 0;
+			}
+			.view-all{
+				float: right;
+				margin: 7px 0;
+				text-transform: none;
+			}
+		}
+		.questions{
+			margin: 0;
+			padding: 15px 0;
+			list-style: none;
+			li{
+				list-style: none;
+				padding: 0;
+				font-size: 16px;
+				margin: 0;
+				a{
+					display: block;
+					padding: 3px 0;
+					color: @color-dark-gray;
+					&:hover{
+						color: @link-color;
+					}
+				}
+			}
+		}
+	}
+
+	//Questions page
+	.all-questions{
+		margin: 20px 0;
+		.question{
+			padding: 20px 0;
+			border-bottom: 1px solid #eee;
+			.title{
+				font-size: 18px;
+				a{
+					color: #555;
+					&:hover{
+						color: @link-color;
+					}
+				}
+			}
+			.meta{
+				color: @color-gray;
+				a{
+					color: lighten(@color-dark-gray, 10%);
+				}
+				a{
+					border-bottom: 1px dotted #ccc;
+					&:hover{
+						color: @link-color;
+						border-color: @link-color;
+					}
+				}
+				span{
+					display: inline-block;
+					&.separator{
+						margin: 0 5px;
+					}
+				}
+			}
+			.replies{
+				font-size: 17px;
+				min-height: 49px;
+				line-height: 49px;
+				font-style: italic;
+				text-align: right;
+				color: darken(@color-gray, 15%);
+				span{
+					vertical-align: middle;
+				}
+			}
+		}
+	}
+}

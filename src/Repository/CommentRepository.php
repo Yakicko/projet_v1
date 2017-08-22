@@ -92,7 +92,8 @@ class CommentRepository extends RepositoryAbstract
             'id_comment' => $comment->getId_comment(),
             'id_user' => $comment->getId_user(),
             'id_recipe' => $comment->getId_recipe(),
-            'content' => $comment->getContent()
+            'content' => $comment->getContent(),
+            'comment_date' => date("Y-m-d H:i:s")
         ];
 
         // Appel à la méthode de RepositoryAbstract pour enregistrer
@@ -156,7 +157,8 @@ class CommentRepository extends RepositoryAbstract
         $comment->setId_comment($data['id_comment'])
                 ->setId_user($data['id_user'])
                 ->setId_recipe($data['id_recipe'])
-                ->setContent($data['content']);
+                ->setContent($data['content'])
+                ->setComment_date($data['comment_date']);
 
         $user = new User();
 

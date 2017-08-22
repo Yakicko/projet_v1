@@ -1,0 +1,101 @@
+.blog-list,
+.blog-single{
+	.post{
+		margin: 10px 0;
+		padding: 15px 0;
+		border-bottom: 1px solid #eee;
+		.entry-details{
+			position: relative;
+			min-height: 100px;
+		}
+		.entry-date{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100px;
+			text-align: center;
+			font-size: 16px;
+			color: @color-gray;
+			margin: 0;
+			display: block;
+			margin-left: 0;
+			span{
+				display: block;
+				&.date{
+					font-size: 32px;
+					font-family: @heading-font-family;
+					color: @color-scheme-primary;
+				}
+				&.month{
+					color: @color-red;
+					text-transform: uppercase;
+					font-size: 12px;
+					position: relative;
+					margin-bottom: 5px;
+					padding-bottom: 5px;
+					&:before{
+						position: absolute;
+						content: " ";
+						border-bottom: 1px solid #eee;
+						width: 50%;
+						left: 25%;
+						bottom: 0;
+					}
+				}
+			}
+		}
+		.entry-title{
+			margin: 0;
+			padding-left: 100px;
+			h1, h2{
+				margin: 0;
+				font-size: 26px;
+			}
+		}
+		.entry-content{
+			margin: 10px 0;
+			padding-left: 100px;
+		}
+		&:first-of-type{
+			margin-top: 0;
+			padding-top: 0;
+		}
+		&.quote{
+			.the-quote{
+				border: 1px solid #ddd;
+				background: #fefefe;
+				border-radius: 3px;
+				padding: 15px;
+				font-size: 32px;
+				font-style: italic;
+				font-family: Georgia, Arial, Helvetica, serif;
+				text-align: center;
+				&,
+				a{
+					color: #777;
+				}
+			}
+			.the-quote-author{
+				background: @color-scheme-primary;
+				color: #fff;
+				font-size: 16px;
+				border-radius: 3px;
+				float: right;
+				display: inline-block;
+				padding: 1px 6px;
+				margin-top: -14px;
+				margin-right: 14px;
+			}
+		}
+	}
+}
+
+.blog-single{
+	.post{
+		.entry-details{
+			.entry-content{
+				font-size: 15px;
+			}
+		}
+	}
+}

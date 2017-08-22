@@ -1,0 +1,89 @@
+{% extends "layout.html.twig" %}
+
+{% block title 'Edition du profile' %}
+
+{% block content %}
+    <!-- BRAND NEW!!!!!!!!!!!!!!!!!!!!!!-->
+    <div class="rw-container rw-section">
+        <div class="rw-inner clearfix">
+
+            <!-- Main content -->
+            <div class="rw-column rw-content">
+
+                <div class="rw-row page-title">
+                    <h1>Modification de votre profil</h1>
+                </div>
+
+                <div class="rw-row subtle">
+                    <div class="grid-container">
+                        <div class="help-container">
+
+                            <div class="rw-row">
+                                <p>Pour des raisons de sécurité, il n'est pas possible de modifier votre pseudo
+                                    : {{ user.username }}<br/>
+                                    ni votre adresse email : {{ user.email }}.
+                                    <br/>Pour cela, adreesez-nous votre demande <a href="{{ path('contact_index') }}">ici</a>
+                                </p>
+
+                            </div>
+
+
+                            <div class="ask-question-form">
+                                <form method="post" enctype="multipart/form-data">
+
+                                    <div class="grid desk-6 alpha">
+                                        <label>Civilité</label>
+                                        <select class="form-control" name="civility" id="civility">
+                                            <option></option>
+                                            <option value="m" {% if user.civility == 'm' %}selected{% endif %}>M
+                                            </option>
+                                            <option value="mme" {% if user.civility == 'mme' %}selected{% endif %}>Mme
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="grid desk-6 omega">
+                                        <label>Nom</label>
+                                        <input type="text" name="lastname" value="{{ user.lastname }}"
+                                               class="form-control">
+                                    </div>
+
+                                    <div class="grid desk-6 alpha">
+                                        <label>Prénom</label>
+                                        <input type="text" name="firstname" value="{{ user.firstname }}"
+                                               class="form-control">
+                                    </div>
+
+                                    <div class="grid desk-6 omega">
+                                        <label>Région</label>
+                                        <select class="form-control" name="region" id="id_region">
+                                            <option>Région</option>
+                                            {% for region in regions %}
+
+                                                <option value="{{ region.id_region }}"
+                                                        {% if region.id_region == user.id_region %}selected{% endif %}>{{ region.region_name }}</option>
+
+                                            {% endfor %}
+                                        </select></div>
+                                    <div class="grid desk-12 both">
+                                        <label>Photos</label>
+                                        <input type="file" name="user_picture" class="form-control">
+                                    </div>
+                                    <hr>
+                                    <div class="grid desk-12">
+                                        <button type="submit" class="button green pull-right">Modifier</button>
+                                        <a href="{{ path('user_profil') }}" class="button red pull-right">Annuler</a>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div> <!-- .help-container -->
+                    </div> <!-- .grid-container -->
+                </div> <!-- .rw-row -->
+
+            </div> <!-- .rw-content -->
+
+        </div> <!-- .rw-inner -->
+    </div> <!-- .rw-container -->
+{% endblock %}

@@ -2,12 +2,19 @@
 
 namespace Repository;
 
+use Doctrine\DBAL\Connection;
 use Silex\Application;
 
 abstract class RepositoryAbstract
 {
+    /**
+     * @var Connection
+     */
 	protected $db;
 
+    /**
+     * @var Application
+     */
     protected $app;
 
 	public function __construct(Application $app)

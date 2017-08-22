@@ -1,0 +1,118 @@
+@nav-class-name: ~"main-menu-nav";
+@menu-class-name: ~"menu";
+@menu-link-padding: 10px 15px;
+
+// -------------------------------------
+.@{nav-class-name} {
+	.eg-clearfix();
+}
+
+.@{nav-class-name} .@{menu-class-name}{
+	position: relative;
+	z-index: 1000;
+	display: block;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	> li{
+		position: relative;
+		display: inline-block;
+		float: left;
+		padding: 0;
+		margin: 0;
+		> a{
+			position: relative;
+			display: block;
+			white-space: nowrap;
+			padding: @menu-link-padding;
+		}
+	}
+	.eg-clearfix();
+}
+
+/* Sub-menu
+------------------------------------------------*/
+.@{nav-class-name} .@{menu-class-name}{
+	.sub-menu{
+		display: none;
+		position: absolute;
+		margin: 0;
+		padding: 15px 0;
+		list-style: none;
+		min-width: 120px;
+		background: #FFF;
+		color: #fff;
+		> li{
+			position: relative;
+			display: block;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			> a{
+				display: block;
+				white-space: nowrap;
+				padding: @menu-link-padding;
+			}
+			> .sub-menu{
+				padding: 0;
+			}
+		}
+	}
+	.sub-menu,
+	> li .sub-menu{
+		&.hovv{
+			display: block;
+		}
+	}
+	> li > a,
+	.sub-menu > li > a{
+		.sub-menu-mark{
+			display: block;
+			font-size: 12px;
+			line-height: 1;
+			position: absolute;
+			right: 4px;
+			top: 50%;
+			margin: -6px 0 0 0;
+		}
+	}
+	.sub-menu{
+		>li{
+			> .inner{
+				padding: @menu-link-padding;
+			}
+		}
+	}
+	//Mega sub menu	
+	> li {
+		&.mega{
+			position: static;
+			.sub-menu{
+				left: 0;
+				right: 0;
+			}
+		}
+	}
+}
+
+/* Hover
+------------------------------------------------*/
+.@{nav-class-name} .@{menu-class-name}{
+	//Link from first level
+	> li:hover{
+		> .sub-menu{
+			display: block;
+		}
+		> a{
+			background: #fff;
+		}
+	}
+	//Link from a inner level (2+)
+	.sub-menu > li:hover{
+		> .sub-menu{
+			display: block;
+		}
+	}
+	
+}

@@ -80,13 +80,13 @@ class RegionRepository extends RepositoryAbstract
 
     }
 
-    public function delete(Region $region)
+    /*public function delete(Region $region)
     {
         $this->db->delete(
             'regions',
             ['id_region' => $region->getId_region()]
         );
-    }
+    }*/
 
 	private function buildEntity(array $data)
 	{

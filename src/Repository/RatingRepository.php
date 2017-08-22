@@ -50,7 +50,7 @@ class RatingRepository extends RepositoryAbstract
     {
         $query = 'SELECT avg(rate) AS moyenne FROM rating WHERE id_recipe = :id_recipe';
 
-        $dbRatings = $this->db->fetchAll($query,
+        $dbRatings = $this->db->fetchColumn($query,
             [
                 ':id_recipe' => $id_recipe
             ]
@@ -62,7 +62,7 @@ class RatingRepository extends RepositoryAbstract
     {
         $query = 'SELECT COUNT( id_user ) AS votants FROM rating WHERE id_recipe = :id_recipe';
 
-        $dbRatings = $this->db->fetchAll($query,
+        $dbRatings = $this->db->fetchColumn($query,
             [
                 ':id_recipe' => $id_recipe
             ]

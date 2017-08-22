@@ -21,13 +21,27 @@ class RegionController extends ControllerAbstract
     {
         $region = $this->app['region.repository']->find($id_region);
         $Rdetail = $this->app['regiondetail.repository']->find($id_region);
-        $topRegions =$this->app['recipe.repository']->top($id_region);
+        $lastRegion = $this->app['recipe.repository']->lastRecipe($id_region);
+        $topRegions = $this->app['recipe.repository']->top($id_region);
 
         return $this->render('region/index.html.twig',
             [
-                'region' => $region,
-                'regionDetail' => $Rdetail,
-                'topRegions' =>$topRegions
+                'region'        => $region,
+                'regionDetail'  => $Rdetail,
+                'topRegions'    => $topRegions,
+                'lastRegion'    => $lastRegion,
+            ]
+        );
+    }
+
+    public function menuAction()
+    {
+        $regions = $this->app['region.repository']->findAll();
+
+        return $this->render(
+            'region/menu.html.twig',
+            [
+                'regions' => $regions
             ]
         );
     }

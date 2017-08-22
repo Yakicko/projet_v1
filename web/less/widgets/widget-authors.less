@@ -1,0 +1,49 @@
+.widget{
+	&.widget-authors{
+		ul, li{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		ul, li{
+			.eg-clearfix();
+		}
+		li{
+			display: block;
+			padding: 10px 0;
+			.box-sizing( border-box );
+			.mark{
+				font-size: 10px;
+				text-transform: uppercase;
+				display: inline-block;
+				margin-left: 3px;
+				padding: 0 4px;
+			}
+			img{
+				display: block;
+				padding: 0;
+				float: left;
+				max-width: 50px;
+				height: auto; 
+				margin: 0 10px 0 0;
+			}
+			.author-meta{
+				margin: 5px 0;
+				color: lighten(@body-font-color, 20%);
+				.meta{
+					margin: 0 4px;
+					.fa{
+						margin-right: 3px;
+						font-size: 14px;
+					}
+					&:first-of-type{
+						margin-left: 0;
+					}
+					&:last-of-type{
+						margin-right: 0;
+					}
+				}
+			}
+		}
+	}
+}

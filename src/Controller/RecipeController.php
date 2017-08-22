@@ -12,6 +12,8 @@ namespace Controller;
 use Entity\Comment;
 use Entity\Rating;
 use Entity\Recipe;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class RecipeController extends ControllerAbstract
@@ -20,10 +22,11 @@ class RecipeController extends ControllerAbstract
     {
         $recipe = $this->app['recipe.repository']->find($id_recipe);
         $user = $this->app['user.repository']->find($recipe->getId_user());
-        $comments = $this->app['comment.repository']->findByIdRecipe($id_recipe);
         $ratings = $this->app['rating.repository']->avgRate($id_recipe);
         $voters = $this->app['rating.repository']->countRating($id_recipe);
-
+        $topAuthor = $this->app['recipe.repository']->topAuthor();
+        $topComment = $this->app['recipe.repository']->topComment();
+        $totalStarIngredient = $this->app['recipe.repository']->countStarIngredient();
 
         //------------------------------------------------------------------------
         $comment = new Comment();
@@ -78,6 +81,7 @@ class RecipeController extends ControllerAbstract
         }
         //----------------------------------------------------------------------------
 
+        $comments = $this->app['comment.repository']->findByIdRecipe($id_recipe);
 
         return $this->render('recipe/index.html.twig',
             [
@@ -86,6 +90,9 @@ class RecipeController extends ControllerAbstract
                 'user' => $user,
                 'ratings' => $ratings,
                 'voters' => $voters,
+                'topAuthor' => $topAuthor,
+                'topComment' => $topComment,
+                'totalStarIngredient' => $totalStarIngredient,
             ]
         );
 
@@ -101,7 +108,13 @@ class RecipeController extends ControllerAbstract
 
     public function searchAjaxAction()
     {
-        $recipes = $this->app['recipe.repository']->filtered($_POST);
+        $nbRecipePerPage = 12;
+
+        $recipes = $this->app['recipe.repository']->filtered($_POST, $nbRecipePerPage);
+        $totalRecipes = $this->app['recipe.repository']->filtered($_POST, 0);
+
+        $nbRecipes = count($totalRecipes);
+        $nbPages = ceil($nbRecipes / $nbRecipePerPage);
 
         $message="ok";
 
@@ -114,10 +127,65 @@ class RecipeController extends ControllerAbstract
             'recipe/table.html.twig',
             [
                 'recipes' => $recipes,
-                'message' => $message
+                'message' => $message,
+                'nbPages' => $nbPages
             ]
         );
     }
+
+    public function ratingAjaxAction(Request $request)
+    {
+        $errors = [];
+
+        $id_recipe = $request->request->get('id_recipe');
+        $rate = $request->request->get('rate');
+
+        $rating = new Rating();
+        $rating->setId_recipe($id_recipe);
+        $rating->setRate($rate);
+
+        $avg = $this->app['rating.repository']->avgRate($id_recipe);
+        $voters = $this->app['rating.repository']->countRating($id_recipe);
+
+        if ($this->app['rating.repository']->ifRating($id_recipe, $this->app['user.manager']->getUserId())) {
+            $errors['didpost'] = 'Vous avez deja voté';
+            $this->addFlashMessage($errors['didpost'], 'error');
+        }
+        else{
+            $this->app['rating.repository']->save($rating);
+        }
+
+
+
+        return $this->app->json([
+            'voters' => $voters,
+            'avg' => number_format($avg, 2, ',', ' '),
+        ], 200);
+    }
+
+//    public function commentAjaxAction(Request $request)
+//    {
+//        $id_recipe = $request->request->get('id_recipe');
+//        $content = $request->request->get('content');
+//
+//        $comment = new Comment();
+//        $comment->setId_recipe($id_recipe);
+//        $comment->setContent($content);
+//        $comment->setId_user($this->app['user.manager']->getUser()->getId_user());
+//        $comment->setComment_date(date("Y-m-d H:i:s"));
+//
+//        $this->app['comment.repository']->save($comment);
+//
+//        $commentresponse = [
+//            'content' => $comment->getContent(),
+//            'username' => $this->app['user.manager']->getUser()->getUsername(),
+//            'id_user' => $comment->getId_user(),
+//        ];
+//
+//        return $this->app->json(
+//            $commentresponse
+//        );
+//    }
 
     public function createAction()
     {
@@ -128,6 +196,9 @@ class RecipeController extends ControllerAbstract
         $errors = [];
 
         $regions = $this->app['region.repository']->findAll();
+        $topAuthor = $this->app['recipe.repository']->topAuthor();
+        $topComment = $this->app['recipe.repository']->topComment();
+        $totalStarIngredient = $this->app['recipe.repository']->countStarIngredient();
 
         $user = $this->app["user.manager"]->getUser();
 
@@ -149,10 +220,11 @@ class RecipeController extends ControllerAbstract
                     ->setStatus('En attente');
 
 
+
                 if (empty($_POST['title'])) {
                     $errors['title'] = 'Le titre est obligatoire';
-                } elseif (strlen($_POST['title']) > 100) {
-                    $errors['title'] = 'Le titre ne doit pas faire plus de 100 caractères';
+                } elseif (strlen($_POST['title']) > 40) {
+                    $errors['title'] = 'Le titre ne doit pas faire plus de 50 caractères';
                 }
 
                 if (empty($_POST['star_ingredient'])) {
@@ -223,8 +295,9 @@ class RecipeController extends ControllerAbstract
 
                 if (empty($errors)) {
                     $this->app['recipe.repository']->save($recipe);
+                    $this->app['recipe.repository']->creationMail($id_recipe);
 
-                    $this->addFlashMessage('La recette a été validée');
+                    $this->addFlashMessage('La recette est bien enregistrée, dans l\'attente d\'être validée. Un mail de confirmation vous sera envoyé.');
                     return $this->redirectRoute('homepage');
                 } else {
                     $message = '<strong>Le formulaire contient des erreurs</strong>';
@@ -240,7 +313,10 @@ class RecipeController extends ControllerAbstract
         return $this->render('recipe/create.html.twig',
             [
                 'recipe' => $recipe,
-                'regions' => $regions
+                'regions' => $regions,
+                'topAuthor' => $topAuthor,
+                'topComment' => $topComment,
+                'totalStarIngredient' => $totalStarIngredient,
 
             ]
         );

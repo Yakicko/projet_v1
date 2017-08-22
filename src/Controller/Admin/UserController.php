@@ -17,6 +17,7 @@ class UserController extends ControllerAbstract
         } else{
             $users = $this->app['user.repository']->findAll();
         }
+
         return $this->render(
             'admin/user/list.html.twig',
             [

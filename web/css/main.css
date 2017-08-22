@@ -1,30 +1,23 @@
-.navbar{
-	height: 50px;
-}
-.navbar-inverse{
-	margin-bottom: 0;
-}
-
 .map__image
 {
-	width: 50%;
+	width: 100%;
 	float: left;
 }
 
 .map__image path{
-	fill: blue;
+	fill: #f3482f;
 	stroke: #FFF;
 	stroke-width: 1px;
 	transition: fill 0.3s;
 }
 
 .map__image .is-active path{
-	fill: red;
+	fill: #58bde7;
 }
 
 .map__list{
 	float: right;
-	width: 50%;
+	width: 100%;
 }
 
 .map__list a {
@@ -34,11 +27,34 @@
 }
 
 .map__list a.is-active {
-	color: red;
+	color: #58bde7;
 	font-weight: bold;
 	text-decoration: underline;
 }
 
 .panel-body  {
 	word-break:break-all;
+}
+
+.profile-recipes-list .recipe{
+	border-bottom: none;
+}
+
+#photo-top5{
+	width: 350px;
+	height: 216px;
+}
+#photoRegion{
+	width: 560px;
+	height: 380px;
+}
+#photo-index
+{
+	width:51px;
+	height:40px;
+}
+#image_filtre
+{
+	width:80px;
+	height:80px;
 }

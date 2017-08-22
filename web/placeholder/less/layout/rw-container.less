@@ -1,0 +1,163 @@
+.rw-container{
+	min-height: 300px;
+	background: #fff;
+	overflow: hidden;
+}
+.rw-column{
+	float: left;
+	display: inline-block;
+	padding-bottom: 100029px;
+	margin-bottom: -99999px;
+	.box-sizing(border-box);
+}
+
+/* Content
+------------------------------------------------*/
+.rw-content{
+	position: relative;
+	width: 100%;
+	background: @rw-container-background-color;
+}
+
+/* Sidebar
+------------------------------------------------*/
+.rw-sidebar{
+	position: relative;
+	width: @sidebar-width;
+	background: @sidebar-background-color;
+	min-height: 50px;
+	min-width: 50px; 
+	.the-sidebar{
+		background: inherit;
+		.box-sizing(border-box);
+	}
+	.sidebar-mobile-pointer{
+		display: none;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 1px;
+		right: 0;
+		margin: 0;
+		background: inherit;
+		border: 0;
+		z-index: 1;
+		cursor: pointer;
+		text-align: center;
+		padding: 15px 0;
+		.sidebar-icon{
+			display: inline-block;
+			font-size: 22px;
+		}
+	}
+}
+
+// !!! Note `.left-sidebar` and `.right-sidebar` classes are applied to `.rw-container`
+.left-sidebar{
+	padding-left: @sidebar-width;
+	.rw-sidebar{
+		float: left;
+		margin-left: -(@sidebar-width);
+		border-right: 1px solid @sidebar-border-color;
+	}
+}
+.right-sidebar{
+	padding-right: @sidebar-width;
+	.rw-sidebar{
+		float: right;
+		margin-right: -(@sidebar-width);
+		border-left: 1px solid @sidebar-border-color;
+	}
+}
+
+@media screen and (max-width: 900px) {
+
+	// Reset all
+	.left-sidebar,
+	.right-sidebar{
+		padding-left: 0;
+		padding-right: 0;
+		.rw-sidebar {
+			margin: 0;
+		}
+	}
+
+	.rw-sidebar {
+		margin: 0;
+		width: 50px;
+		min-height: 100px;
+		position: absolute;
+		right: auto;
+		left: auto;
+		top: 0;
+		bottom: 0;
+		.the-sidebar{
+			display: none;
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			border-radius: 0;
+			margin: 0;
+			z-index: 1100;
+			overflow-y: auto;
+			width: @sidebar-width + 20px;
+		}
+		.sidebar-mobile-pointer{
+			display: block;
+			&.active{
+				color: @color-red;
+			}
+		}
+	}	
+	.left-sidebar{
+		padding-left: 50px;
+		padding-right: 0;
+		.rw-sidebar {
+			right: auto;
+			left: 0;
+			.the-sidebar{
+				.box-shadow( inset -5px 0 15px -5px darken(@sidebar-background-color, 35%) );
+			}
+		}	
+	}
+	.right-sidebar{
+		padding-left: 0;
+		padding-right: 50px;
+		.rw-sidebar {
+			right: 0;
+			left: auto;
+			.the-sidebar{
+				.box-shadow( inset 5px 0 15px -5px darken(@sidebar-background-color, 35%) );
+			}
+		}
+	}
+
+	body.show-sidebar{
+		overflow: hidden;
+		.show-body-shadow{
+			background: #000;
+			.opacity(~"0.6");
+			position: fixed;
+			z-index: 1099;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+
+		.right-sidebar{
+			.rw-sidebar {
+				.the-sidebar{
+					right: 0;
+				}
+			}
+		}
+		.left-sidebar{
+			.rw-sidebar {
+				.the-sidebar{
+					left: 0;
+				}
+			}
+		}
+	}
+}

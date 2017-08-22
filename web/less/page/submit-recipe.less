@@ -1,0 +1,110 @@
+.submission-form-repeatable{
+	position: relative;
+	padding: @global-margin-bottom / 2 0 @global-margin-bottom 20px;
+	margin-bottom: 20px;
+	.accordion_in{
+		position: relative;
+		overflow: visible;
+		.acc_head{
+			position: relative;
+			padding-left: 15px;
+			padding-right: 15px;
+			font-size: 12px;
+			.section-title{
+				color: #333;
+				display: inline-block;
+				min-height: 17px;
+			}
+			.section-label{
+				float: right;
+				overflow: hidden;
+				max-width: 200px;
+				white-space: nowrap;
+				min-height: 17px;
+			}
+			.section-title:empty,
+			.section-label:empty{
+				padding: 0;
+			}
+			&:before{
+				content: " ";
+				display: block;
+				position: absolute;
+				height: 1px;
+				width: 20px;
+				top: 18px;
+				left: -20px;
+				background: @color-scheme-primary;
+			}
+		}
+		&.acc_active > .acc_head{
+			border-bottom: 1px dashed;
+			border-color: inherit;
+		}
+		&.sfa-noindex{
+			display: none;
+		}
+	}
+	.delete-section{
+		float: right;
+		margin-left: 10px;
+	}
+	&:after{
+		content: " ";
+		display: block;
+		width: 15px;
+		position: absolute;
+		bottom: 0;
+		top: @global-margin-bottom / 2 + 18px;
+		left: 0;
+		border-left: 1px solid @color-scheme-primary;
+	}
+}
+.submission-form-repeatable-add-new{
+	display: inline-block;
+	padding: 4px 8px;
+	border-radius: 2px;
+	background: @color-scheme-primary;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 12px;
+	color: #fff;
+	position: relative;
+	margin-bottom: @global-margin-bottom;
+	cursor: pointer;
+	&:before{
+		content: " ";
+		display: block;
+		position: absolute;
+		height: 20px;
+		width: 1px;
+		top: -20px;
+		left: 50%;
+		background: @color-scheme-primary;
+	}
+	&:after{
+		content: " ";
+		display: block;
+		position: absolute;
+		top: -20px;
+		left: 0;
+		height: 1px;
+		width: 50%;
+		background: @color-scheme-primary;
+	}
+	&:hover{
+		background: darken(@color-scheme-primary, 10%);
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.submission-form-repeatable{
+		.accordion_in{
+			.acc_head{
+				.section-label{
+					display: none;
+				}
+			}
+		}
+	}
+}

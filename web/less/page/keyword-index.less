@@ -1,0 +1,115 @@
+.keywords-filter-block{
+	margin: 30px 0 10px;
+	.filter-header{
+		.title{
+			display: inline-block;
+			float: left;
+			font-size: 16px;
+			color: #666;
+			padding: 5px 0 0;
+		}
+		.filter-controls{
+			display: inline-block;
+			float: right;
+			text-align: right;
+			margin-bottom: 5px;
+			.control{
+				display: inline-block;
+				font-size: 14px;
+				padding: 5px 10px;
+				color: #666;
+				background: @color-light-gray;
+				float: right;
+				cursor: pointer;
+				&:first-of-type{
+					border-radius: 0 3px 3px 0;
+				}
+				&:last-of-type{
+					border-radius: 3px 0 0 3px;
+				}
+				&.active{
+					background: @color-scheme-primary;
+					color: #fff;
+				}
+			}
+		}
+	}
+	input.filter-keywords{
+		border-radius: 0 3px 3px;
+		border-width: 2px;
+		padding: 10px;
+		margin-top: 0;
+		font-size: 22px;
+		color: @color-red;
+		border-color: darken(@color-light-gray, 10%);
+	}
+}
+
+.keywords-index-list{
+	margin-bottom: @global-margin-bottom;
+	ul.keywords,
+	ul.keywords li{
+		margin-left: 0;
+		padding-left: 0;
+		list-style: none;
+	}
+	ul.keywords{
+		display: inline;
+		margin: 0;
+		li{
+			display: inline-block;
+			a{
+				display: block;
+				color: @color-dark-gray;
+				background: lighten(@color-light-gray, 5%);
+				margin: 5px 10px 10px 0;
+				padding: 3px 6px;
+				border-radius: 2px;
+				em{
+					display: inline-block;
+					border-left: 1px solid darken(@color-light-gray, 5%);
+					color: @color-gray;
+					padding: 0 6px;
+					margin: 0 0 0 6px;
+				}
+				&:hover{
+					background: @color-scheme-primary;
+					color: @color-white;
+					em{
+						color: lighten(@color-scheme-primary, 35%);
+						border-left-color: lighten(@color-scheme-primary, 15%);
+					}
+				}
+			}
+			&.hide-keyword{
+				display: none;
+			}
+		}
+	}
+	h4{
+		margin: 30px 0 15px;
+		padding: 0 0 5px;
+		border-bottom: 1px solid @color-light-gray;
+	}
+	&.display-block{
+		ul.keywords{
+			display: block;
+			li{
+				display: block;
+				a{
+					position: relative;
+					display: block;
+					margin: 0 0 5px;
+					em{
+						display: inline-block;
+						float: right;
+						border-left: 0;
+					}
+				}
+				&.hide-keyword{
+					display: none;
+				}
+			}
+		}
+	}
+}

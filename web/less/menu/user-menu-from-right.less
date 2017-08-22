@@ -1,0 +1,75 @@
+/* User menu to the right
+------------------------------------------------*/
+.@{nav-class-name} .@{menu-class-name}{
+	> li{
+		.user-details-in-menu{
+			.avatar{
+				padding: 0;
+				img{
+					margin: 8px 0 3px 10px;
+					padding: 0;
+					width: 24px;
+					height: 24px;
+				}
+			}
+		}
+	}
+}
+
+.@{nav-class-name} .@{menu-class-name}{
+	.sub-menu{
+		&.user-notes{
+			min-width: 350px;
+			font-size: 11px;
+			.note{
+				padding: 10px 15px;
+				a{
+					color: lighten(@menu-main-color, 60%);
+					&:hover{
+						color: #fff;
+					}
+				}
+
+				//User message
+				.user-message{
+					position: relative;
+					padding-left: 60px;
+					padding-right: 30px;
+					min-height: 50px;
+					.avatar{
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 50px;
+						height: 50px;
+						display: block;
+						margin: 0;
+					}
+					.type{
+						display: block;
+						padding: 0;
+						position: absolute;
+						top: 50%;
+						margin-top: -9px;
+						right: 1px;
+						color: #fff;
+						font-size: 18px;
+						line-height: 1;
+					}
+					.username{
+						font-weight: 700;
+					}
+					.message{
+						color: #fff;
+					}
+					.date{
+						color: #bbb;
+					}
+				}
+			}
+			.go-to-all{
+				text-align: center;
+			}
+		}
+	}
+}

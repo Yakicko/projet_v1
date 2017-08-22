@@ -65,7 +65,7 @@ class RegionController extends ControllerAbstract
         );
     }
 
-    public function deleteAction($id_region)
+    /*public function deleteAction($id_region)
     {
         $region = $this->app['region.repository']->find($id_region);
 
@@ -78,6 +78,6 @@ class RegionController extends ControllerAbstract
         $this->addFlashMessage('La région est supprimée');
 
         return $this->redirectRoute('admin_regions');
-    }
+    }*/
 
 }

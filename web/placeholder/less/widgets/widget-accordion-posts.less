@@ -1,0 +1,12 @@
+.widget{
+	&.widget-accordion-posts{
+		@{accordion_container}{
+			@{accordion_section}{ 
+				&.acc_active .acc_head,
+				&.acc_active .acc_content{
+					background: #fff;
+				}
+			}
+		}
+	}
+}
