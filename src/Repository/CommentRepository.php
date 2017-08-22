@@ -40,6 +40,29 @@ class CommentRepository extends RepositoryAbstract
         return $comments;
     }
 
+    public function findSort($orderField = 'username', $order = 'ASC')
+    {
+        $query = 'SELECT * FROM comments c'
+            . ' JOIN users u ON c.id_user = u.id_user'
+            . ' JOIN recipes r ON c.id_recipe = r.id_recipe'
+        ;
+
+        $query .= " ORDER BY $orderField $order";
+
+        $dbComments = $this->db->fetchAll($query);
+
+        $comments = [];
+
+        foreach ($dbComments as $dbComment)
+        {
+            $comment = $this->buildEntity($dbComment);
+
+            $comments[] = $comment;
+        }
+
+        return $comments;
+    }
+
     public function findByIdRecipe($id_recipe)
     {
         $query = 'SELECT * FROM comments c JOIN users u ON c.id_user = u.id_user WHERE c.id_recipe = :id_recipe';
@@ -93,6 +116,27 @@ class CommentRepository extends RepositoryAbstract
         );
         if(!empty($dbComment)){
             return $this->buildEntity($dbComment);
+        }
+    }
+
+    public function sendMail($id_comment)
+    {
+        $query = 'SELECT c.*, u.username, u.email FROM comments c JOIN users u ON c.id_user = u.id_user WHERE id_comment = :id_comment';
+
+        $dbMail = $this->db->fetchAssoc($query, [':id_comment' => $id_comment]);
+
+        if(!empty($dbMail)){
+
+            // Subject of confirmation email.
+            $subject = 'Suppression de votre commentaire';
+
+            // Who should the confirmation email be from?
+            $sender = 'J\'ai faim! <no-reply@myemail.co.uk>';
+
+            $msg = $dbMail['username'] . ",\n\nNous jugeons votre commentaire inapproprié et nous l'avons donc supprimé.
+            <br />Voici votre commentaire, on vous laisse refléchir là-dessus: <p>" . $dbMail['content'] . "</p>";
+
+            @mail($dbMail['email'], $subject, $msg, 'From: ' . $sender);
         }
     }
 

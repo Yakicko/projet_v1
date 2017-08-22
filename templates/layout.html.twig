@@ -75,7 +75,7 @@
                                                 alt=""/></a>
                                 </div>
                                 <ul class="sub-menu">
-                                    <li class="separator"><a href="{{ path('user_profil') }}">Profil privé</a></li>
+                                    <li><a href="{{ path('user_profil') }}">Profil privé</a></li>
                                     <li><a href="{{ path('recipe_create') }}">Ajouter une recette</a></li>
                                     <li><a href="{{ path('user_logout') }}">Se déconnecter</a></li>
                                     {% else %}
@@ -134,7 +134,7 @@
                         <ul>
                             <li><a href="{{ path('contact_index') }}">Contact</a></li>
                             <li><a href="{{ path("aboutus_index") }}">Qui sommes nous? </a></li>
-                            <li><a href="#">Mention légales</a></li>
+                            <li><a href="{{ path("termsofuse_index") }}">Mention légales</a></li>
                         </ul>
                     </div>
                 </div>

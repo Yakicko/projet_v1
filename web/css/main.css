@@ -5,14 +5,14 @@
 }
 
 .map__image path{
-	fill: blue;
+	fill: #f3482f;
 	stroke: #FFF;
 	stroke-width: 1px;
 	transition: fill 0.3s;
 }
 
 .map__image .is-active path{
-	fill: red;
+	fill: #58bde7;
 }
 
 .map__list{
@@ -27,7 +27,7 @@
 }
 
 .map__list a.is-active {
-	color: red;
+	color: #58bde7;
 	font-weight: bold;
 	text-decoration: underline;
 }
@@ -47,4 +47,14 @@
 #photoRegion{
 	width: 560px;
 	height: 380px;
+}
+#photo-index
+{
+	width:51px;
+	height:40px;
+}
+#image_filtre
+{
+	width:80px;
+	height:80px;
 }

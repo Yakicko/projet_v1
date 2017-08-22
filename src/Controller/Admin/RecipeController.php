@@ -10,7 +10,11 @@ class RecipeController extends ControllerAbstract
 {
     public function listAction()
     {
-        $recipes = $this->app['recipe.repository']->findAll();
+        if (isset($_GET['col'])) {
+            $recipes = $this->app['recipe.repository']->findSort($_GET['col'], $_GET['order']);
+        } else{
+            $recipes = $this->app['recipe.repository']->findAll();
+        }
 
         return $this->render(
             'admin/recipe/list.html.twig',
@@ -30,6 +34,8 @@ class RecipeController extends ControllerAbstract
 
         $this->app['recipe.repository']->validRecipe($recipe);
 
+        $this->app['recipe.repository']->validateMail($id_recipe);
+
         $this->addFlashMessage('La recette est validée');
 
         return $this->redirectRoute('admin_recipes');
@@ -45,7 +51,9 @@ class RecipeController extends ControllerAbstract
 
         $this->app['recipe.repository']->delete($recipe);
 
-        $this->addFlashMessage('La recette est supprimée');
+        $this->app['recipe.repository']->deleteMail($id_recipe);
+
+        $this->addFlashMessage('La recette est supprimée. Un mail a été envoyé à l\'utilisateur.');
 
         return $this->redirectRoute('admin_recipes');
     }

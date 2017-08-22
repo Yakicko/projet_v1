@@ -44,6 +44,26 @@ class UserRepository extends RepositoryAbstract
         }
     }
 
+    public function findSort($orderField = 'username', $order = 'ASC')
+    {
+        $query = 'SELECT * FROM users';
+
+        $query .= " ORDER BY $orderField $order";
+
+        $dbUsers = $this->db->fetchAll($query);
+
+        $users = [];
+
+        foreach ($dbUsers as $dbUser)
+        {
+            $user = $this->buildEntity($dbUser);
+
+            $users[] = $user;
+        }
+
+        return $users;
+    }
+
     public function findById($id_user)
     {
         $query = 'SELECT c.*, u.* FROM comments c JOIN users u ON c.id_user = u.id_user WHERE c.id_user = :id_comment';

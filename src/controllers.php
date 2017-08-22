@@ -33,6 +33,7 @@ $app->match('/contact/index', 'contact.controller:contactAction')->bind('contact
 
 $app->match('/aboutus/index','aboutus.controller:indexAction')->bind('aboutus_index');
 
+$app->match('/termsofuse/index','termsofuse.controller:indexAction')->bind('termsofuse_index');
 
 $app
     ->match('/utilisateur/inscription', 'user.controller:registerAction')

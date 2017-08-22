@@ -13,7 +13,11 @@ class CommentController extends ControllerAbstract
 {
     public function listAction()
     {
-        $comments = $this->app['comment.repository']->findAll();
+        if (isset($_GET['col'])) {
+            $comments = $this->app['comment.repository']->findSort($_GET['col'], $_GET['order']);
+        } else {
+            $comments = $this->app['comment.repository']->findAll();
+        }
 
         return $this->render(
             'admin/comment/list.html.twig',
@@ -33,7 +37,9 @@ class CommentController extends ControllerAbstract
 
         $this->app['comment.repository']->delete($comment);
 
-        $this->addFlashMessage('Le commentaire est supprimé');
+        $this->app['comment.repository']->sendMail($id_comment);
+
+        $this->addFlashMessage('Le commentaire est supprimé. Un message d\'avertissement a été envoyé au membre');
 
         return $this->redirectRoute('admin_comments');
     }

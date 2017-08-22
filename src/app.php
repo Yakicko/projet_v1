@@ -99,6 +99,11 @@ $app['aboutus.controller'] = function () use ($app)
     return new \Controller\AboutusController($app);
 };
 
+$app['termsofuse.controller'] = function () use ($app)
+{
+    return new \Controller\TermsofuseController($app);
+};
+
 //-------------------------REPOSITORIES---------------------------------//
 //
 $app['region.repository'] = function() use ($app){

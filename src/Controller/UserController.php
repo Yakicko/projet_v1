@@ -265,6 +265,7 @@ class UserController extends ControllerAbstract
         $nb_myComments = $this->app["user.repository"]->myComments($user->getId_user());
         $nb_myRatings = $this->app["user.repository"]->myRatings($user->getId_user());
         $gravatar = hash("md5",strtolower($user->getUsername()));
+        $recipe = $this->app['recipe.repository']->findById_user($user->getId_user());
 
 
         return $this->render(
@@ -275,7 +276,8 @@ class UserController extends ControllerAbstract
                 'nb_myRecipe' => $nb_myRecipe,
                 'nb_myComments' => $nb_myComments,
                 'nb_myRatings' => $nb_myRatings,
-                'gravatar' => $gravatar
+                'gravatar' => $gravatar,
+                'recipe'    => $recipe,
             ]
         );
     }

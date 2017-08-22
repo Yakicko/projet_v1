@@ -24,6 +24,9 @@ class RecipeController extends ControllerAbstract
         $user = $this->app['user.repository']->find($recipe->getId_user());
         $ratings = $this->app['rating.repository']->avgRate($id_recipe);
         $voters = $this->app['rating.repository']->countRating($id_recipe);
+        $topAuthor = $this->app['recipe.repository']->topAuthor();
+        $topComment = $this->app['recipe.repository']->topComment();
+        $totalStarIngredient = $this->app['recipe.repository']->countStarIngredient();
 
         //------------------------------------------------------------------------
         $comment = new Comment();
@@ -87,6 +90,9 @@ class RecipeController extends ControllerAbstract
                 'user' => $user,
                 'ratings' => $ratings,
                 'voters' => $voters,
+                'topAuthor' => $topAuthor,
+                'topComment' => $topComment,
+                'totalStarIngredient' => $totalStarIngredient,
             ]
         );
 
@@ -102,7 +108,7 @@ class RecipeController extends ControllerAbstract
 
     public function searchAjaxAction()
     {
-        $nbRecipePerPage = 8;
+        $nbRecipePerPage = 12;
 
         $recipes = $this->app['recipe.repository']->filtered($_POST, $nbRecipePerPage);
         $totalRecipes = $this->app['recipe.repository']->filtered($_POST, 0);
@@ -138,6 +144,9 @@ class RecipeController extends ControllerAbstract
         $rating->setId_recipe($id_recipe);
         $rating->setRate($rate);
 
+        $avg = $this->app['rating.repository']->avgRate($id_recipe);
+        $voters = $this->app['rating.repository']->countRating($id_recipe);
+
         if ($this->app['rating.repository']->ifRating($id_recipe, $this->app['user.manager']->getUserId())) {
             $errors['didpost'] = 'Vous avez deja voté';
             $this->addFlashMessage($errors['didpost'], 'error');
@@ -146,8 +155,7 @@ class RecipeController extends ControllerAbstract
             $this->app['rating.repository']->save($rating);
         }
 
-        $avg = $this->app['rating.repository']->avgRate($id_recipe);
-        $voters = $this->app['rating.repository']->countRating($id_recipe);
+
 
         return $this->app->json([
             'voters' => $voters,
@@ -188,6 +196,9 @@ class RecipeController extends ControllerAbstract
         $errors = [];
 
         $regions = $this->app['region.repository']->findAll();
+        $topAuthor = $this->app['recipe.repository']->topAuthor();
+        $topComment = $this->app['recipe.repository']->topComment();
+        $totalStarIngredient = $this->app['recipe.repository']->countStarIngredient();
 
         $user = $this->app["user.manager"]->getUser();
 
@@ -212,8 +223,8 @@ class RecipeController extends ControllerAbstract
 
                 if (empty($_POST['title'])) {
                     $errors['title'] = 'Le titre est obligatoire';
-                } elseif (strlen($_POST['title']) > 100) {
-                    $errors['title'] = 'Le titre ne doit pas faire plus de 100 caractères';
+                } elseif (strlen($_POST['title']) > 40) {
+                    $errors['title'] = 'Le titre ne doit pas faire plus de 50 caractères';
                 }
 
                 if (empty($_POST['star_ingredient'])) {
@@ -301,7 +312,10 @@ class RecipeController extends ControllerAbstract
         return $this->render('recipe/create.html.twig',
             [
                 'recipe' => $recipe,
-                'regions' => $regions
+                'regions' => $regions,
+                'topAuthor' => $topAuthor,
+                'topComment' => $topComment,
+                'totalStarIngredient' => $totalStarIngredient,
 
             ]
         );

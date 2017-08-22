@@ -6,102 +6,29 @@
 
     <div class="rw-section rw-container right-sidebar">
         <div class="rw-inner clearfix">
-
-
             <!-- Sidebar -->
             <div class="rw-column rw-sidebar">
                 <div class="the-sidebar">
-                    <!-- Widget -->
-                    <aside class="widget widget-search">
-
-                        <div class="widget-title"><h3>Recherche</h3></div>
-
-                        <form method="get" class="search-form" action="">
-                            <input type="text" class="search-field fullwidth" name="s" placeholder="a definir" value="">
-                        </form>
-
-                    </aside> <!-- .widget -->
-                    <!-- / Widget -->
 
                     <!-- Widget -->
                     <aside class="widget widget-posts">
 
-                        <div class="widget-title"><h3>Most popular recipes</h3></div>
+                        <div class="widget-title"><h3>Les plus commentées</h3></div>
                         <div class="widget-posts-list">
                             <!-- Entry -->
-                            <div class="post">
-                                <div class="entry-photo">
-                                    <img src="assets/placeholder/food/50x50/4.jpg" alt="" />
-                                </div>
-                                <div class="entry-title">
-                                    <a href="#">Consectetur adipisicing elit do eiusmod</a>
-                                </div>
-                                <div class="entry-controls minimal">
-                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i class="fa fa-heart-o"></i> </a><span class="control-tip">127</span>
-                                    <a href="#" class="control entry-like" title="I like this!"> <i class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">322</span>
-                                    <a href="#" class="control entry-comments" title="Comments"> <i class="fa fa-comments"></i> </a> <span class="control-tip">102</span>
-                                </div>
-                            </div> <!-- .entry -->
-
-                            <!-- Entry -->
-                            <div class="post">
-                                <div class="entry-photo">
-                                    <img src="assets/placeholder/food/50x50/7.jpg" alt="" />
-                                </div>
-                                <div class="entry-title">
-                                    <a href="#">Deliciae superbam praecustodio gualitatibus</a>
-                                </div>
-                                <div class="entry-controls minimal">
-                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i class="fa fa-heart-o"></i> </a><span class="control-tip">169</span>
-                                    <a href="#" class="control entry-like active" title="I like this!"> <i class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">452</span>
-                                    <a href="#" class="control entry-comments" title="Comments"> <i class="fa fa-comments"></i> </a> <span class="control-tip">87</span>
-                                </div>
-                            </div> <!-- .entry -->
-
-                            <!-- Entry -->
-                            <div class="post">
-                                <div class="entry-photo">
-                                    <img src="assets/placeholder/food/50x50/14.jpg" alt="" />
-                                </div>
-                                <div class="entry-title">
-                                    <a href="#">Glaebam eminentiam destitutus firmare</a>
-                                </div>
-                                <div class="entry-controls minimal">
-                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i class="fa fa-heart-o"></i> </a><span class="control-tip">127</span>
-                                    <a href="#" class="control entry-like" title="I like this!"> <i class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">322</span>
-                                    <a href="#" class="control entry-comments" title="Comments"> <i class="fa fa-comments"></i> </a> <span class="control-tip">102</span>
-                                </div>
-                            </div> <!-- .entry -->
-
-                            <!-- Entry -->
-                            <div class="post">
-                                <div class="entry-photo">
-                                    <img src="assets/placeholder/food/50x50/5.jpg" alt="" />
-                                </div>
-                                <div class="entry-title">
-                                    <a href="#">Suspicio inncem tantum septima ossibus</a>
-                                </div>
-                                <div class="entry-controls minimal">
-                                    <a href="#" class="control entry-to-favorites active" title="Add to favorites"> <i class="fa fa-heart-o"></i> </a><span class="control-tip">255</span>
-                                    <a href="#" class="control entry-like" title="I like this!"> <i class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">471</span>
-                                    <a href="#" class="control entry-comments" title="Comments"> <i class="fa fa-comments"></i> </a> <span class="control-tip">120</span>
-                                </div>
-                            </div> <!-- .entry -->
-
-                            <!-- Entry -->
-                            <div class="post">
-                                <div class="entry-photo">
-                                    <img src="assets/placeholder/food/50x50/9.jpg" alt="" />
-                                </div>
-                                <div class="entry-title">
-                                    <a href="#">Incididunt ut labore et dolore magna aliqua</a>
-                                </div>
-                                <div class="entry-controls minimal">
-                                    <a href="#" class="control entry-to-favorites" title="Add to favorites"> <i class="fa fa-heart-o"></i> </a><span class="control-tip">127</span>
-                                    <a href="#" class="control entry-like" title="I like this!"> <i class="fa fa-thumbs-o-up"></i> </a> <span class="control-tip">322</span>
-                                    <a href="#" class="control entry-comments" title="Comments"> <i class="fa fa-comments"></i> </a> <span class="control-tip">102</span>
-                                </div>
-                            </div> <!-- .entry -->
+                            {% for topComment in topComment %}
+                                <div class="post">
+                                    <div class="entry-photo">
+                                        <img src="{{ asset('photo/' ~ topComment.picture_recipe) }}" alt=""/>
+                                    </div>
+                                    <div class="entry-title">
+                                        <a href="{{ path('recipe_index', {id_recipe: topComment.id_recipe}) }}">{{ topComment.title }}</a>
+                                    </div>
+                                    <div class="entry-controls minimal">
+                                        <span class="control-tip"> <i class="fa fa-comments"></i> {{ topComment.topComment }}</span>
+                                    </div>
+                                </div> <!-- .entry -->
+                            {% endfor %}
                         </div>
 
                     </aside> <!-- .widget -->
@@ -111,220 +38,33 @@
                     <aside class="widget widget-categories">
 
                         <div class="widget-title"><h3>Categories</h3></div>
-
-                        <ul>
-                            <li><a href="#">Breakfast <span class="mark light-gray">157</span></a></li>
-                            <li><a href="#">Lunch <span class="mark light-gray">24</span></a></li>
-                            <li><a href="#">Beverages <span class="mark light-gray">54</span></a></li>
-                            <li><a href="#">Appetizers <span class="mark light-gray">359</span></a></li>
-                            <li><a href="#">Soups <span class="mark light-gray">98</span></a></li>
-                            <li><a href="#">Salads <span class="mark light-gray">195</span></a></li>
-                            <li><a href="#">Main dishes: Beef <span class="mark light-gray">280</span></a></li>
-                            <li><a href="#">Main dishes: Poultry <span class="mark light-gray">450</span></a></li>
-                            <li><a href="#">Main dishes: Pork <span class="mark light-gray">84</span></a></li>
-                            <li><a href="#">Main dishes: Seafood <span class="mark light-gray">370</span></a></li>
-                            <li><a href="#">Main dishes: Vegetarian <span class="mark light-gray">328</span></a></li>
-                            <li><a href="#">Side dishes: Vegetables <span class="mark light-gray">352</span></a></li>
-                            <li><a href="#">Side dishes: Other <span class="mark light-gray">99</span></a></li>
-                            <li><a href="#">Desserts <span class="mark light-gray">348</span></a></li>
-                            <li><a href="#">Canning / Freezing <span class="mark light-gray">61</span></a></li>
-                            <li><a href="#">Breads <span class="mark light-gray">234</span></a></li>
-                            <li><a href="#">Holidays <span class="mark light-gray">374</span></a></li>
-                            <li><a href="#">Entertaining <span class="mark light-gray">176</span></a></li>
-                        </ul>
-
+                        {% for totalStarIngredient in totalStarIngredient %}
+                            <ul>
+                                <li><a href="{{ path('recipe_list') }}">{{ totalStarIngredient.star_ingredient }} <span class="mark light-gray">{{ totalStarIngredient.total }}</span></a></li>
+                            </ul>
+                        {% endfor %}
                     </aside> <!-- .widget -->
                     <!-- / Widget -->
 
                     <!-- Widget -->
                     <aside class="widget widget-authors">
 
-                        <div class="widget-title"><h3>Top authors</h3></div>
-
+                        <div class="widget-title"><h3>Les plus actifs !</h3></div>
                         <ul>
-                            <li>
-                                <img src="assets/placeholder/people/50x50/15.jpg" alt="" />
-                                <div class="author-name"><a href="#">Michelle Nelson</a> <span class="mark green" title="Pro member!">Pro</span></div>
-                                <div class="author-meta">
-                                    <span class="meta" title="421 total recipes submited"><i class="fa fa-newspaper-o"></i> 421</span>
-                                    <span class="meta" title="26252 reputation points"><i class="fa fa-bullseye"></i>26k</span>
-                                    <span class="meta" title="350 comments"><i class="fa fa-comments"></i>350</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="assets/placeholder/people/50x50/13.jpg" alt="" />
-                                <div class="author-name"><a href="#">Steven Martinez</a> <span class="mark orange" title="VIP member!">Vip</span></div>
-                                <div class="author-meta">
-                                    <span class="meta" title="399 total recipes submited"><i class="fa fa-newspaper-o"></i> 399</span>
-                                    <span class="meta" title="19722 reputation points"><i class="fa fa-bullseye"></i>19k</span>
-                                    <span class="meta" title="330 comments"><i class="fa fa-comments"></i>330</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="assets/placeholder/people/50x50/10.jpg" alt="" />
-                                <div class="author-name"><a href="#">Daniel Thompson</a></div>
-                                <div class="author-meta">
-                                    <span class="meta" title="297 total recipes submited"><i class="fa fa-newspaper-o"></i> 297</span>
-                                    <span class="meta" title="22803 reputation points"><i class="fa fa-bullseye"></i>22k</span>
-                                    <span class="meta" title="337 comments"><i class="fa fa-comments"></i>337</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="assets/placeholder/people/50x50/20.jpg" alt="" />
-                                <div class="author-name"><a href="#">Sandra Williams</a></div>
-                                <div class="author-meta">
-                                    <span class="meta" title="249 total recipes submited"><i class="fa fa-newspaper-o"></i> 249</span>
-                                    <span class="meta" title="20024 reputation points"><i class="fa fa-bullseye"></i>20k</span>
-                                    <span class="meta" title="816 comments"><i class="fa fa-comments"></i>816</span>
-                                </div>
-                            </li>
+                            {% for topAuthor in topAuthor %}
+                                <li>
+                                    <img src="{{ asset('photo/' ~ topAuthor.user_picture) }}" alt=""/>
+                                    <div class="author-name"><a href="{{ path('user_profil_public',{id_user: topAuthor.id_user}) }}">{{ topAuthor.username }}</a> <span class="mark green" title="Pro member!">Pro</span>
+                                    </div>
+                                    <div class="author-meta">
+                                    <span class="meta" title="421 total recipes submited"><i
+                                                class="fa fa-newspaper-o"></i> Nombre de recettes : {{ topAuthor.result }}</span>
+                                    </div>
+                                </li>
+                            {% endfor %}
                         </ul>
 
                     </aside> <!-- .widget -->
-                    <!-- / Widget -->
-
-                    <!-- Widget -->
-                    <aside class="widget widget-accordion-posts">
-
-                        <div class="widget-title"><h3>From the blog</h3></div>
-
-                        <!-- Accordion begin -->
-                        <ul class="jquery_accordion" data-show-icon="false" data-active-index="2">
-
-                            <li><div> <i class="fa fa-bell"></i> Recent posts </div>
-
-                                <div class="widget-posts-list">
-                                    <!-- Entry -->
-                                    <div class="post">
-                                        <div class="entry-photo">
-                                            <img src="assets/placeholder/blog/50x50/4.jpg" alt="" />
-                                        </div>
-                                        <div class="entry-title">
-                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
-                                        </div>
-                                        <div class="entry-date">13 September 2014</div>
-                                    </div> <!-- .entry -->
-
-                                    <!-- Entry -->
-                                    <div class="post">
-                                        <div class="entry-photo">
-                                            <img src="assets/placeholder/blog/50x50/5.jpg" alt="" />
-                                        </div>
-                                        <div class="entry-title">
-                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
-                                        </div>
-                                        <div class="entry-date">27 August 2014</div>
-                                    </div> <!-- .entry -->
-
-                                    <!-- Entry -->
-                                    <div class="post">
-                                        <div class="entry-photo">
-                                            <img src="assets/placeholder/blog/50x50/6.jpg" alt="" />
-                                        </div>
-                                        <div class="entry-title">
-                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
-                                        </div>
-                                        <div class="entry-date">05 May 2014</div>
-                                    </div> <!-- .entry -->
-                                </div>
-
-                            </li>
-
-                            <li><div> <i class="fa fa-heart"></i> Popular posts </div>
-
-                                <div class="widget-posts-list">
-                                    <!-- Entry -->
-                                    <div class="post">
-                                        <div class="entry-photo">
-                                            <img src="assets/placeholder/blog/50x50/7.jpg" alt="" />
-                                        </div>
-                                        <div class="entry-title">
-                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
-                                        </div>
-                                        <div class="entry-date">14 June 2014</div>
-                                    </div> <!-- .entry -->
-
-                                    <!-- Entry -->
-                                    <div class="post">
-                                        <div class="entry-photo">
-                                            <img src="assets/placeholder/blog/50x50/8.jpg" alt="" />
-                                        </div>
-                                        <div class="entry-title">
-                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
-                                        </div>
-                                        <div class="entry-date">27 January 2014</div>
-                                    </div> <!-- .entry -->
-
-                                    <!-- Entry -->
-                                    <div class="post">
-                                        <div class="entry-photo">
-                                            <img src="assets/placeholder/blog/50x50/1.jpg" alt="" />
-                                        </div>
-                                        <div class="entry-title">
-                                            <a href="#">Consectetur adipisicing elit do eiusmod</a>
-                                        </div>
-                                        <div class="entry-date">23 February 2014</div>
-                                    </div> <!-- .entry -->
-                                </div>
-
-                            </li>
-
-                            <li><div> <i class="fa fa-comment"></i> Latest comments </div>
-                                <div class="widget-comments-list">
-                                    <div class="comment">
-                                        <div class="entry-photo">
-                                            <img src="assets/placeholder/people/50x50/2.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <a href="#">Michelle Nelson</a><br>
-                                            Et certamen honestum et disputatio splendida! omnis est enim de dignitate...
-                                        </div>
-                                    </div> <!-- .entry -->
-
-                                    <div class="comment">
-                                        <div class="entry-photo">
-                                            <img src="assets/placeholder/people/50x50/5.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <a href="#">Steven King</a><br>
-                                            Great. Thank you for help. :) I'll let you know if there's more.
-                                        </div>
-                                    </div> <!-- .entry -->
-
-                                    <div class="comment">
-                                        <div class="entry-photo">
-                                            <img src="assets/placeholder/people/50x50/8.jpg" alt="" />
-                                        </div>
-                                        <div>
-                                            <a href="#">Richard Thomas</a><br>
-                                            Et certamen honestum et disputatio splendida! omnis est enim de virtutis...
-                                        </div>
-                                    </div> <!-- .entry -->
-                                </div>
-
-                            </li>
-
-                        </ul>
-                        <!-- Accordion end -->
-
-                    </aside> <!-- .widget -->
-                    <!-- / Widget -->
-
-                    <!-- Widget -->
-                    <aside class="widget widget-text">
-
-                        <div class="widget-title"><h3>Text widget</h3></div>
-
-                        <div class="widget-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat.</p>
-                        </div> <!-- .entry -->
-
-                    </aside> <!-- .widget -->
-                    <!-- / Widget -->
-
                 </div> <!-- .the-sidebar -->
             </div> <!-- .rw-sidebar -->
 
@@ -333,7 +73,7 @@
             <div class="rw-column rw-content">
 
                 <div class="rw-row page-breadcrumb">
-                    <a href="#">Home</a> &raquo; <a href="#">Pages</a> &raquo; <span>Submit recipe</span>
+                    <a href="{{ path('homepage') }}">Accueil</a> &raquo; <span>Ajout Recette</span>
                 </div>
                 <div class="rw-row page-title">
                     <h1>Ajoutez une recette !</h1>
@@ -367,7 +107,7 @@
                                 <div class="form-label">Difficulté de réalisation</div>
                                 <div class="form-description">Indiquez le niveau de difficulté de réalisation de votre recette.</div>
                                 <div class="visual-select">
-                                    <label><input type="radio" name="difficulty" value="1" data-label="Facile"></label>
+                                    <label><input type="radio" name="difficulty" value="1" data-label="Facile" checked></label>
                                     <label><input type="radio" name="difficulty" value="2" data-label="Moyen"></label>
                                     <label><input type="radio" name="difficulty" value="3" data-label="Difficile"></label>
                                     <label><input type="radio" name="difficulty" value="4" data-label="Tres Difficile"></label>

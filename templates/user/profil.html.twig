@@ -7,7 +7,7 @@
             <div class="rw-column rw-content">
 
                 <div class="rw-row page-breadcrumb">
-                    <a href="{{ path('homepage') }}">Accueil</a> &raquo; <span>Mettre le chemin de l'utilisateur</span>
+                    <a href="{{ path('homepage') }}">Accueil</a> &raquo; <span>Profil privé &raquo; {{ user.username }}</span>
                 </div>
                 <div class="rw-row page-title">
                     <div class="grid-container">
@@ -129,13 +129,11 @@
                             <div class="grid desk-6">
                                 <div class="recipe">
                                     <div class="photo">
-                                        <a href="#"><img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" width="80px" height="80px" ></a>
+                                        <a href="{{  path('recipe_index', {id_recipe: recipe.id_recipe}) }}"><img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" width="80px" height="80px" ></a>
                                     </div>
                                     <div class="title"><a href="{{  path('recipe_index', {id_recipe: recipe.id_recipe}) }}">{{ recipe.title }}</a></div>
                                     <div class="info">
-                                        <span class="info-item">01 August 2014</span>
-                                        <span class="info-item">Count(commentaire)</span>
-                                        <span class="info-item">AVG(rate)</span>
+                                        <span class="info-item">{{ recipe.date_recipe|date('d/m/Y') }}</span>
                                     </div>
                                     <div class="info">
                                         <span class="info-item">Ingredient Principal : {{ recipe.star_ingredient }}</a></span>
