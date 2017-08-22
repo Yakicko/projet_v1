@@ -69,10 +69,15 @@
                             <li class="to-left-more">
                                 {% if user_manager.user %}{# si un utilisateur est connecté #}
                                 <div class="user-details-in-menu">
-
+                                {% if user_manager.user.getUser_picture() %}
+                                    <a href="#" class="avatar" style="font-size:20px;"><img
+                                                src="{{ asset("photo/" ~ user_manager.user.getUser_picture()) }}"
+                                                alt=""/> {{user_manager.user.getUsername()}}</a>
+                                {% else %}
                                     <a href="#" class="avatar"><img
-                                                src="https://www.gravatar.com/avatar/'.$gravatar.'?d=retro&s=150"
+                                                src="https://www.gravatar.com/avatar/{{user_manager.gravatar}}?d=retro&s=150"
                                                 alt=""/></a>
+                                {% endif %}
                                 </div>
                                 <ul class="sub-menu">
                                     <li><a href="{{ path('user_profil') }}">Profil privé</a></li>

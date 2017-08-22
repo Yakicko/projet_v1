@@ -48,7 +48,7 @@ class RecipeController extends ControllerAbstract
                 $this->app['comment.repository']->save($comment);
 
 
-                $this->addFlashMessage('Votre commentaire a bien été enregistré');;
+                $this->addFlashMessage('Votre commentaire a bien été enregistré');
             } else {
                 $message = '<strong>Le commentaire contient des erreurs</strong>';
                 $message .= '<br>' . implode('<br>', $errors);
@@ -72,7 +72,7 @@ class RecipeController extends ControllerAbstract
             if (empty($errors)) {
                 $this->app['rating.repository']->save($rating);
 
-                $this->addFlashMessage('Votre vote a bien été enregistré');;
+                $this->addFlashMessage('Votre vote a bien été enregistré');
             } else {
                 $message = '<strong>La note contient des erreurs</strong>';
                 $message .= '<br>' . implode('<br>', $errors);
@@ -82,6 +82,7 @@ class RecipeController extends ControllerAbstract
         //----------------------------------------------------------------------------
 
         $comments = $this->app['comment.repository']->findByIdRecipe($id_recipe);
+        $usergravatar = hash("md5",strtolower($user->getUsername()));
 
         return $this->render('recipe/index.html.twig',
             [
@@ -93,6 +94,7 @@ class RecipeController extends ControllerAbstract
                 'topAuthor' => $topAuthor,
                 'topComment' => $topComment,
                 'totalStarIngredient' => $totalStarIngredient,
+                'usergravatar' => $usergravatar
             ]
         );
 

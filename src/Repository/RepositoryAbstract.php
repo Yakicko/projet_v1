@@ -17,11 +17,11 @@ abstract class RepositoryAbstract
      */
     protected $app;
 
-	public function __construct(Application $app)
-	{
-		$this->db = $app['db'];
+    public function __construct(Application $app)
+    {
+        $this->db = $app['db'];
         $this->app = $app;
-	}
+    }
 
     public function persist(array $data, array $where = null)
     {
@@ -32,10 +32,10 @@ abstract class RepositoryAbstract
         }
     }
 
-	/*
-	oblige les classes filles à définir cette méthode
-	qui renvoit le nom de la table à laquelle elles font référence
-	 */
-	abstract protected function getTable();
+    /*
+    oblige les classes filles à définir cette méthode
+    qui renvoit le nom de la table à laquelle elles font référence
+     */
+    abstract protected function getTable();
 }
 

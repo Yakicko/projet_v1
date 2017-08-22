@@ -54,7 +54,7 @@
                                         <img id="photo-top5" src="{{ asset('photo/' ~ topRegions.picture_recipe) }}" alt=""/>
                                     </div>
                                     <div class="entry-title">
-                                        <a href="#">{{ topRegions.title }}</a>
+                                        <a href="{{ path("recipe_index",{id_recipe:topRegions.id_recipe}) }}">{{ topRegions.title }}</a>
                                     </div>
                                     <div class="entry-meta">
                                         <span class="date">{{ topRegions.date_recipe|date('Y/m/d') }}</span>

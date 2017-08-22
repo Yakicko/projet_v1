@@ -23,10 +23,8 @@
                             <button name="rateBtn" value="rateBtn" type="submit" class="btn btn-primary">Vote</button>
                         </form>
                     {% else %}
-                        <p class="text-danger text-center">Vous devez être connecté pour commenter et noter une
-                            recette</p>
                         <a class="btn btn-primary btn-block"
-                           href="{{ path("user_login", {redirect: global.request.requestUri}) }}">Se connecter</a>
+                           href="{{ path("user_login", {redirect: global.request.requestUri}) }}">Connectez-vous!</a>
                     {% endif %}
                     </aside>
                     <!-- Widget -->
@@ -72,7 +70,7 @@
                         <ul>
                             {% for topAuthor in topAuthor %}
                             <li>
-                                <img src="{{ asset('photo/' ~ topAuthor.user_picture) }}" alt=""/>
+                                <img src="{% if topAuthor.user_picture %}{{ asset('photo/' ~ topAuthor.user_picture) }}{#{% else %}https://www.gravatar.com/avatar/{{usergravatar}}?d=retro&s=150#}{% endif %}" alt=""/>
                                 <div class="author-name"><a href="{{ path('user_profil_public',{id_user: topAuthor.id_user}) }}">{{ topAuthor.username }}</a> <span class="mark green" title="Pro member!">Pro</span>
                                 </div>
                                 <div class="author-meta">
@@ -126,7 +124,7 @@
                                 <ul>
                                     <li>
                                         <div class="entry-info-author">
-                                            <img id="photo-index" src="{{ asset('photo/' ~ user.user_picture) }}">
+                                            <img id="photo-index" src="{% if user.user_picture %}{{ asset('photo/' ~ user.user_picture) }}{% else %}https://www.gravatar.com/avatar/{{usergravatar}}?d=retro&s=150{% endif %}">
                                             <div class="author-name">
                                             Auteur de la recette : <a href="{{ path('user_profil_public',{id_user:recipe.id_user}) }}"><br>{{ user.username }}</a>
                                             </div>
@@ -176,10 +174,8 @@
                                         </div>
                                         <div class="content">
                                             <div class="comment-header">
-                                                <a href="{{ path('user_profil_public',{id_user:recipe.id_user}) }}">Posté
-                                                    par :{{ comment.username }}</a><span
-                                                        class="comment-time">le{{ comment.comment_date|date('d/m/Y') }}
-                                                    à {{ comment.comment_date|date('H:i') }}</span>
+                                                <span>Posté par :<a href="{{ path('user_profil_public',{id_user:recipe.id_user}) }}">{{ comment.username }}</a></span>
+                                                <span class="comment-time">le {{ comment.comment_date|date('d/m/Y') }}à {{ comment.comment_date|date('H:i') }}</span>
                                             </div>
                                             <p>{{ comment.content }}</p>
                                             {% else %}
