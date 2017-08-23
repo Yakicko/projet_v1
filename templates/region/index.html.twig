@@ -20,20 +20,7 @@
                             <p>{{ regionDetail.region_story }}</p>
                             <p>{{ regionDetail.details }}</p>
 
-                            <div class="entry-meta clearfix">
-                                <div class="meta favorites">
-                                    <span class="icon"><i class="the-icon fa fa-heart-o"></i></span>
-                                    <span class="number">89 favorites</span>
-                                </div>
-                                <div class="meta likes">
-                                    <span class="icon"><i class="the-icon fa fa-thumbs-o-up"></i></span>
-                                    <span class="number">225 likes</span>
-                                </div>
-                                <div class="meta comments">
-                                    <span class="icon"><i class="the-icon fa fa-comments"></i></span>
-                                    <span class="number">26 comments</span>
-                                </div>
-                            </div>
+
                             <div class="clear"></div>
 
 
@@ -63,7 +50,7 @@
                                         <img id="photo-top5" src="{{ asset('photo/' ~ topRegions.picture_recipe) }}" alt=""/>
                                     </div>
                                     <div class="entry-title">
-                                        <a href="#">{{ topRegions.title }}</a>
+                                        <a href="{{  path('recipe_index', {id_recipe: topRegions.id_recipe}) }}">{{ topRegions.title }}</a>
                                     </div>
                                     <div class="entry-meta">
                                         <span class="date">{{ topRegions.date_recipe|date('Y/m/d') }}</span>
@@ -104,7 +91,7 @@
                                     <img id="photo-top5" src="{{ asset('photo/' ~ lastRegion.picture_recipe) }}" alt=""/>
                                 </div>
                                 <div class="entry-title">
-                                    <a href="#">{{ lastRegion.title }}</a>
+                                    <a href="{{  path('recipe_index', {id_recipe: lastRegion.id_recipe}) }}">{{ lastRegion.title }}</a>
                                 </div>
                                 <div class="entry-meta">
                                     <span class="date">{{ lastRegion.date_recipe|date('Y/m/d') }}</span>

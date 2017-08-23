@@ -19,34 +19,34 @@
     {#{% endfor %}#}
 {#</table>#}
 
-<div class="rw-container rw-section">
-    <div class="rw-inner clearfix">
-        <a class="button green small " href="{{ path('user_profil') }}">&larr; Retour profil</a>
-        <div class="rw-column rw-content">
-            <div class="rw-row subtle large border-bottom">
-                <div class="grid desk-6 prefix_3">
-                    <h1>Mes recettes</h1>
-                    <div class="home-collections">
-                        {% for recipe in recipe %}
-                            <div class="collection clearfix">
-                                <div class="entry-details">
-                                    <div class="entry-title"><a href="#">{{ recipe.title }}</a></div>
-                                    <div class="meta">
-                                        <span class="views">Note</span>
-                                        <span class="sep">&bull;</span>
-                                        <span class="likes">Commentaire</span>
-                                    </div>
-                                </div>
-                                <div class="total">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                    <span class="text"><a href="{{  path('recipe_index', {id_recipe: recipe.id_recipe}) }}">Voir la recette</a></span>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div> <!-- .rw-row -->
-        </div>
-    </div> <!-- .rw-inner -->
-</div> <!-- .rw-container -->
+{#<div class="rw-container rw-section">#}
+    {#<div class="rw-inner clearfix">#}
+        {#<a class="button green small " href="{{ path('user_profil') }}">&larr; Retour profil</a>#}
+        {#<div class="rw-column rw-content">#}
+            {#<div class="rw-row subtle large border-bottom">#}
+                {#<div class="grid desk-6 prefix_3">#}
+                    {#<h1>Mes recettes</h1>#}
+                    {#<div class="home-collections">#}
+                        {#{% for recipe in recipe %}#}
+                            {#<div class="collection clearfix">#}
+                                {#<div class="entry-details">#}
+                                    {#<div class="entry-title"><a href="#">{{ recipe.title }}</a></div>#}
+                                    {#<div class="meta">#}
+                                        {#<span class="views">Note</span>#}
+                                        {#<span class="sep">&bull;</span>#}
+                                        {#<span class="likes">Commentaire</span>#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {#<div class="total">#}
+                                    {#<span class="glyphicon glyphicon-chevron-right"></span>#}
+                                    {#<span class="text"><a href="{{  path('recipe_index', {id_recipe: recipe.id_recipe}) }}">Voir la recette</a></span>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#{% endfor %}#}
+                    {#</div>#}
+                {#</div>#}
+                {#<div class="clear"></div>#}
+            {#</div> <!-- .rw-row -->#}
+        {#</div>#}
+    {#</div> <!-- .rw-inner -->#}
+{#</div> <!-- .rw-container -->#}

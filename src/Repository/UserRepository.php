@@ -46,7 +46,7 @@ class UserRepository extends RepositoryAbstract
 
     public function findSort($orderField = 'username', $order = 'ASC')
     {
-        $query = 'SELECT * FROM users';
+        $query = 'SELECT * FROM users u JOIN regions r ON u.id_region = r.id_region';
 
         $query .= " ORDER BY $orderField $order";
 

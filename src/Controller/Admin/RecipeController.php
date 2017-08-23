@@ -10,6 +10,7 @@ class RecipeController extends ControllerAbstract
 {
     public function listAction()
     {
+
         $recipes = $this->app['recipe.repository']->findAll();
 
         return $this->render(
@@ -32,7 +33,7 @@ class RecipeController extends ControllerAbstract
 
         $this->app['recipe.repository']->validateMail($id_recipe);
 
-        $this->addFlashMessage('La recette est validée. Un mail a été envoyé à l\'utilisateur.');
+        $this->addFlashMessage('La recette est validée');
 
         return $this->redirectRoute('admin_recipes');
     }

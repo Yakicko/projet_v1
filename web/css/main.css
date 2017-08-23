@@ -20,16 +20,24 @@
 	width: 100%;
 }
 
-.map__list a {
-	color: inherit;
-	text-decoration: none;
-	transition: color 0.3s;
+ul.horizon li{
+	display: inline;
+	padding-left: 160px;
+}
+.map__list ul li{
+	list-style: none;
 }
 
-.map__list a.is-active {
-	color: #58bde7;
-	font-weight: bold;
-	text-decoration: underline;
+.map__list img {
+	border:2px solid #f3482f;
+	width: 130px;
+	height: 100px;
+}
+
+.map__list img.is-active {
+	border : 4px solid #58bde7;
+	transform: scale(1.15);
+	transition-duration: 2s;
 }
 
 .panel-body  {
@@ -38,6 +46,11 @@
 
 .profile-recipes-list .recipe{
 	border-bottom: none;
+}
+
+.logo{
+	width: 110px;
+	height: 85px;
 }
 
 #photo-top5{

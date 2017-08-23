@@ -9,7 +9,9 @@
 
             <!-- Main content -->
             <div class="rw-column rw-content">
-
+                <div class="rw-row page-breadcrumb">
+                    <a href="{{ path('homepage') }}">Accueil</a> &raquo; <span><a href="{{ path('user_profil') }}"> Profil privé </a>&raquo; {{ user.username }}</span> &raquo;  <span>Modification profil</span>
+                </div>
                 <div class="rw-row page-title">
                     <h1>Modification de votre profil</h1>
                 </div>

@@ -3548,7 +3548,7 @@ MENU
   left: 0;
   margin: 0;
   padding: 0;
-  background: #333;
+  background: #f3482f;
   min-width: 300px;
   display: none;
 }
@@ -3562,7 +3562,7 @@ MENU
   display: none;
 }
 .main-menu-nav.breakpoint .menu > li > a {
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #58bde7;
   padding: 15px;
   font-size: 14px;
   line-height: 1;
@@ -3595,7 +3595,7 @@ MENU
 .main-menu-nav.breakpoint .menu .sub-menu > li > a {
   background: transparent;
   color: #fff;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #58bde7;
   padding: 15px;
   font-size: 14px;
   line-height: 1;
@@ -3613,7 +3613,7 @@ MENU
   height: 20px;
   padding: 7px;
   font-size: 14px;
-  background: #aaa;
+  background: #f3482f;
   color: #fff;
   border-radius: 2px;
   position: absolute;
@@ -3625,7 +3625,7 @@ MENU
   z-index: 10;
 }
 .main-menu-nav.breakpoint .menu .sub-menu-pointer.active {
-  background: #eb5858;
+  background: #58bde7;
 }
 .main-menu-nav.breakpoint .menu > li:hover > .sub-menu {
   display: none;
@@ -3636,8 +3636,8 @@ MENU
 }
 .main-menu-nav.breakpoint .menu > li.active-li > a,
 .main-menu-nav.breakpoint .menu .sub-menu > li.active-li > a {
-  background: #151515;
-  border-bottom: 1px solid #444;
+  background: #58bde7;
+  border-bottom: 1px solid #58bde7;
 }
 .main-menu-nav.breakpoint .menu > li.to-left-more .sub-menu {
   left: auto;

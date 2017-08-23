@@ -23,7 +23,7 @@ class RecipeRepository extends RepositoryAbstract
             . " JOIN regions s ON r.id_region = s.id_region"
             . " JOIN users u ON r.id_user = u.id_user"
             . " WHERE r.status = 'En attente'"
-            . " ORDER BY r.date_recipe ASC"
+            . "ORDER BY r.date_recipe"
         ;
 
         $dbRecipes = $this->db->fetchAll($query);
@@ -31,6 +31,29 @@ class RecipeRepository extends RepositoryAbstract
         $recipes = [];
 
         foreach ($dbRecipes as $dbRecipe) {
+            $recipe = $this->buildEntity($dbRecipe);
+
+            $recipes[] = $recipe;
+        }
+
+        return $recipes;
+    }
+
+    public function findSort($orderField = 'username', $order = 'ASC')
+    {
+        $query = "SELECT r.*, s.region_name, u.username FROM recipes r"
+            . " JOIN regions s ON r.id_region = s.id_region"
+            . " JOIN users u ON r.id_user = u.id_user"
+        ;
+
+        $query .= " ORDER BY $orderField $order";
+
+        $dbRecipes = $this->db->fetchAll($query);
+
+        $recipes = [];
+
+        foreach ($dbRecipes as $dbRecipe)
+        {
             $recipe = $this->buildEntity($dbRecipe);
 
             $recipes[] = $recipe;
@@ -60,6 +83,29 @@ class RecipeRepository extends RepositoryAbstract
         }
     }
 
+    public function creationMail($id_recipe)
+    {
+        $query = 'SELECT r.*, u.username, u.email FROM recipes r JOIN users u ON r.id_user = u.id_user WHERE id_recipe = :id_recipe';
+
+        $dbMail = $this->db->fetchAssoc($query, [':id_recipe' => $id_recipe]);
+
+        if(!empty($dbMail)){
+
+            // Subject of confirmation email.
+            $subject = 'Validation d\'une recette en attente';
+
+            // Who should the confirmation email be from?
+            $sender = 'J\'ai faim! <no-reply@myemail.co.uk>';
+
+            $msg = $dbMail['username'] . " viens de créer une recette. Voici les détails: \r\n"
+                . "- \r\n" . $dbMail['id_recipe']
+                . "- \r\n" . $dbMail['title']
+            ;
+
+            @mail('reyesgregorie@gmail.com', $subject, $msg, 'L\'équipe de Fringale ! ');
+        }
+    }
+
     public function validateMail($id_recipe)
     {
         $query = 'SELECT r.*, u.username, u.email FROM recipes r JOIN users u ON r.id_user = u.id_user WHERE id_recipe = :id_recipe';
@@ -78,29 +124,6 @@ class RecipeRepository extends RepositoryAbstract
             <br />";
 
             @mail($dbMail['email'], $subject, $msg, 'From: ' . $sender);
-        }
-    }
-
-    public function creationMail($id_recipe)
-    {
-        $query = 'SELECT r.*, u.username, u.email FROM recipes r JOIN users u ON r.id_user = u.id_user WHERE id_recipe = :id_recipe';
-
-        $dbMail = $this->db->fetchAssoc($query, [':id_recipe' => $id_recipe]);
-
-        if(!empty($dbMail)){
-
-            // Subject of confirmation email.
-            $subject = 'Validation d\'une recette en attente';
-
-            // Who should the confirmation email be from?
-            $sender = 'J\'ai faim! <no-reply@myemail.co.uk>';
-
-            $msg = $dbMail['username'] . " viens de créer une recette. Voici les détails: \r\n" 
-            . "- \r\n" . $dbMail['id_recipe'] 
-            . "- \r\n" . $dbMail['title']
-            ;
-
-            @mail('reyesgregorie@gmail.com', $subject, $msg, 'From yours truly !');
         }
     }
 

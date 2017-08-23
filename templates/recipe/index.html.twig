@@ -20,7 +20,7 @@
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
-                            <button name="rateBtn" value="rateBtn" type="submit" class="btn btn-primary">Vote</button>
+                            <button name="rateBtn" value="rateBtn" type="submit" class="button primary form-control">Vote</button>
                         </form>
                     {% else %}
                         <p class="text-danger text-center">Vous devez être connecté pour commenter et noter une
@@ -38,7 +38,7 @@
                             {% for topComment in topComment %}
                             <div class="post">
                                 <div class="entry-photo">
-                                    <img src="{{ asset('photo/' ~ topComment.picture_recipe) }}" alt=""/>
+                                    <img src="{{ asset('photo/' ~ topComment.picture_recipe) }}" alt="photo recette"/>
                                 </div>
                                 <div class="entry-title">
                                     <a href="{{ path('recipe_index', {id_recipe: topComment.id_recipe}) }}">{{ topComment.title }}</a>
@@ -72,7 +72,7 @@
                         <ul>
                             {% for topAuthor in topAuthor %}
                             <li>
-                                <img src="{{ asset('photo/' ~ topAuthor.user_picture) }}" alt=""/>
+                                <img src="{{ asset('photo/' ~ topAuthor.user_picture) }}" alt="avatar utilisateur"/>
                                 <div class="author-name"><a href="{{ path('user_profil_public',{id_user: topAuthor.id_user}) }}">{{ topAuthor.username }}</a> <span class="mark green" title="Pro member!">Pro</span>
                                 </div>
                                 <div class="author-meta">
@@ -107,7 +107,7 @@
                     -->
                     <div class="entry style-columns">
                         <div class="entry-photo single-recipe-photo-cover">
-                            <img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" alt="">
+                            <img src="{{ asset('photo/' ~ recipe.picture_recipe) }}" alt="photo recette">
                             <div class="recipe-tools">
                             </div>
                         </div>
@@ -173,12 +173,12 @@
                                     {% for comment in comments %}
                                     <li class="comment">
                                         <div class="comment-avatar">
-                                            <img src="{{ asset('placeholder/15.jpg') }}" class="avatar" alt=""/>
+                                            <img src="{{ asset('placeholder/15.jpg') }}" class="avatar" alt="avatar utilisateur"/>
                                         </div>
                                         <div class="content">
                                             <div class="comment-header">
-                                            Posté par :
-                                                <a href="{{ path('user_profil_public',{id_user:recipe.id_user}) }}">{{ comment.username }}</a><span
+                                                <a href="{{ path('user_profil_public',{id_user:recipe.id_user}) }}">Posté
+                                                    par :{{ comment.username }}</a><span
                                                         class="comment-time">le{{ comment.comment_date|date('d/m/Y') }}
                                                     à {{ comment.comment_date|date('H:i') }}</span>
                                             </div>

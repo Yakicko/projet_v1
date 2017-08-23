@@ -31,7 +31,7 @@
                 <div class="grid desk-8 mob-6 alpha clearfix">
                     <div class="logo-holder">
                         <a href="{{ path("homepage") }}">
-                            <img src="{{ asset('img/logo-moche.png') }}" class="logo" alt=""/>
+                            <img src="{{ asset('img/logo-moche.png') }}" class="logo" alt="logo page d'acceuil"/>
                         </a>
                     </div>
                     <nav id="the-main-menu" class="main-menu-nav menu-inline" data-breakpoint="1160">
@@ -69,10 +69,9 @@
                             <li class="to-left-more">
                                 {% if user_manager.user %}{# si un utilisateur est connecté #}
                                 <div class="user-details-in-menu">
-
-                                    <a href="#" class="avatar"><img
-                                                src="https://www.gravatar.com/avatar/'.$gravatar.'?d=retro&s=150"
-                                                alt=""/></a>
+                                    <a href="#" class="avatar">
+                                        <img src="https://www.gravatar.com/avatar/'.$gravatar.'?d=retro&s=150" alt="image utilisateur"/>
+                                    </a>
                                 </div>
                                 <ul class="sub-menu">
                                     <li><a href="{{ path('user_profil') }}">Profil privé</a></li>
@@ -115,7 +114,9 @@
                 {# class alert-danger du bootstrap #}
                 {% set type = 'danger' %}
             {% endif %}
+    <div class="rw-row page-title">
             <div class="alert alert-{{ type }}">{{ flash|raw }}</div>
+    </div>
         {% endfor %}
     {% endfor %}
         {% block content %}{% endblock %}
@@ -134,7 +135,7 @@
                         <ul>
                             <li><a href="{{ path('contact_index') }}">Contact</a></li>
                             <li><a href="{{ path("aboutus_index") }}">Qui sommes nous? </a></li>
-                            <li><a href="#">Mention légales</a></li>
+                            <li><a href="{{ path("termsofuse_index") }}">Mention légales</a></li>
                         </ul>
                     </div>
                 </div>

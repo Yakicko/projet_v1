@@ -2,7 +2,7 @@ var map = document.querySelector('#map');
 
 var paths = map.querySelectorAll('.map__image a');
 
-var links = map.querySelectorAll('.map__list a');
+var links = map.querySelectorAll('.map__list img');
 
 // Plyfill du foreach
 if (NodeList.prototype.forEach === undefined) {
@@ -42,6 +42,5 @@ map.addEventListener('mouseover', function () {
     activeArea()
 })
 
-/* ---------------------------------------- star ingredient ---------------------------------------------------------- */
 
 

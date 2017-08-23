@@ -5,10 +5,13 @@
 {% block title 'Admin Régions' %}
     
 {% block content %}
-<div class="container">
+<div class="grid-container">
+    <div class="grid desk-12">
     <h1 class="text-center">Gestion Régions</h1>
-    <p><a href="{{ path('admin_region_edit') }}" class="btn btn-info">Ajouter région</a></p>  
-    <table class="table table-striped table-sm table-bordered">
+
+    <p><a href="{{ path('admin_region_edit') }}" class="btn btn-info">Ajouter région</a></p>
+    
+    <table class="table table-striped">
         <tr>
             <th>ID</th>
             <th>Région</th>
@@ -23,15 +26,16 @@
                        class="btn btn-primary">
                         Modifier
                     </a>
-                    {#<a href="{{ path('admin_region_delete', {id_region: region.id_region}) }}" 
-                       class="btn btn-danger">
-                        Supprimer
-                    </a>#}
+                    {#<a href="{{ path('admin_region_delete', {id_region: region.id_region}) }}" #}
+                       {#class="btn btn-danger">#}
+                        {#Supprimer#}
+                    {#</a>#}
                 </td>
             </tr>
         {% endfor %}
     </table>
 </div>
-</div>
-</div>
+    </div>
+    </div>
+    </div>
 {% endblock %}

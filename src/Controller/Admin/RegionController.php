@@ -65,19 +65,19 @@ class RegionController extends ControllerAbstract
         );
     }
 
-    /*public function deleteAction($id_region)
-    {
-        $region = $this->app['region.repository']->find($id_region);
-
-        if (!$region instanceof Region) {
-            $this->app->abort(404);
-        }
-
-        $this->app['region.repository']->delete($region);
-
-        $this->addFlashMessage('La région est supprimée');
-
-        return $this->redirectRoute('admin_regions');
-    }*/
+//    public function deleteAction($id_region)
+//    {
+//        $region = $this->app['region.repository']->find($id_region);
+//
+//        if (!$region instanceof Region) {
+//            $this->app->abort(404);
+//        }
+//
+//        $this->app['region.repository']->delete($region);
+//
+//        $this->addFlashMessage('La région est supprimée');
+//
+//        return $this->redirectRoute('admin_regions');
+//    }
 
 }

@@ -7,12 +7,12 @@
             <div class="rw-column rw-content">
 
                 <div class="rw-row page-breadcrumb">
-                    <a href="{{ path('homepage') }}">Accueil</a> &raquo; <span>Mettre le chemin de l'utilisateur</span>
+                    <a href="{{ path('homepage') }}">Accueil</a> &raquo; <span>Profil privé &raquo; {{ user.username }}</span>
                 </div>
                 <div class="rw-row page-title">
                     <div class="grid-container">
                         <div class="grid desk-8 mob-8 alpha">
-                            <h1>{{ user.lastname }}, {{  user.firstname }}</h1>
+                            <h1>Bienvenue {{ user.lastname }}  {{  user.firstname }}</h1>
                         </div>
                         </div>
                     </div>
